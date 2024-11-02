@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.clip-profile {
+    clip-path: path('M0 0 L100 0 L100 100 L0 100 Z'); /* Customize the path */
+  }
+
+  .custom-prev, .custom-next {
+    background-color: white; 
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 5;
+  }
+
+
+  .pagination-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  
+  .pagination-segment {
+   
+    width: 16px;
+    height: 4px;
+    background-color: #d3d3d3;
+    opacity: 0.5;
+    cursor: pointer; /* Makes segments look clickable */
+  }
+  
+  .pagination-segment.active {
+    background-color: #00bcd4; /* Blue color for active segment */
+    opacity: 1;
+  }
+  
+  
