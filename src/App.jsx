@@ -2,6 +2,7 @@
 import { Outlet } from 'react-router-dom'
 import './App.css'
 import Navbar from './Components/Shared/Navbar/Navbar'
+import Footer from './Components/Shared/Navbar/Footer/Footer'
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
 
      <Outlet/>
      </div>
+
+     <Footer/>
   
     </div>
   )

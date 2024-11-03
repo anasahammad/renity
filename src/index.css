@@ -39,3 +39,10 @@
   }
   
   
+  .clip-right-arrow {
+    clip-path: polygon(0 0, 44% 1%, 82% 100%, 0% 100%);
+  }
+
+  .group-hover\:clip-none:hover {
+    clip-path: none;
+  }
