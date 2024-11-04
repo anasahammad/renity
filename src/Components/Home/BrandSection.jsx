@@ -18,7 +18,9 @@ const BrandSection = () => {
     return (
         <div style={{backgroundImage: `url(${parallaxImage})`}}   className="my-28  relative bg-cover bg-center bg-fixed scroll-smooth">
 
-<div className="absolute inset-0  bg-black opacity-70"></div>
+<div className="absolute inset-0  bg-black opacity-70">
+
+</div>
          
 
 <div className="relative z-10 flex flex-col items-center justify-center h-[600px] text-center text-white px-4">
