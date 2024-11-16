@@ -12,7 +12,7 @@ const ServiceSection = () => {
     ];
 
     return (
-        <div className="px-28">
+        <div className="px-28 py-12">
             <div className="text-center mb-12">
                 <h4 className="text-xs sm:text-sm text-gray-500 font-semibold uppercase">
                     Affordable, Best & Easy Rental Services

@@ -12,6 +12,76 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from "swiper/modules"
 import { useEffect, useRef } from "react"
+
+export const features = [
+  {
+      name: "Dron Mavic Mini",
+      rent: 230,
+      image: drone,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+  {
+      name: "Drum Plan For Rent",
+      rent: 230,
+      image: drum,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+  {
+      name: "Company Games",
+      rent: 230,
+      image: peoples,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+  {
+      name: "Athletic Trainer",
+      rent: 230,
+      image: gim,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+  {
+      name: "Water Bike For Fun 2",
+      rent: 230,
+      image: speedBoat,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+  {
+      name: "MotorCycle BMW Adventure",
+      rent: 230,
+      image: motorCycle,
+      features: [
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+          "Freq Range 5-300HZ",
+      ]
+  },
+
+]
 const FeaturedSection = () => {
     const swiperRef = useRef(null)
 

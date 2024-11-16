@@ -16,11 +16,11 @@ export const navItems = [
   },
   {
     label: "Equipment",
-    path: "/",
+    path: "/catalog",
     subMenu: [
       {
         label: "Catalog",
-        path: "/",
+        path: "/catalog",
         subItem: [
           { label: "List", path: "/list" },
           { label: "Grid", path: "/grid" },
