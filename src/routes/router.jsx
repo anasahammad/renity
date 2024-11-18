@@ -7,6 +7,7 @@ import Catalog from "../Pages/Equipment/Catalog";
 import Login from "../Pages/Registration/Login";
 import Signup from "../Pages/Registration/Signup";
 import Dashboard from "../Layout/Dashboard/Dashboard";
+import MyProfile from "../Layout/Dashboard/MyProfile";
 
 export const router = createBrowserRouter([ 
     { 
@@ -44,6 +45,12 @@ export const router = createBrowserRouter([
 
     {
         path: "/dashboard",
-        element: <Dashboard/>
+        element: <Dashboard/>,
+        children: [
+            {
+                path: "/dashboard/my_profile",
+                element: <MyProfile/>
+            }
+        ]
     }
    ]);

@@ -6,7 +6,7 @@ import { HiOutlinePencilSquare } from "react-icons/hi2";
 import {  IoIosNotificationsOutline } from "react-icons/io";
 
 import { MdOutlineInsertChartOutlined } from "react-icons/md";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import profile from "../../assets/profile.png"
 
 const Dashboard = () => {
@@ -17,7 +17,7 @@ const Dashboard = () => {
       { id: '01', label: 'Dashboard', path:"/dashboard", icon: <MdOutlineInsertChartOutlined />, active: true },
       { id: '02', label: 'My Listing', path:"/my_listing", icon: <HiOutlinePencilSquare /> },
       { id: '03', label: 'My Favorites', path:"/favorite",  icon: <FaRegHeart /> },
-      { id: '05', label: 'My Profile', path:"/my_profile", icon: <CgProfile /> },
+      { id: '05', label: 'My Profile', path:"/dashboard/my_profile", icon: <CgProfile /> },
       { id: '06', label: 'Add Listing', path:"/ad_listing", icon:<HiOutlinePencilSquare />},
      
     ]
@@ -126,7 +126,8 @@ const Dashboard = () => {
         {/* Main Content Area */}
         <main className="p-6">
           <div className="max-w-7xl mx-auto">
-            <h1>This is dashboard page</h1>
+            
+            <Outlet/>
           </div>
         </main>
       </div>
