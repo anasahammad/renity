@@ -1,4 +1,9 @@
+
+
 const ContactUsForm = () => {
+
+
+
   return (
     <div className='bg-[#FFFAE9] py-16'>
       <div className='text-center space-y-4'>
@@ -22,6 +27,7 @@ const ContactUsForm = () => {
               <input
                 type='email'
                 placeholder='Your email'
+               
                 className='w-full border border-gray-300  px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400'
               />
               <div className='absolute inset-y-0 right-4 flex items-center'></div>

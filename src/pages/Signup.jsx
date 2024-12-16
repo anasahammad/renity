@@ -42,7 +42,7 @@ const Signup = () => {
                             
                           })}
                           className={`mt-1 block w-full px-4 py-2 border  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${errors?.name ? 'border-red-300': 'border-gray-300'}`}
-                          placeholder="Enter your email"
+                          placeholder="Enter your name"
                         />
                         {errors.name && (
                           <p className="text-red-500">{errors.name.message}</p>

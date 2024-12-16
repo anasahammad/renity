@@ -53,6 +53,9 @@ export const navItems = [
     path: '/contact_us',
   },
 ];
+
+
+const user = {name: "Anas Ahammad Sarker", email: "anasahammad2002@gmail.com", role: "user"}
 const Navbar = () => {
   return (
     <header className='md:flex md:justify-between md:items-center py-4 md:py-8 px-4 md:px-8 fixed z-50 bg-white w-full'>
@@ -86,11 +89,11 @@ const Navbar = () => {
 
                 {/* Sub menu */}
                 {item.subMenu && (
-                  <ul className='absolute hidden group-hover:flex flex-col bg-white shadow-md mt-2 rounded py-2 left-0 w-40 z-50'>
+                  <ul className='absolute hidden group-hover:flex flex-col bg-white shadow-md mt-1 rounded py-2 left-0 w-40 z-50 '>
                     {item.subMenu.map((subItem, subIndex) => (
                       <li
                         key={subIndex}
-                        className='relative '
+                        className='relative group'
                       >
                         <Link
                           to={subItem.path}
@@ -107,7 +110,7 @@ const Navbar = () => {
 
                         {/* Nested subItem dropdown */}
                         {subItem.subItem && (
-                          <div className='absolute hidden group-hover:flex flex-col bg-white shadow-md rounded py-2 left-full top-0 w-40 ml-1'>
+                          <div className='absolute hidden group-hover:flex group-hover:flex-col bg-white shadow-md rounded py-2 left-full top-0 w-40 ml-1'>
                             {subItem.subItem.map((nestedItem, nestedIndex) => (
                               <Link
                                 key={nestedIndex}
@@ -130,13 +133,22 @@ const Navbar = () => {
       </div>
 
       {/* Shopping Cart Icon */}
-      <div className='hidden md:flex items-center'>
+      <div className='hidden md:flex space-x-2 items-center'>
         <Link
           to='/cart'
-          className='bg-[#F8748C] text-white p-3 rounded-full flex items-center justify-center hover:bg-white hover:text-[#F8748C] hover:border hover:border-[#F8748C] transition duration-300'
+          className='bg-[#F8748C] text-white w-12 h-12 p-3 rounded-full flex items-center justify-center hover:bg-white hover:text-[#F8748C] hover:border hover:border-[#F8748C] transition duration-300'
         >
           <FiShoppingCart size={24} />
         </Link>
+
+        <div className='flex items-center gap-4'>
+          <div className='flex space-x-4'>
+          <button className='bg-yellow-400 text-white py-2 px-4 rounded-md'>Login</button>
+          <button className='bg-yellow-400 text-white py-2 px-4 rounded-md'>Become a Rental</button>
+          </div>
+
+        {user && (  <Link to="/dashboard" className='bg-gray-600 w-12 h-12 border rounded-full text-white flex justify-center items-center text-xl uppercase'>{user?.name?.slice(0, 1)}</Link>)}
+        </div>
       </div>
     </header>
   );
