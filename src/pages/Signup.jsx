@@ -1,59 +1,113 @@
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
+import img from "../assets/image2.jpg"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 
 const Signup = () => {
+   const [isVisible, setIsVisible] = useState(false)
+    const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm();
+    const toggleVisibility = ()=> setIsVisible(!isVisible)
+    const onSubmit = (data) => {
+      console.log(data)
+      
+    };
   return (
-    <div className='py-36'>
-      <div className='flex h-screen   '>
+    <div className='py-56 md:py-32'>
+      <div className='flex h-screen  mt-4 '>
         {/* Left Section */}
-        <div className='w-1/2 flex flex-col justify-center px-16 '>
+        <div className='md:w-1/2 flex flex-col justify-center px-8 md:px-16 '>
           <h1 className='text-4xl font-bold mb-4'>WELCOME To Renity</h1>
           <p className='text-gray-600 mb-8'> Please enter your details to Register.</p>
 
-          <form className='space-y-6'>
-            <div>
-              <label
-                htmlFor='name'
-                className='block text-sm font-medium text-gray-700'
-              >
-                Full Name
-              </label>
-              <input
-                type='text'
-                id='name'
-                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Enter your Full Name'
-              />
-            </div>
-            <div>
-              <label
-                htmlFor='email'
-                className='block text-sm font-medium text-gray-700'
-              >
-                Email
-              </label>
-              <input
-                type='email'
-                id='email'
-                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Enter your email'
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor='password'
-                className='block text-sm font-medium text-gray-700'
-              >
-                Password
-              </label>
-              <input
-                type='password'
-                id='password'
-                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='••••••••'
-              />
-            </div>
+          <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+           <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                  Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          {...register('name', {
+                            required: 'Name is required',
+                            
+                          })}
+                          className={`mt-1 block w-full px-4 py-2 border  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${errors?.name ? 'border-red-300': 'border-gray-300'}`}
+                          placeholder="Enter your email"
+                        />
+                        {errors.name && (
+                          <p className="text-red-500">{errors.name.message}</p>
+                        )}
+                      </div>
+           <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          {...register('email', {
+                            required: 'Email is required',
+                            pattern: {
+                              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                              message: 'Enter a valid email',
+                            },
+                          })}
+                          className={`mt-1 block w-full px-4 py-2 border  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${errors?.email ? 'border-red-300': 'border-gray-300'}`}
+                          placeholder="Enter your email"
+                        />
+                        {errors.email && (
+                          <p className="text-red-500">{errors.email.message}</p>
+                        )}
+                      </div>
+          
+                      <div >
+                        <label
+                          htmlFor="password"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Password
+                        </label>
+                        <div className="relative ">
+                        <input
+                           type={isVisible ? 'text' : 'password'}
+                          id="password"
+                          {...register('password', {
+                            required: 'Password is required',
+                            minLength: {
+                              value: 6,
+                              message: 'Password must be at least 6 characters',
+                            },
+                          })}
+                          className={`mt-1 block w-full px-4 py-2 border  rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${errors?.password ? 'border-red-300': 'border-gray-300'} `}
+                          placeholder="••••••••"
+                        />
+          
+          <button className="absolute right-5 top-3" type='button' onClick={toggleVisibility}>
+                          {isVisible ? (
+                            <FaEye color='#0B4E38' />
+                          ) : (
+                            <FaEyeSlash color='#0B4E38' />
+                          )}
+                        </button>
+                        </div>
+           
+                        {errors.password && (
+                          <span className="text-red-500">{errors.password.message}</span>
+                        )}
+                      </div>
 
             <div className=''>
               <label className='flex items-center'>
@@ -98,11 +152,11 @@ const Signup = () => {
         </div>
 
         {/* Right Section */}
-        <div className='w-1/2 bg-gray-100 flex items-center justify-center'>
+        <div className='md:w-1/2 hidden bg-gray-100 md:flex items-center justify-center'>
           <img
-            src=''
+            src={img}
             alt='Image'
-            className='max-w-full max-h-full'
+            className='w-full h-full'
           />
         </div>
       </div>
