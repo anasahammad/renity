@@ -58,7 +58,7 @@ const Router = createBrowserRouter([
     element: <AdminDashboard />,
     children: [
       {
-        path: '/admin_dashboard/users',
+        path: 'users',
         element: <Users />,
       },
     ],

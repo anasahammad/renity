@@ -13,7 +13,7 @@ const AdminDashboard = () => {
 
   const menuItems = [
     { id: '01', label: 'Dashboard', path: '/admin_dashboard', icon: <MdOutlineInsertChartOutlined />, active: true },
-    { id: '02', label: 'Users', path: '/admin_dashboard/users', icon: <HiOutlineUsers /> },
+    { id: '02', label: 'Users', path: 'users', icon: <HiOutlineUsers /> },
     { id: '03', label: 'Rentals', path: '/admin_dashboard/rentals', icon: <MdOutlineCarRental /> },
     { id: '05', label: 'My Profile', path: '/dashboard/my_profile', icon: <CgProfile /> },
     { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
