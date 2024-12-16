@@ -53,7 +53,7 @@ const UsersTable = () => {
   }, [searchTerm, statusFilter, usersPerPage])
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-2 md:p-6">
       <h1 className="text-2xl font-semibold mb-4">Users ({users?.length})</h1>
       <div className="mb-4 flex flex-wrap items-center justify-between">
         <div className="w-full md:w-1/3 mb-4 md:mb-0">
@@ -135,7 +135,7 @@ const UsersTable = () => {
                     <select
                       value={user.status}
                       onChange={(e) => handleStatusChange(user.id, e.target.value)}
-                      className={`appearance-none w-full border-none bg-transparent pr-8 py-1 rounded-full font-semibold focus:outline-none ${
+                      className={`appearance-none w-full border-none bg-transparent  py-1 rounded-full font-semibold focus:outline-none ${
                         user.status === 'Active' ? 'text-green-600' :
                         user.status === 'Disabled' ? 'text-red-600' :
                         'text-yellow-600'
