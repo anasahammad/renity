@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div className='-z-50'>
+      <div className='-z-50 '>
         <Outlet />
       </div>
 

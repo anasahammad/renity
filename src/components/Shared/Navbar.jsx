@@ -55,7 +55,7 @@ export const navItems = [
 ];
 const Navbar = () => {
   return (
-    <header className='md:flex md:justify-between md:items-center py-8 px-4 md:px-8 fixed z-50 bg-white w-full'>
+    <header className='md:flex md:justify-between md:items-center py-4 md:py-8 px-4 md:px-8 fixed z-50 bg-white w-full'>
       {/* Mobile Nav */}
       <MobileNav />
 
