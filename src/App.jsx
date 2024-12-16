@@ -1,25 +1,18 @@
-
-import { Outlet } from 'react-router-dom'
-import './App.css'
-import Navbar from './Components/Shared/Navbar/Navbar'
-import Footer from './Components/Shared/Footer/Footer'
-
+import { Outlet } from 'react-router-dom';
+import Footer from './components/Shared/Footer';
+import Navbar from './components/Shared/Navbar';
 
 function App() {
-
-
   return (
     <div>
-     <Navbar/>
-     <div className='-z-50'>
+      <Navbar />
+      <div className='-z-50'>
+        <Outlet />
+      </div>
 
-     <Outlet/>
-     </div>
-
-     <Footer/>
-  
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
