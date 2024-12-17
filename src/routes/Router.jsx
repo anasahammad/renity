@@ -11,6 +11,8 @@ import Signup from '../pages/Signup';
 
 import Users from '../pages/admindashboard/Users';
 import { AuthProvider } from '../context/AuthContext';
+import AddRentalItem from '../pages/rental/AddRentalItem';
+import { LessorProvider } from '../context/LessorContext';
 
 const Router = createBrowserRouter([
   {
@@ -52,14 +54,27 @@ const Router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
+      // common
       {
         //user
         path: 'my_profile',
         element: <MyProfile />,
       },
+
+      // users
       {
         path: 'users',
         element: <Users />,
+      },
+
+      // rental
+      {
+        path: 'add_rental',
+        element: (
+          <LessorProvider>
+            <AddRentalItem />
+          </LessorProvider>
+        ),
       },
     ],
   },

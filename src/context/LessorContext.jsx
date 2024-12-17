@@ -15,7 +15,7 @@ export const LessorProvider = ({ children }) => {
   useEffect(() => {
     const checkLessorStatus = async () => {
       try {
-        if (userState?.data.email) {
+        if (userState?.data.email && userState?.data.role === 'lessor') {
           setIsLessor(true);
         } else {
           navigate('/');
