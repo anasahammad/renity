@@ -9,11 +9,12 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
-import Users from '../pages/admindashboard/Users';
 import { AuthProvider } from '../context/AuthContext';
-import AddRentalItem from '../pages/rental/AddRentalItem';
 import { LessorProvider } from '../context/LessorContext';
+import Users from '../pages/admindashboard/Users';
+import AddRentalItem from '../pages/rental/AddRentalItem';
 import AllRentalItem from '../pages/rental/AllRentalItem';
+import UpdateRental from '../components/rental/UpdateRentalItem';
 
 const Router = createBrowserRouter([
   {
@@ -82,6 +83,15 @@ const Router = createBrowserRouter([
         element: (
           <LessorProvider>
             <AllRentalItem />
+          </LessorProvider>
+        ),
+      },
+      {
+        path: 'all_rentals/edit_rental/:id',
+        loader: ({ params }) => `${import.meta.env.VITE_API_URL}/rental/${params.id}`,
+        element: (
+          <LessorProvider>
+            <UpdateRental />
           </LessorProvider>
         ),
       },

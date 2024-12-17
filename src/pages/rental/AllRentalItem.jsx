@@ -17,6 +17,8 @@ const AllRentalItem = () => {
   });
 
   console.log(rentals)
+
+  if(isLoading) return <div>Loading....</div>
   return (
     <div>
       <RentalItemsTable rentals={rentals} />

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { MdArrowDropDown, MdDelete, MdEdit, MdMoreVert, MdSearch } from 'react-icons/md';
+import UpdateRental from './UpdateRentalItem';
+import { Link } from 'react-router-dom';
 
 const RentalItemsTable = ({ rentals, refetch }) => {
   const [users, setUsers] = useState([
@@ -24,6 +26,7 @@ const RentalItemsTable = ({ rentals, refetch }) => {
   const [statusFilter, setStatusFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [rentalsPerPage, setRentalsPerPage] = useState(5);
+
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
@@ -125,7 +128,7 @@ const RentalItemsTable = ({ rentals, refetch }) => {
                   <p className='text-gray-900 whitespace-no-wrap'>{rental?.discount}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <div className='relative inline-block w-full'>
+                  {/* <div className='relative inline-block w-full'>
                     <select
                       value={rental.status}
                       onChange={(e) => handleStatusChange(rental._id, e.target.value)}
@@ -137,12 +140,15 @@ const RentalItemsTable = ({ rentals, refetch }) => {
                     <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
                       <MdArrowDropDown />
                     </div>
-                  </div>
+                  </div> */}
+                  {rental.status}
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='flex items-center space-x-4'>
-                    <button onClick={() => handleEdit(rental._id)} className='text-blue-600 hover:text-blue-900'>
-                      <MdEdit className='w-5 h-5' />
+                    <button className='text-blue-600 hover:text-blue-900'>
+                      <Link to={`edit_rental/${rental._id}`}>
+                        <MdEdit className='w-5 h-5' />
+                      </Link>
                     </button>
                     <button onClick={() => handleDelete(rental._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
