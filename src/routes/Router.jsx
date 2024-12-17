@@ -8,7 +8,7 @@ import ContactUs from '../pages/ContactUs';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
-import AdminDashboard from '../layout/AdminDashboard';
+
 import Users from '../pages/admindashboard/Users';
 
 const Router = createBrowserRouter([
@@ -51,18 +51,13 @@ const Router = createBrowserRouter([
         path: 'my_profile',
         element: <MyProfile />,
       },
-    ],
-  },
-  {
-    path: '/admin_dashboard',
-    element: <AdminDashboard />,
-    children: [
       {
         path: 'users',
         element: <Users />,
       },
     ],
   },
+ 
 ]);
 
 export default Router;

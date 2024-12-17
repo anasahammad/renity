@@ -1,25 +1,54 @@
 import { useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { FaRegHeart } from 'react-icons/fa6';
-import { HiOutlineLogout } from 'react-icons/hi';
+import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosNotificationsOutline } from 'react-icons/io';
-import { MdOutlineInsertChartOutlined } from 'react-icons/md';
+import { MdOutlineCarRental, MdOutlineInsertChartOutlined } from 'react-icons/md';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import profile from '../assets/profile.png';
+
+const commonMenuItems = [
+  { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },
+  { id: '05', label: 'My Profile', path: '/dashboard/my_profile', icon: <CgProfile /> },
+];
+
+//admin menu
+const menuItemsAdmin = [
+  { id: '02', label: 'Users', path: 'users', icon: <HiOutlineUsers /> },
+  { id: '03', label: 'Rentals', path: '/admin_dashboard/rentals', icon: <MdOutlineCarRental /> },
+  { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
+];
+
+//user menu
+const menuItemsUser = [
+  { id: '02', label: 'My Listing', path: '/my_listing', icon: <HiOutlinePencilSquare /> },
+  { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
+  { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
+];
+
+//rental menu
+const menuItemsRental = [
+  { id: '02', label: 'My Rentals', path: '/my_rentals', icon: <MdOutlineCarRental /> },
+  { id: '06', label: 'Add Rentals', path: '/add_rental', icon: <HiOutlinePencilSquare /> },
+];
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const user = {name: 'Anas Ahammad', email: 'anassarker@gmail.com', role: 'admin'}
 
-  const menuItems = [
-    { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined />, active: true },
-    { id: '02', label: 'My Listing', path: '/my_listing', icon: <HiOutlinePencilSquare /> },
-    { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
-    { id: '05', label: 'My Profile', path: '/dashboard/my_profile', icon: <CgProfile /> },
-    { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
-  ];
 
+
+    let menuItems = [...commonMenuItems];
+
+    if (user.role === 'admin') {
+      menuItems = [...menuItems, ...menuItemsAdmin];
+    } else if (user.role === 'user') {
+      menuItems = [...menuItems, ...menuItemsUser];
+    } else if (user.role === 'rental') {
+      menuItems = [...menuItems, ...menuItemsRental];
+    }
   const toggleDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -51,7 +80,7 @@ const Dashboard = () => {
         <div className='px-4 py-6'>
           <div className='text-gray-400 text-sm mb-4'>Menu</div>
           <nav className='space-y-1'>
-            {menuItems.map((item) => (
+            {menuItems?.map((item) => (
               <NavLink
                 key={item.id}
                 to={item.path}
