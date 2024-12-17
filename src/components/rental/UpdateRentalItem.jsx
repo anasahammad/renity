@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FiUpload, FiX, FiDollarSign, FiMapPin, FiCalendar, FiTag, FiFileText, FiImage } from 'react-icons/fi';
+import { FiCalendar, FiDollarSign, FiFileText, FiImage, FiMapPin, FiTag, FiUpload, FiX } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 
 const categories = ['car', 'electronics', 'furniture', 'clothing', 'other'];
@@ -11,33 +11,26 @@ const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 mon
 
 const UpdateRental = () => {
   const [images, setImages] = useState([]);
- 
-  const { id } = useParams()
-  
-   const { data: rentals = [] } = useQuery({
-     queryKey: ['rentals'],
-     queryFn: () => Promise.resolve(),
-   });
+  const { id } = useParams();
+  const { data: rentals = [] } = useQuery({
+    queryKey: ['rentals'],
+    queryFn: () => Promise.resolve(),
+  });
+  const rental = rentals.find((rental) => rental._id === id);
 
-   const rental = rentals.find((rental) => rental._id === id);
-
-   
-
-
-
-
-
+  const [existingImages, setExistingImages] = useState(rental?.images || []);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
- 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (formData) => {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/rental/${rental?._id}`, {...formData, price:+formData.price, discount:+formData.discount}, { withCredentials: true });
-
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/rental/${rental?._id}`, formData, {
+        withCredentials: true
+        
+      });
       return response.data;
     },
     onSuccess: (data) => {
@@ -50,17 +43,22 @@ const UpdateRental = () => {
   });
 
   const onSubmit = async (data) => {
-    const formData = new FormData()
+    const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value.toString())
-    })
-    images.forEach((image, index) => {
-      formData.append(`image${index}`, image)
-    })
-    console.log('Form data:', Object.fromEntries(formData))
+      formData.append(key, value.toString());
+    });
 
-    console.log(data);
-    await mutate(Object.fromEntries(formData));
+    // Append new images
+    images.forEach((image, index) => {
+      formData.append(`newImages`, image);
+    });
+
+    // Append existing images that weren't removed
+    formData.append('existingImages', JSON.stringify(existingImages));
+
+    console.log('Form data:', Object.fromEntries(formData));
+
+    await mutate(formData);
   };
 
   const handleImageUpload = (e) => {
@@ -72,6 +70,10 @@ const UpdateRental = () => {
 
   const removeImage = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index) => {
+    setExistingImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   return (
@@ -123,14 +125,9 @@ const UpdateRental = () => {
 
                 <select defaultValue={rental?.status} {...register('status', { required: 'Status is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
                   <option value=''>Select a status</option>
-                 
-                    <option  value='available'>
-                      Available
-                    </option>
-                    <option  value='rented'>
-                      Rented
-                    </option>
-                  
+
+                  <option value='available'>Available</option>
+                  <option value='rented'>Rented</option>
                 </select>
 
                 {errors.status && <p className='mt-1 text-sm text-red-600'>{errors.status.message}</p>}
@@ -258,10 +255,22 @@ const UpdateRental = () => {
             </div> */}
 
           {/* Images preview */}
-          {images.length > 0 && (
+          {(images.length > 0 || existingImages.length > 0) && (
             <div className='mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
+              {existingImages.map((image, index) => (
+                <div key={`existing-${index}`} className='relative group'>
+                  <img src={image} alt={`Existing ${index + 1}`} className='h-24 w-full object-cover rounded-md transition-all duration-300 ease-in-out group-hover:opacity-75' />
+                  <button
+                    type='button'
+                    onClick={() => removeExistingImage(index)}
+                    className='absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 m-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500'
+                  >
+                    <FiX className='h-4 w-4' />
+                  </button>
+                </div>
+              ))}
               {images.map((image, index) => (
-                <div key={index} className='relative group'>
+                <div key={`new-${index}`} className='relative group'>
                   <img src={URL.createObjectURL(image)} alt={`Uploaded ${index + 1}`} className='h-24 w-full object-cover rounded-md transition-all duration-300 ease-in-out group-hover:opacity-75' />
                   <button
                     type='button'

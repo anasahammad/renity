@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
 import LanguageContext from '../../context/LanguageContext';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 export const navItems = [
   {
@@ -60,7 +61,8 @@ export const navItems = [
 const user = {name: "Anas Ahammad Sarker", email: "anasahammad2002@gmail.com", role: "user"}
 const Navbar = () => {
 
-   const { language, changeLanguage } = useContext(LanguageContext);
+  const { language, changeLanguage } = useContext(LanguageContext);
+  const userState = useSelector((state) => state.user);
   return (
     <header className='md:flex md:justify-between md:items-center py-4 md:py-8 px-4 md:px-8 fixed z-50 bg-white w-full'>
       {/* Mobile Nav */}
@@ -125,13 +127,17 @@ const Navbar = () => {
 
         <div className='flex items-center gap-4'>
           <div className='flex space-x-4'>
-            <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>Login</button>
-            <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>Become a Rental</button>
+            {!userState?.userInfo && (
+              <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>
+                <Link to='/login'>Login</Link>
+              </button>
+            )}
+            {userState?.userInfo?.data?.role === 'user' && <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>Become a Rental</button>}
           </div>
 
-          {user && (
+          {userState?.userInfo && (
             <Link to='/dashboard' className='bg-gray-600 w-12 h-12 border rounded-full text-white flex justify-center items-center text-xl uppercase'>
-              {user?.name?.slice(0, 1)}
+              {userState?.userInfo?.data?.name.slice(0, 1)}
             </Link>
           )}
         </div>
