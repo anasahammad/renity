@@ -5,10 +5,10 @@ import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineCarRental, MdOutlineInsertChartOutlined } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
 import { logout } from '../store/actions/userLogout';
-import { useDispatch, useSelector } from 'react-redux';
 
 const commonMenuItems = [
   { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },
@@ -39,46 +39,36 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-
-
-
-   
   const toggleDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const navigate = useNavigate();
   const userState = useSelector((state) => state.user);
-  console.log(userState)
-  const role = userState?.userInfo?.data?.role
+  console.log(userState);
+  const role = userState?.userInfo?.data?.role;
   console.log(userState);
   const dispatch = useDispatch();
 
-   let menuItems = [...commonMenuItems];
+  let menuItems = [...commonMenuItems];
 
-   if (role === 'admin') {
-     menuItems = [...menuItems, ...menuItemsAdmin];
-   } else if (role === 'user') {
-     menuItems = [...menuItems, ...menuItemsUser];
-   } else if (role === 'lessor') {
-     menuItems = [...menuItems, ...menuItemsRental];
-   }
-  
+  if (role === 'admin') {
+    menuItems = [...menuItems, ...menuItemsAdmin];
+  } else if (role === 'user') {
+    menuItems = [...menuItems, ...menuItemsUser];
+  } else if (role === 'lessor') {
+    menuItems = [...menuItems, ...menuItemsRental];
+  }
 
-   const logoutHandler = () => {
-     dispatch(logout());
-     navigate('/');
-   };
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate('/');
+  };
 
   return (
     <div className='min-h-screen bg-gray-50'>
       {/* Mobile Sidebar Overlay */}
-      {isSidebarOpen && (
-        <div
-          className='fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden'
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
+      {isSidebarOpen && <div className='fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden' onClick={() => setIsSidebarOpen(false)} />}
 
       {/* Sidebar */}
       <aside
@@ -98,11 +88,7 @@ const Dashboard = () => {
           <div className='text-gray-400 text-sm mb-4'>Menu</div>
           <nav className='space-y-1'>
             {menuItems?.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.path}
-                className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-white ${isActive ? 'bg-[#ff4d30]' : 'hover:bg-[#ff4d30]'}`}
-              >
+              <NavLink key={item.id} to={item.path} className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-white ${isActive ? 'bg-[#ff4d30]' : 'hover:bg-[#ff4d30]'}`}>
                 <span>{item.icon}</span>
                 {item.label}
               </NavLink>
@@ -123,22 +109,9 @@ const Dashboard = () => {
         <header className='bg-white border-b'>
           <div className='flex items-center justify-between px-4 py-4'>
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className='lg:hidden p-2 rounded-md hover:bg-gray-100'
-            >
-              <svg
-                className='w-6 h-6'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M4 6h16M4 12h16M4 18h16'
-                />
+            <button onClick={() => setIsSidebarOpen(true)} className='lg:hidden p-2 rounded-md hover:bg-gray-100'>
+              <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16M4 18h16' />
               </svg>
             </button>
 
@@ -154,15 +127,8 @@ const Dashboard = () => {
                 <span className='absolute h-5 w-5 bg-[#ff4d30] rounded-full -top-2 -left-1 text-white flex items-center justify-center text-sm'>1</span>
               </div>
 
-              <div
-                onClick={toggleDropDown}
-                className='cursor-pointer'
-              >
-                <img
-                  src={profile}
-                  alt=''
-                  className='w-12 h-12 border rounded-full dark:bg-gray-500 dark:border-gray-300'
-                />
+              <div onClick={toggleDropDown} className='cursor-pointer'>
+                <img src={profile} alt='' className='w-12 h-12 border rounded-full dark:bg-gray-500 dark:border-gray-300' />
               </div>
             </div>
           </div>
