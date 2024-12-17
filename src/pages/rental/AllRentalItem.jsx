@@ -7,6 +7,7 @@ const AllRentalItem = () => {
     data: rentals = [],
     isLoading,
     isError,
+    refetch
   } = useQuery({
     queryKey: ['rentals'],
     queryFn: async () => {

@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
-import { MdEdit, MdDelete, MdMoreVert, MdSearch, MdArrowDropDown } from 'react-icons/md';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { MdArrowDropDown, MdDelete, MdEdit, MdMoreVert, MdSearch } from 'react-icons/md';
 
-const RentalItemsTable = ({rentals}) => {
+const RentalItemsTable = ({ rentals, refetch }) => {
   const [users, setUsers] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Disabled' },
@@ -21,13 +24,25 @@ const RentalItemsTable = ({rentals}) => {
   const [statusFilter, setStatusFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [rentalsPerPage, setRentalsPerPage] = useState(5);
+  const queryClient = useQueryClient();
 
+  const deleteMutation = useMutation({
+    mutationFn: (id) => axios.delete(`${import.meta.env.VITE_API_URL}/rental/${id}`, {withCredentials: true}),
+    onSuccess: () => {
+      toast.success('Product deleted successfully!');
+      queryClient.invalidateQueries(['products']);
+      refetch();
+    },
+    onError: (error) => {
+      console.error('Failed to delete product:', error.message);
+    },
+  });
   const handleEdit = (id) => {
     console.log(`Edit user with id: ${id}`);
   };
 
   const handleDelete = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+    deleteMutation.mutate(id)
   };
 
   const handleStatusChange = (id, newStatus) => {
@@ -118,7 +133,6 @@ const RentalItemsTable = ({rentals}) => {
                     >
                       <option value='available'>Available</option>
                       <option value='rented'>Rented</option>
-                      
                     </select>
                     <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
                       <MdArrowDropDown />
