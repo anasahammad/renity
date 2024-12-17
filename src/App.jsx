@@ -1,16 +1,19 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Footer from './components/Shared/Footer';
 import Navbar from './components/Shared/Navbar';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
+  const location = useLocation()
+  const noFooter = location.pathname === '/login' || location.pathname ===  '/signup';
   return (
     <div>
-      <Navbar />
+      {!noFooter && <Navbar />}
       <div className='-z-50 '>
         <Outlet />
       </div>
-
-      <Footer />
+      <Toaster />
+      {!noFooter && <Footer></Footer>}
     </div>
   );
 }

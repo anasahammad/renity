@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
 import Users from '../pages/admindashboard/Users';
+import { AuthProvider } from '../context/AuthContext';
 
 const Router = createBrowserRouter([
   {
@@ -45,9 +46,14 @@ const Router = createBrowserRouter([
 
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <AuthProvider>
+        <Dashboard />
+      </AuthProvider>
+    ),
     children: [
       {
+        //user
         path: 'my_profile',
         element: <MyProfile />,
       },
@@ -57,7 +63,6 @@ const Router = createBrowserRouter([
       },
     ],
   },
- 
 ]);
 
 export default Router;

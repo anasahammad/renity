@@ -21,6 +21,8 @@ export const languages = {
     rentalCustomer: 'Rental Customer',
     yearsInBusiness: 'Years in Business',
   },
+
+  
   bn: {
     // Hero Section
     heroText1: 'আপনার সেবা খুঁজুন',
