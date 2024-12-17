@@ -17,7 +17,7 @@ const AddRentalItem = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (formData) => {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, {...formData, price:+formData.price, discount: +formData.discount}, {withCredentials: true});
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, {...formData, price:+formData.price, discount: +formData.discount, images: [...formData.images]}, {withCredentials: true});
 
       return response.data;
     },
@@ -210,14 +210,14 @@ const AddRentalItem = () => {
           </div> */}
 
           <div className='sm:col-span-2'>
-            <label htmlFor='image' className='block text-sm font-medium text-gray-700'>
+            <label htmlFor='images' className='block text-sm font-medium text-gray-700'>
               <FiTag className='inline-block mr-2' />
               Item Image link
             </label>
             <div className='mt-1'>
-              <input id='name' type='text' {...register('image', { required: 'At least one image is required' })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4 py-2' />
+              <input id='images' type='text' {...register('images', { required: 'At least one image is required' })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4 py-2' />
             </div>
-            {errors.image && <p className='mt-1 text-sm text-red-600'>{errors.image.message}</p>}
+            {errors.images && <p className='mt-1 text-sm text-red-600'>{errors.images.message}</p>}
           </div>
 
           {/* Images preview */}
