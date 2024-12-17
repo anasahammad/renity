@@ -31,7 +31,7 @@ const menuItemsUser = [
 
 //rental menu
 const menuItemsRental = [
-  { id: '02', label: 'My Rentals', path: '/my_rentals', icon: <MdOutlineCarRental /> },
+  { id: '02', label: 'All Rentals', path: 'all_rentals', icon: <MdOutlineCarRental /> },
   { id: '06', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
 ];
 
