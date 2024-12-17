@@ -13,6 +13,7 @@ import Users from '../pages/admindashboard/Users';
 import { AuthProvider } from '../context/AuthContext';
 import AddRentalItem from '../pages/rental/AddRentalItem';
 import { LessorProvider } from '../context/LessorContext';
+import AllRentalItem from '../pages/rental/AllRentalItem';
 
 const Router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const Router = createBrowserRouter([
         element: (
           <LessorProvider>
             <AddRentalItem />
+          </LessorProvider>
+        ),
+      },
+      {
+        path: 'all_rentals',
+        element: (
+          <LessorProvider>
+            <AllRentalItem />
           </LessorProvider>
         ),
       },
