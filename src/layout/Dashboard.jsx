@@ -30,13 +30,13 @@ const menuItemsUser = [
 //rental menu
 const menuItemsRental = [
   { id: '02', label: 'My Rentals', path: '/my_rentals', icon: <MdOutlineCarRental /> },
-  { id: '06', label: 'Add Rentals', path: '/add_rental', icon: <HiOutlinePencilSquare /> },
+  { id: '06', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
 ];
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const user = {name: 'Anas Ahammad', email: 'anassarker@gmail.com', role: 'admin'}
+  const user = {name: 'Anas Ahammad', email: 'anassarker@gmail.com', role: 'rental'}
 
 
 

@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
 import Users from '../pages/admindashboard/Users';
+import AddRentalItem from '../pages/rental/AddRentalItem';
 
 const Router = createBrowserRouter([
   {
@@ -47,14 +48,23 @@ const Router = createBrowserRouter([
     path: '/dashboard',
     element: <Dashboard />,
     children: [
+        // common
       {
         path: 'my_profile',
         element: <MyProfile />,
       },
+
+      // users
       {
         path: 'users',
         element: <Users />,
       },
+
+      // rental
+      {
+        path: 'add_rental',
+        element: <AddRentalItem/>
+      }
     ],
   },
  
