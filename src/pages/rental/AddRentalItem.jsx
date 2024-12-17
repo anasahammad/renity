@@ -1,5 +1,8 @@
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { FiUpload, FiX, FiDollarSign, FiMapPin, FiCalendar, FiTag, FiFileText, FiImage } from 'react-icons/fi'
 
 const categories = ['car', 'electronics', 'furniture', 'clothing', 'other']
@@ -9,19 +12,27 @@ const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 mon
 
 const AddRentalItem = () => {
   const [images, setImages] = useState([])
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    defaultValues: {
-      name: '',
-      description: '',
-      category: 'car',
-      location: '',
-      price: 0,
-      rentalPeriods: '',
-      image: ''
-    }
-  })
+  const userState = JSON.parse(localStorage.getItem('account'))
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const onSubmit = (data) => {
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (formData) => {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, {...formData, price:+formData.price, discount: +formData.discount}, {withCredentials: true});
+
+      return response.data;
+    },
+    onSuccess: (data) => {
+      console.log(data)
+      toast.success('User logged in successfully');
+      
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+
+  const onSubmit = async(data) => {
     // const formData = new FormData()
     // Object.entries(data).forEach(([key, value]) => {
     //   formData.append(key, value.toString())
@@ -32,6 +43,9 @@ const AddRentalItem = () => {
     // console.log('Form data:', Object.fromEntries(formData))
     
     console.log(data)
+    await mutate(data)
+
+
   }
 
   const handleImageUpload = (e) => {
@@ -79,7 +93,7 @@ const AddRentalItem = () => {
                     maxLength: { value: 500, message: 'Description must not exceed 500 characters' },
                   })}
                   rows={4}
-                  className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4'
+                  className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4 py-2'
                 ></textarea>
               </div>
               {errors.description && <p className='mt-1 text-sm text-red-600'>{errors.description.message}</p>}
@@ -90,7 +104,7 @@ const AddRentalItem = () => {
                 Category
               </label>
 
-              <select className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
+              <select {...register('category', {required: "Category is required"})} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
                 <option value=''>Select a category</option>
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -102,23 +116,44 @@ const AddRentalItem = () => {
               {errors.category && <p className='mt-1 text-sm text-red-600'>{errors.category.message}</p>}
             </div>
 
-            <div>
-              <label htmlFor='price' className='block text-sm font-medium text-gray-700'>
-                <FiDollarSign className='inline-block mr-2' />
-                Price
-              </label>
-              <div className='mt-1 relative rounded-md shadow-sm'>
-                <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                  <span className='text-gray-500 sm:text-sm'>$</span>
+            <div className='flex gap-2'>
+              <div>
+                <label htmlFor='price' className='block text-sm font-medium text-gray-700'>
+                  <FiDollarSign className='inline-block mr-2' />
+                  Price
+                </label>
+                <div className='mt-1 relative rounded-md shadow-sm'>
+                  <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                    <span className='text-gray-500 sm:text-sm'>$</span>
+                  </div>
+                  <input
+                    type='number'
+                    {...register('price', { required: 'Price is required', min: { value: 0, message: 'Price must be positive' } })}
+                    className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
+                    placeholder='0.00'
+                  />
                 </div>
-                <input
-                  type='number'
-                  {...register('price', { required: 'Price is required', min: { value: 0, message: 'Price must be positive' } })}
-                  className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
-                  placeholder='0.00'
-                />
+                {errors.price && <p className='mt-1 text-sm text-red-600'>{errors.price.message}</p>}
               </div>
-              {errors.price && <p className='mt-1 text-sm text-red-600'>{errors.price.message}</p>}
+
+              <div>
+                <label htmlFor='discount' className='block text-sm font-medium text-gray-700'>
+                  <FiDollarSign className='inline-block mr-2' />
+                  Discount
+                </label>
+                <div className='mt-1 relative rounded-md shadow-sm'>
+                  <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                    <span className='text-gray-500 sm:text-sm'>$</span>
+                  </div>
+                  <input
+                    type='number'
+                    {...register('discount', { required: 'Discount is required', min: { value: 0, message: 'Discount must be positive' } })}
+                    className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
+                    placeholder='0.00'
+                  />
+                </div>
+                {errors.discount && <p className='mt-1 text-sm text-red-600'>{errors.discount.message}</p>}
+              </div>
             </div>
 
             <div>
@@ -138,7 +173,7 @@ const AddRentalItem = () => {
                 Rental Period
               </label>
 
-              <select className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'>
+              <select {...register('rentalPeriod', {required: "Rental Period is required"})} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'>
                 <option value=''>Select a rental period</option>
                 {rentalPeriods.map((period) => (
                   <option key={period} value={period}>

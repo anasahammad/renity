@@ -5,8 +5,10 @@ import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineCarRental, MdOutlineInsertChartOutlined } from 'react-icons/md';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
+import { logout } from '../store/actions/userLogout';
+import { useDispatch, useSelector } from 'react-redux';
 
 const commonMenuItems = [
   { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },
@@ -36,22 +38,37 @@ const menuItemsRental = [
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const user = {name: 'Anas Ahammad', email: 'anassarker@gmail.com', role: 'rental'}
 
 
 
-    let menuItems = [...commonMenuItems];
 
-    if (user.role === 'admin') {
-      menuItems = [...menuItems, ...menuItemsAdmin];
-    } else if (user.role === 'user') {
-      menuItems = [...menuItems, ...menuItemsUser];
-    } else if (user.role === 'rental') {
-      menuItems = [...menuItems, ...menuItemsRental];
-    }
+   
   const toggleDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const navigate = useNavigate();
+  const userState = useSelector((state) => state.user);
+  console.log(userState)
+  const role = userState?.userInfo?.data?.role
+  console.log(userState);
+  const dispatch = useDispatch();
+
+   let menuItems = [...commonMenuItems];
+
+   if (role === 'admin') {
+     menuItems = [...menuItems, ...menuItemsAdmin];
+   } else if (role === 'user') {
+     menuItems = [...menuItems, ...menuItemsUser];
+   } else if (role === 'lessor') {
+     menuItems = [...menuItems, ...menuItemsRental];
+   }
+  
+
+   const logoutHandler = () => {
+     dispatch(logout());
+     navigate('/');
+   };
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -92,7 +109,7 @@ const Dashboard = () => {
             ))}
 
             <div className=''>
-              <button className=' py-2  pl-4 w-full rounded-lg text-[18px] text-white text-left flex items-center gap-4 hover:bg-[#ff4d30]'>
+              <button onClick={logoutHandler} className=' py-2  pl-4 w-full rounded-lg text-[18px] text-white text-left flex items-center gap-4 hover:bg-[#ff4d30]'>
                 <HiOutlineLogout /> Logout
               </button>
             </div>

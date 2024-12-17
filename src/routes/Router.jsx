@@ -10,7 +10,9 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 
 import Users from '../pages/admindashboard/Users';
+import { AuthProvider } from '../context/AuthContext';
 import AddRentalItem from '../pages/rental/AddRentalItem';
+import { LessorProvider } from '../context/LessorContext';
 
 const Router = createBrowserRouter([
   {
@@ -46,10 +48,15 @@ const Router = createBrowserRouter([
 
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <AuthProvider>
+        <Dashboard />
+      </AuthProvider>
+    ),
     children: [
-        // common
+      // common
       {
+        //user
         path: 'my_profile',
         element: <MyProfile />,
       },
@@ -63,11 +70,14 @@ const Router = createBrowserRouter([
       // rental
       {
         path: 'add_rental',
-        element: <AddRentalItem/>
-      }
+        element: (
+          <LessorProvider>
+            <AddRentalItem />
+          </LessorProvider>
+        ),
+      },
     ],
   },
- 
 ]);
 
 export default Router;
