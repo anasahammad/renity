@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
-import { MdEdit, MdDelete, MdMoreVert, MdSearch, MdArrowDropDown } from 'react-icons/md';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { MdArrowDropDown, MdDelete, MdEdit, MdMoreVert, MdSearch } from 'react-icons/md';
+import UpdateRental from './UpdateRentalItem';
+import { Link } from 'react-router-dom';
 
-const RentalItemsTable = ({rentals}) => {
+const RentalItemsTable = ({ rentals, refetch }) => {
   const [users, setUsers] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Disabled' },
@@ -22,12 +27,25 @@ const RentalItemsTable = ({rentals}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rentalsPerPage, setRentalsPerPage] = useState(5);
 
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => axios.delete(`${import.meta.env.VITE_API_URL}/rental/${id}`, {withCredentials: true}),
+    onSuccess: () => {
+      toast.success('Product deleted successfully!');
+      queryClient.invalidateQueries(['products']);
+      refetch();
+    },
+    onError: (error) => {
+      console.error('Failed to delete product:', error.message);
+    },
+  });
   const handleEdit = (id) => {
     console.log(`Edit user with id: ${id}`);
   };
 
   const handleDelete = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+    deleteMutation.mutate(id)
   };
 
   const handleStatusChange = (id, newStatus) => {
@@ -110,7 +128,7 @@ const RentalItemsTable = ({rentals}) => {
                   <p className='text-gray-900 whitespace-no-wrap'>{rental?.discount}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <div className='relative inline-block w-full'>
+                  {/* <div className='relative inline-block w-full'>
                     <select
                       value={rental.status}
                       onChange={(e) => handleStatusChange(rental._id, e.target.value)}
@@ -118,17 +136,19 @@ const RentalItemsTable = ({rentals}) => {
                     >
                       <option value='available'>Available</option>
                       <option value='rented'>Rented</option>
-                      
                     </select>
                     <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
                       <MdArrowDropDown />
                     </div>
-                  </div>
+                  </div> */}
+                  {rental.status}
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='flex items-center space-x-4'>
-                    <button onClick={() => handleEdit(rental._id)} className='text-blue-600 hover:text-blue-900'>
-                      <MdEdit className='w-5 h-5' />
+                    <button className='text-blue-600 hover:text-blue-900'>
+                      <Link to={`edit_rental/${rental._id}`}>
+                        <MdEdit className='w-5 h-5' />
+                      </Link>
                     </button>
                     <button onClick={() => handleDelete(rental._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
