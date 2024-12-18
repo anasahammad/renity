@@ -1,3 +1,4 @@
+import WhyChoseUs from '../components/aboutUs/WhyChoseUs';
 import AboutSection from '../components/home/About';
 import ServiceSection from '../components/home/Services';
 import TestimonialSection from '../components/home/Testimonial';
@@ -7,6 +8,8 @@ const AboutUs = () => {
   return (
     <div className='py-20'>
       <Heading level={'About Us'} />
+
+      <WhyChoseUs/>
       <AboutSection />
       <TestimonialSection />
       <ServiceSection />
