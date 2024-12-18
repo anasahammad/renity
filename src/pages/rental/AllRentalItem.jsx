@@ -21,7 +21,7 @@ const AllRentalItem = () => {
   if(isLoading) return <div>Loading....</div>
   return (
     <div>
-      <RentalItemsTable rentals={rentals} />
+      <RentalItemsTable refetch={refetch} rentals={rentals} />
     </div>
   );
 };

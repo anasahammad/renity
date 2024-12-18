@@ -5,6 +5,7 @@ import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineCarRental, MdOutlineInsertChartOutlined } from 'react-icons/md';
+import { BiCategoryAlt } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
@@ -18,7 +19,8 @@ const commonMenuItems = [
 //admin menu
 const menuItemsAdmin = [
   { id: '02', label: 'Users', path: 'users', icon: <HiOutlineUsers /> },
-  { id: '03', label: 'Rentals', path: '/admin_dashboard/rentals', icon: <MdOutlineCarRental /> },
+  { id: '03', label: 'Rentals', path: 'rentals', icon: <MdOutlineCarRental /> },
+  { id: '03', label: 'Category', path: 'category', icon: <BiCategoryAlt /> },
   { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
 ];
 
