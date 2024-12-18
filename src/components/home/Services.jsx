@@ -1,73 +1,73 @@
-import { FaEyeSlash, FaLightbulb, FaShieldAlt, FaTools } from 'react-icons/fa';
-import perSonImage from '../../assets/hero_with_laptop.png';
+import React from 'react'
+import { FaEyeSlash, FaLightbulb, FaShieldAlt, FaTools, FaUserCheck, FaCalendarAlt } from 'react-icons/fa'
+import personImage from '../../assets/hero_with_laptop.png'
 import ServiceCard from './ServiceCard';
+const services = [
+  { title: 'Easy & Smart Rental', icon: <FaShieldAlt />, color: 'bg-blue-100 text-blue-600' },
+  { title: 'Cost-Effective Renting', icon: <FaTools />, color: 'bg-green-100 text-green-600' },
+  { title: 'Local Rental Services', icon: <FaEyeSlash />, color: 'bg-purple-100 text-purple-600' },
+  { title: 'Full Insurance Coverage', icon: <FaLightbulb />, color: 'bg-yellow-100 text-yellow-600' },
+  { title: 'Verified Users', icon: <FaUserCheck />, color: 'bg-red-100 text-red-600' },
+  { title: 'Flexible Scheduling', icon: <FaCalendarAlt />, color: 'bg-indigo-100 text-indigo-600' },
+]
 
 const ServiceSection = () => {
-  const services = [
-    { title: 'Fully Insured Rentals', description: 'Cursus ullamcorper ultricies amet imperdiet amet risus volutpat.', icon: <FaShieldAlt /> },
-
-    { title: 'Brands Equipments', description: 'Cursus ullamcorper ultricies amet imperdiet amet risus volutpat.', icon: <FaTools /> },
-    { title: 'No Hidden Charges', description: 'Cursus ullamcorper ultricies amet imperdiet amet risus volutpat.', icon: <FaEyeSlash /> },
-    { title: 'Smarter Way To Rent', description: 'Cursus ullamcorper ultricies amet imperdiet amet risus volutpat.', icon: <FaLightbulb /> },
-  ];
-
   return (
-    <div className='px-28 py-12'>
-      <div className='text-center mb-12'>
-        <h4 className='text-xs sm:text-sm text-gray-500 font-semibold uppercase'>Affordable, Best & Easy Rental Services</h4>
-        <h2 className='text-2xl sm:text-3xl md:text-5xl font-bold leading-tight mt-2'>
-          Reasons to
-          <span className='text-yellow-400 underline'> Choose Renity</span>
-        </h2>
-      </div>
+    <section className=" py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h4 className="text-sm sm:text-base text-gray-600 font-semibold uppercase tracking-wide">
+            Affordable, Best & Easy Rental Services
+          </h4>
+          <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+            Reasons to Choose
+            <span className="text-yellow-500 underline   ml-2">
+              Renity
+            </span>
+          </h2>
+        </div>
 
-      <div className=' '>
-        <div className='grid grid-cols-1 md:grid-cols-3 items-center mx-auto'>
-          <div>
-            <div className='flex relative flex-col md:gap-20 justify-between px-6 '>
-              <ServiceCard
-                position={'-right-8'}
-                title={services[0].title}
-                description={services[0].description}
-                icon={services[0].icon}
-              />
-              <ServiceCard
-                position={'-right-8'}
-                title={services[1].title}
-                description={services[1].description}
-                icon={services[1].icon}
-              />
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-64 h-64 bg-yellow-400 rounded-full opacity-50 filter blur-3xl"></div>
+          </div>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div className="space-y-8">
+              {services.slice(0, 2).map((service, index) => (
+                <ServiceCard key={index} {...service} position="right" />
+              ))}
+            </div>
+
+            <div className="hidden md:block">
+              <div className="w-80 h-80 mx-auto rounded-full overflow-hidden bg-orange-300 shadow-2xl ring-4 ring-yellow-400 ring-opacity-50">
+                <img
+                  src={personImage}
+                  alt="Person with laptop"
+                  className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              {services.slice(2, 4).map((service, index) => (
+                <ServiceCard key={index} {...service} position="left" />
+              ))}
             </div>
           </div>
 
-          <div className='hidden md:block w-72 h-72 rounded-full overflow-hidden bg-orange-300  shadow-lg'>
-            <img
-              src={perSonImage}
-              alt='Person with laptop'
-              className='w-full h-full object-cover'
-            />
-          </div>
-
-          <div>
-            <div className='flex relative flex-col md:gap-20 justify-between px-6  mt-auto'>
-              <ServiceCard
-                position={'-left-16 '}
-                title={services[2].title}
-                description={services[2].description}
-                icon={services[2].icon}
-              />
-              <ServiceCard
-                position={'-left-16 '}
-                title={services[3].title}
-                description={services[3].description}
-                icon={services[3].icon}
-              />
-            </div>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {services.slice(4).map((service, index) => (
+              <ServiceCard key={index} {...service} position="bottom" />
+            ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    </section>
+  )
+}
 
-export default ServiceSection;
+
+
+
+export default ServiceSection

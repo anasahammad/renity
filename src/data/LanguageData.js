@@ -20,9 +20,18 @@ export const languages = {
     rentalProvider: 'Rental Provider',
     rentalCustomer: 'Rental Customer',
     yearsInBusiness: 'Years in Business',
+
+    //Service Section
+    serviceHeading: 'Affordable, Best & Easy Rental Services',
+    serviceTitle: 'Reasons to ChooseRenity',
+    service1: 'Easy & Smart Rental',
+    service2: 'Cost-Effective Renting',
+    service3: 'Local Rental Services',
+    service4: 'Full Insurance Coverage',
+    service5: 'Verified Users',
+    service6: 'Flexible Scheduling',
   },
 
-  
   bn: {
     // Hero Section
     heroText1: 'আপনার সেবা খুঁজুন',
@@ -41,5 +50,16 @@ export const languages = {
     rentalProvider: 'ভাড়া প্রদানকারী',
     rentalCustomer: 'ভাড়া গ্রাহক',
     yearsInBusiness: 'ব্যবসায়িক বছর',
+
+    //Service Section
+    //Service Section
+    serviceHeading: 'Affordable, Best & Easy Rental Services',
+    serviceTitle: 'Reasons to ChooseRenity',
+    service1: 'ভাড়া নেওয়ার সহজ এবং স্মার্ট উপায়',
+    service2: 'নতুন কেনার চেয়ে ভাড়া নেওয়া সস্তা ',
+    service3: 'আপনার এলাকায় ভাড়া পরিসেবা',
+    service4: 'Full Insurance Coverage',
+    service5: 'Verified Users',
+    service6: 'Flexible Scheduling',
   },
 };

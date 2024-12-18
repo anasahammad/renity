@@ -11,6 +11,9 @@ const AboutSection = () => {
 
   return (
     <section className='flex flex-col md:flex-row items-center justify-center gap-6 p-6 md:p-16'>
+
+
+      
       {/* Left Side: Overlapping Images */}
       <div className='relative flex flex-col gap-4 w-full md:w-1/2'>
         <div className='relative'>
