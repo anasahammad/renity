@@ -1,21 +1,21 @@
 import  { useState, useEffect } from 'react'
 import { MdEdit, MdDelete, MdMoreVert, MdSearch, MdArrowDropDown } from 'react-icons/md'
 
-const UsersTable = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Disabled' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Active' },
-    { id: 4, name: 'Alice Brown', email: 'alice@example.com', status: 'Disabled' },
-    { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', status: 'Active' },
-    { id: 6, name: 'Eva Wilson', email: 'eva@example.com', status: 'Disabled' },
-    { id: 7, name: 'Frank Miller', email: 'frank@example.com', status: 'Active' },
-    { id: 8, name: 'Grace Lee', email: 'grace@example.com', status: 'Pending' },
-    { id: 9, name: 'Henry Taylor', email: 'henry@example.com', status: 'Active' },
-    { id: 10, name: 'Ivy Clark', email: 'ivy@example.com', status: 'Disabled' },
-    { id: 11, name: 'Jack Robinson', email: 'jack@example.com', status: 'Active' },
-    { id: 12, name: 'Karen White', email: 'karen@example.com', status: 'Disabled' },
-  ])
+const UsersTable = ({users}) => {
+  // const [users, setUsers] = useState([
+  //   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
+  //   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Disabled' },
+  //   { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Active' },
+  //   { id: 4, name: 'Alice Brown', email: 'alice@example.com', status: 'Disabled' },
+  //   { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', status: 'Active' },
+  //   { id: 6, name: 'Eva Wilson', email: 'eva@example.com', status: 'Disabled' },
+  //   { id: 7, name: 'Frank Miller', email: 'frank@example.com', status: 'Active' },
+  //   { id: 8, name: 'Grace Lee', email: 'grace@example.com', status: 'Pending' },
+  //   { id: 9, name: 'Henry Taylor', email: 'henry@example.com', status: 'Active' },
+  //   { id: 10, name: 'Ivy Clark', email: 'ivy@example.com', status: 'Disabled' },
+  //   { id: 11, name: 'Jack Robinson', email: 'jack@example.com', status: 'Active' },
+  //   { id: 12, name: 'Karen White', email: 'karen@example.com', status: 'Disabled' },
+  // ])
 
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('All')
@@ -27,13 +27,13 @@ const UsersTable = () => {
   }
 
   const handleDelete = (id) => {
-    setUsers(users.filter(user => user.id !== id))
+    // setUsers(users.filter(user => user.id !== id))
   }
 
   const handleStatusChange = (id, newStatus) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, status: newStatus } : user
-    ))
+    // setUsers(users.map(user => 
+    //   user.id === id ? { ...user, status: newStatus } : user
+    // ))
   }
 
   const filteredUsers = users.filter(user => 
@@ -75,8 +75,8 @@ const UsersTable = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
           >
             <option value="All">All Statuses</option>
-            <option value="Active">Active</option>
-            <option value="Disabled">Disabled</option>
+            <option value="active">Active</option>
+            <option value="disabled">Disabled</option>
            
           </select>
         </div>
@@ -136,8 +136,8 @@ const UsersTable = () => {
                       value={user.status}
                       onChange={(e) => handleStatusChange(user.id, e.target.value)}
                       className={`appearance-none w-full border-none bg-transparent  py-1 rounded-full font-semibold focus:outline-none ${
-                        user.status === 'Active' ? 'text-green-600' :
-                        user.status === 'Disabled' ? 'text-red-600' :
+                        user.status === 'active' ? 'text-green-600' :
+                        user.status === 'disabled' ? 'text-red-600' :
                         'text-yellow-600'
                       }`}
                     >
