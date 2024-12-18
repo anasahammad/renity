@@ -40,17 +40,13 @@ const RentalItemsTable = ({ rentals, refetch }) => {
       console.error('Failed to delete product:', error.message);
     },
   });
-  const handleEdit = (id) => {
-    console.log(`Edit user with id: ${id}`);
-  };
+
 
   const handleDelete = (id) => {
     deleteMutation.mutate(id)
   };
 
-  const handleStatusChange = (id, newStatus) => {
-    setUsers(users.map((user) => (user.id === id ? { ...user, status: newStatus } : user)));
-  };
+  
 
   const filteredRentals = rentals.filter((rental) => (rental.name.toLowerCase().includes(searchTerm.toLowerCase()) || rental.location.toLowerCase().includes(searchTerm.toLowerCase())) && (statusFilter === 'All' || rental.status === statusFilter));
 

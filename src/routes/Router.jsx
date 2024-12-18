@@ -1,5 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 // import Dashboard from '../layout/Dashboard';
 // import MyProfile from '../layout/MyProfile';
@@ -12,11 +12,12 @@ import Home from '../pages/Home';
 
 import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
+// import Category from '../pages/admindashboard/Category';
+// import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
 // import AddRentalItem from '../pages/rental/AddRentalItem';
 // import AllRentalItem from '../pages/rental/AllRentalItem';
 // import UpdateRental from '../components/rental/UpdateRentalItem';
-
 
 const AboutUs = lazy(() => import('../pages/AboutUs'));
 const ContactUs = lazy(() => import('../pages/ContactUs'));
@@ -29,9 +30,8 @@ const Users = lazy(() => import('../pages/admindashboard/Users'));
 const AddRentalItem = lazy(() => import('../pages/rental/AddRentalItem'));
 const AllRentalItem = lazy(() => import('../pages/rental/AllRentalItem'));
 const UpdateRental = lazy(() => import('../components/rental/UpdateRentalItem'));
-
-
-
+const Rentals = lazy(() => import('../pages/admindashboard/Rentals'));
+const Category = lazy(() => import('../pages/admindashboard/Category'));
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -94,6 +94,19 @@ const Router = createBrowserRouter([
       </AuthProvider>
     ),
     children: [
+      //admin
+      {
+        path: 'rentals',
+        element: <Suspense fallback={'loading...'}>
+          <Rentals/>
+        </Suspense>
+      },
+      {
+        path: 'category',
+        element: <Suspense fallback={'loading...'}>
+          <Category/>
+        </Suspense>
+      },
       // common
       {
         //user

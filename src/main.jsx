@@ -8,6 +8,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import store from './store/index.js';
+import { Toaster } from 'react-hot-toast';
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
@@ -15,7 +16,8 @@ createRoot(document.getElementById('root')).render(
    
       <Provider store={store}>
        <QueryClientProvider client={queryClient}>
-         <LanguageProvider>
+        <LanguageProvider>
+          <Toaster/>
           <RouterProvider router={Router} />
          </LanguageProvider>
         </QueryClientProvider>
