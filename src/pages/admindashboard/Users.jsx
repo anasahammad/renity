@@ -13,7 +13,7 @@ const Users = () => {
         }
     })
 
-    if(isLoading) return 
+    if(isLoading) return <div>Loading...</div>
     return (
         <div>
             <UsersTable refetch={refetch} users={users} />
