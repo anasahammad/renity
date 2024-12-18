@@ -5,6 +5,7 @@ import gim from '../assets/gim.jpg';
 import ludo from '../assets/ludo.jpg';
 import Heading from '../components/Shared/Heading';
 import ProductCard from '../components/Shared/ProductCard';
+
 const products = [
   {
     id: 1,
@@ -48,13 +49,25 @@ const products = [
 ];
 
 const Catalog = () => {
-  const [priceRange, setPriceRange] = useState([5.0, 230.0]);
+  const [priceRange, setPriceRange] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
 
   const toggleView = () => {
     setViewMode(viewMode === 'grid' ? 'list' : 'grid');
   };
+
+  const handlePriceChange = (index, value) => {
+    const newPriceRange = [...priceRange];
+    newPriceRange[index] = Number(value);
+    if (index === 0) {
+      newPriceRange[0] = Math.min(newPriceRange[0], newPriceRange[1]);
+    } else {
+      newPriceRange[1] = Math.max(newPriceRange[1], newPriceRange[0]);
+    }
+    setPriceRange(newPriceRange);
+  };
+
   return (
     <div className='py-20'>
       <Heading level={'Catalog Listing'} />
@@ -68,18 +81,40 @@ const Catalog = () => {
               Price
               <span className='absolute -bottom-1 left-0 h-1 w-12 bg-yellow-400'></span>
             </h3>
-            <div className='relative pt-1'>
-              <input
-                type='range'
-                min='5.00'
-                max='230.00'
-                value={priceRange[1]}
-                onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
-                className='w-full h-2 bg-[#f8748c] rounded-lg appearance-none cursor-pointer'
-              />
-              <div className='flex justify-between mt-2'>
-                <span className='text-xs text-gray-500'>5.00</span>
-                <span className='text-xs text-gray-500'>{priceRange[1]}</span>
+            <div className='flex items-center space-x-4'>
+              <div className='flex-1'>
+                <label htmlFor='minPrice' className='block text-sm font-medium text-gray-700 mb-1'>
+                  Min
+                </label>
+                <div className='relative'>
+                  <span className='absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500'>$</span>
+                  <input
+                    type='number'
+                    id='minPrice'
+                    min='0'
+                    max='230'
+                    value={priceRange[0]}
+                    onChange={(e) => handlePriceChange(0, e.target.value)}
+                    className='w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all duration-200'
+                  />
+                </div>
+              </div>
+              <div className='flex-1'>
+                <label htmlFor='maxPrice' className='block text-sm font-medium text-gray-700 mb-1'>
+                  Max
+                </label>
+                <div className='relative'>
+                  <span className='absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500'>$</span>
+                  <input
+                    type='number'
+                    id='maxPrice'
+                    min='0'
+                    max='230'
+                    value={priceRange[1]}
+                    onChange={(e) => handlePriceChange(1, e.target.value)}
+                    className='w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 transition-all duration-200'
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -92,10 +127,7 @@ const Catalog = () => {
             </h3>
             <div className='space-y-4'>
               {['Drones', 'Musical Instruments', 'Scooters', 'Sporting Goods', 'Toys & Games', 'Video Games & Consoles'].map((category) => (
-                <label
-                  key={category}
-                  className='flex items-center space-x-2'
-                >
+                <label key={category} className='flex items-center space-x-2'>
                   <input
                     type='radio'
                     className='form-checkbox h-4 w-4 text-pink-500 rounded border-gray-300'
@@ -142,21 +174,15 @@ const Catalog = () => {
             <h3 className='text-sm font-semibold mb-4'>Location</h3>
             <div className='space-y-2'>
               {['First Street', 'Second Street'].map((location) => (
-                <label
-                  key={location}
-                  className='flex items-center space-x-2'
-                >
-                  <input
-                    type='checkbox'
-                    className='form-checkbox h-4 w-4 text-pink-500 rounded border-gray-300'
-                  />
+                <label key={location} className='flex items-center space-x-2'>
+                  <input type='checkbox' className='form-checkbox h-4 w-4 text-pink-500 rounded border-gray-300' />
                   <span className='text-sm text-gray-600'>{location}</span>
                 </label>
               ))}
             </div>
           </div>
 
-          <button className='w-full bg-[#f8748c] text-white py-4  '>APPLY FILTERS</button>
+          <button className='w-full bg-[#f8748c] text-white py-4'>APPLY FILTERS</button>
         </div>
 
         {/* Main Content */}
@@ -166,18 +192,10 @@ const Catalog = () => {
             <div className='flex items-center space-x-2'>
               <span className='text-sm text-gray-600'>Sort By</span>
               <div className='flex items-center space-x-2'>
-                <button
-                  onClick={toggleView}
-                  className={`p-2 ${viewMode === 'grid' ? 'bg-gray-200' : 'hover:bg-gray-100'} rounded`}
-                  aria-label='Grid view'
-                >
+                <button onClick={toggleView} className={`p-2 ${viewMode === 'grid' ? 'bg-gray-200' : 'hover:bg-gray-100'} rounded`} aria-label='Grid view'>
                   <IoGrid />
                 </button>
-                <button
-                  onClick={toggleView}
-                  className={`p-2 ${viewMode === 'list' ? 'bg-gray-200' : 'hover:bg-gray-100'} rounded`}
-                  aria-label='List view'
-                >
+                <button onClick={toggleView} className={`p-2 ${viewMode === 'list' ? 'bg-gray-200' : 'hover:bg-gray-100'} rounded`} aria-label='List view'>
                   <FaThList />
                 </button>
               </div>
@@ -186,11 +204,7 @@ const Catalog = () => {
 
           <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2  gap-6' : 'space-y-6'}`}>
             {products.map((product, index) => (
-              <ProductCard
-                key={index}
-                viewMode={viewMode}
-                product={product}
-              />
+              <ProductCard key={index} viewMode={viewMode} product={product} />
             ))}
           </div>
         </div>
