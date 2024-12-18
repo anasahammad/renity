@@ -96,7 +96,7 @@ const CategoryTable = ({refetch, categories}) => {
             <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
               Cancel
             </button>
-            <button className='btn bg-[#FF4D30] rounded p-1 w-full'>Create</button>
+            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>OK</button>
           </div>
         </div>
       </Modal>
