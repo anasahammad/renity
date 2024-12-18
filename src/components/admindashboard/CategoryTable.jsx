@@ -1,30 +1,25 @@
+import { useState } from 'react';
 import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
+import Modal from '../Modal';
+import { BiTrash } from 'react-icons/bi';
+import CategoryForm from './CategoryForm';
+import { useMutation } from '@tanstack/react-query';
+import axiosInstance from '../../hooks/axiosInstance';
 
-const CategoryTable = () => {
-  const categories = [
-    {
-      _id: '6762a92e3cb725ab6dcbb5be',
-      name: 'Bike',
-      subcategories: [],
-    },
-    {
-      _id: '6762a9625d23849aaa57d784',
-      name: 'Travel',
-    },
-    {
-      _id: '6762d32e8439673a1974548f',
-      name: 'Travel',
-      subcategories: [],
-    },
-  ];
+const CategoryTable = ({refetch, categories}) => {
+   const [open, setOpen] = useState(false);
+  
 
+
+ 
   const handleEdit = (id) => {};
   const handleDelete = (id) => {};
   return (
     <div className='container mx-auto p-2 md:p-6'>
-
       <div className='flex justify-end'>
-        <button>Add Category</button>
+        <button onClick={() => setOpen(true)} className='py-2 px-4 bg-[#FF4D30] text-white rounded'>
+          Add Category
+        </button>
       </div>
       <h1 className='text-2xl font-semibold mb-4'>Categories ({categories?.length})</h1>
       {/* <div className='mb-4 flex flex-wrap items-center justify-between'>
@@ -92,6 +87,19 @@ const CategoryTable = () => {
           </tbody>
         </table>
       </div>
+
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className=' w-96'>
+          <CategoryForm refetch={refetch}/>
+
+          <div className='flex gap-4 py-2'>
+            <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
+              Cancel
+            </button>
+            <button className='btn bg-[#FF4D30] rounded p-1 w-full'>Create</button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
