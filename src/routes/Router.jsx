@@ -1,20 +1,36 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import App from '../App';
-import Dashboard from '../layout/Dashboard';
-import MyProfile from '../layout/MyProfile';
-import AboutUs from '../pages/AboutUs';
-import Catalog from '../pages/Catalog';
-import ContactUs from '../pages/ContactUs';
+// import Dashboard from '../layout/Dashboard';
+// import MyProfile from '../layout/MyProfile';
+// import AboutUs from '../pages/AboutUs';
+// import Catalog from '../pages/Catalog';
+// import ContactUs from '../pages/ContactUs';
 import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Signup from '../pages/Signup';
+// import Login from '../pages/Login';
+// import Signup from '../pages/Signup';
 
 import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
-import Users from '../pages/admindashboard/Users';
-import AddRentalItem from '../pages/rental/AddRentalItem';
-import AllRentalItem from '../pages/rental/AllRentalItem';
-import UpdateRental from '../components/rental/UpdateRentalItem';
+// import Users from '../pages/admindashboard/Users';
+// import AddRentalItem from '../pages/rental/AddRentalItem';
+// import AllRentalItem from '../pages/rental/AllRentalItem';
+// import UpdateRental from '../components/rental/UpdateRentalItem';
+
+
+const AboutUs = lazy(() => import('../pages/AboutUs'));
+const ContactUs = lazy(() => import('../pages/ContactUs'));
+const Dashboard = lazy(() => import('../layout/Dashboard'));
+const Catalog = lazy(() => import('../pages/Catalog'));
+const MyProfile = lazy(() => import('../layout/MyProfile'));
+const Login = lazy(() => import('../pages/Login'));
+const Signup = lazy(() => import('../pages/Signup'));
+const Users = lazy(() => import('../pages/admindashboard/Users'));
+const AddRentalItem = lazy(() => import('../pages/rental/AddRentalItem'));
+const AllRentalItem = lazy(() => import('../pages/rental/AllRentalItem'));
+const UpdateRental = lazy(() => import('../components/rental/UpdateRentalItem'));
+
+
 
 const Router = createBrowserRouter([
   {
@@ -27,23 +43,43 @@ const Router = createBrowserRouter([
       },
       {
         path: '/contact_us',
-        element: <ContactUs />,
+        element: (
+          <Suspense fallback={'loading'}>
+            <ContactUs />,
+          </Suspense>
+        ),
       },
       {
         path: '/about_us',
-        element: <AboutUs />,
+        element: (
+          <Suspense fallback={'loading...'}>
+            <AboutUs />
+          </Suspense>
+        ),
       },
       {
         path: '/catalog',
-        element: <Catalog />,
+        element: (
+          <Suspense fallback={'loading'}>
+            <Catalog />
+          </Suspense>
+        ),
       },
       {
         path: '/login',
-        element: <Login />,
+        element: (
+          <Suspense fallback={'loading'}>
+            <Login />
+          </Suspense>
+        ),
       },
       {
         path: '/signup',
-        element: <Signup />,
+        element: (
+          <Suspense fallback={'loading...'}>
+            <Signup />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -52,7 +88,9 @@ const Router = createBrowserRouter([
     path: '/dashboard',
     element: (
       <AuthProvider>
-        <Dashboard />
+        <Suspense fallback={'loading'}>
+          <Dashboard />
+        </Suspense>
       </AuthProvider>
     ),
     children: [
@@ -60,13 +98,21 @@ const Router = createBrowserRouter([
       {
         //user
         path: 'my_profile',
-        element: <MyProfile />,
+        element: (
+          <Suspense fallback={'loading'}>
+            <MyProfile />
+          </Suspense>
+        ),
       },
 
       // users
       {
         path: 'users',
-        element: <Users />,
+        element: (
+          <Suspense fallback={'loading'}>
+            <Users />
+          </Suspense>
+        ),
       },
 
       // rental
@@ -74,7 +120,9 @@ const Router = createBrowserRouter([
         path: 'add_rental',
         element: (
           <LessorProvider>
-            <AddRentalItem />
+            <Suspense fallback={'loading'}>
+              <AddRentalItem />
+            </Suspense>
           </LessorProvider>
         ),
       },
@@ -82,7 +130,10 @@ const Router = createBrowserRouter([
         path: 'all_rentals',
         element: (
           <LessorProvider>
-            <AllRentalItem />
+            <Suspense fallback={'loading'}>
+              {' '}
+              <AllRentalItem />
+            </Suspense>
           </LessorProvider>
         ),
       },
@@ -91,7 +142,10 @@ const Router = createBrowserRouter([
         loader: ({ params }) => `${import.meta.env.VITE_API_URL}/rental/${params.id}`,
         element: (
           <LessorProvider>
-            <UpdateRental />
+            <Suspense fallback={'loading'}>
+              {' '}
+              <UpdateRental />
+            </Suspense>
           </LessorProvider>
         ),
       },
