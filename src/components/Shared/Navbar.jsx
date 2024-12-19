@@ -137,7 +137,7 @@ const Navbar = () => {
 
           {userState?.userInfo && (
             <Link to='/dashboard' className='bg-gray-600 w-12 h-12 border rounded-full text-white flex justify-center items-center text-xl uppercase'>
-              {userState?.userInfo?.data?.name.slice(0, 1)}
+              {userState?.userInfo?.data?.name?.slice(0, 1)}
             </Link>
           )}
         </div>
