@@ -1,15 +1,22 @@
 import { useState } from 'react';
-import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
+import { MdDelete, MdEdit } from 'react-icons/md';
+import { TbPlaylistAdd } from 'react-icons/tb';
 import Modal from '../Modal';
 
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import axiosInstance from '../../hooks/axiosInstance';
-import CategoryForm from './CategoryForm';
+import AddCategoryForm from './AddCateogryForm';
+import UpdateCategoryForm from './UpdateCategoryForm';
+import PutSubCategoryForm from './PutSubCategoryForm';
+
 
 const CategoryTable = ({ refetch, categories }) => {
   const [open, setOpen] = useState(false);
-
+  const [openEdit, setOpenEdit] = useState(false)
+  const [editableCategory, setEditableCategory] = useState()
+  const [openSubCategory, setOpenSubCategory] = useState(false)
+ const [editableSubCategory, setEditableSubCategory] = useState();
   const deleteMutation = useMutation({
     mutationFn: (id) => axiosInstance.delete(`/admin/category/${id}`),
     onSuccess: () => {
@@ -20,7 +27,22 @@ const CategoryTable = ({ refetch, categories }) => {
       console.error('Failed to delete category:', error.message);
     },
   });
-  const handleEdit = (id) => {};
+  const handleEdit = (id) => {
+    setOpenEdit(true)
+    const category = categories.find(c => c._id === id)
+    // console.log(category)
+    setEditableCategory(category)
+    
+  };
+  const handleSubCategory = (id) => {
+    setOpenSubCategory(true)
+    const category = categories.find(c => c._id === id)
+    // console.log(category)
+    setEditableSubCategory(category);
+    
+  };
+
+  console.log(editableSubCategory)
   const handleDelete = (id) => {
     deleteMutation.mutate(id);
   };
@@ -87,8 +109,9 @@ const CategoryTable = ({ refetch, categories }) => {
                     <button onClick={() => handleDelete(category._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
                     </button>
-                    <button className='text-gray-600 hover:text-gray-900'>
-                      <MdMoreVert className='w-5 h-5' />
+                    <button onClick={() => handleSubCategory(category?._id)} className='text-gray-600 hover:text-gray-900'>
+                      {/* <MdMoreVert className='w-5 h-5' /> */}
+                      <TbPlaylistAdd className='w-5 h-5' />
                     </button>
                   </div>
                 </td>
@@ -98,15 +121,48 @@ const CategoryTable = ({ refetch, categories }) => {
         </table>
       </div>
 
+      {/* Add Category Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className=' w-96'>
-          <CategoryForm refetch={refetch} />
+          <AddCategoryForm refetch={refetch} />
 
           <div className='flex gap-4 py-2'>
             <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
               Cancel
             </button>
             <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Update Category Modal */}
+      <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
+        <div className=' w-96'>
+          <UpdateCategoryForm editableCategory={editableCategory} refetch={refetch} />
+
+          <div className='flex gap-4 py-2'>
+            <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
+              Cancel
+            </button>
+            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Update Category Modal */}
+      <Modal open={openSubCategory} onClose={() => setOpenSubCategory(false)}>
+        <div className=' h-94 '>
+          <PutSubCategoryForm editableSubCategory={editableSubCategory} refetch={refetch} />
+
+          <div className='flex gap-4 py-2'>
+            <button className='btn rounded border p-1 w-full' onClick={() => setOpenSubCategory(false)}>
+              Cancel
+            </button>
+            <button onClick={() => setOpenSubCategory(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
               OK
             </button>
           </div>

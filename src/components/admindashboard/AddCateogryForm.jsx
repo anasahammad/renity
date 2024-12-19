@@ -3,7 +3,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axiosInstance from '../../hooks/axiosInstance';
 
-const CategoryForm = ({ refetch }) => {
+const AddCategoryForm = ({ refetch }) => {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState('');
 
@@ -55,4 +55,4 @@ const CategoryForm = ({ refetch }) => {
   );
 };
 
-export default CategoryForm;
+export default AddCategoryForm;
