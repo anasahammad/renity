@@ -74,6 +74,14 @@ const Router = createBrowserRouter([
         ),
       },
       {
+        path: '/register/:role',
+        element: (
+          <Suspense fallback={'loading'}>
+            <Signup />
+          </Suspense>
+        ),
+      },
+      {
         path: '/signup',
         element: (
           <Suspense fallback={'loading...'}>
@@ -97,15 +105,19 @@ const Router = createBrowserRouter([
       //admin
       {
         path: 'rentals',
-        element: <Suspense fallback={'loading...'}>
-          <Rentals/>
-        </Suspense>
+        element: (
+          <Suspense fallback={'loading...'}>
+            <Rentals />
+          </Suspense>
+        ),
       },
       {
         path: 'category',
-        element: <Suspense fallback={'loading...'}>
-          <Category/>
-        </Suspense>
+        element: (
+          <Suspense fallback={'loading...'}>
+            <Category />
+          </Suspense>
+        ),
       },
       // common
       {

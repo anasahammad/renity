@@ -1,12 +1,37 @@
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import img from "../assets/image2.jpg"
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import { useMutation } from '@tanstack/react-query';
+import { signup } from '../services/index/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../store/reducers/userReducer';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
-   const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const { role } = useParams();
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+   const userState = useSelector((state) => state.user);
+
+
+  
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: ({name ,email, password }) => signup({ name, email, password, role }),
+    onSuccess: (data) => {
+      dispatch(userActions.setUserInfo(data));
+      toast.success('Registration successful');
+      navigate('/login');
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
     const {
       register,
       handleSubmit,
@@ -15,7 +40,7 @@ const Signup = () => {
     } = useForm();
     const toggleVisibility = ()=> setIsVisible(!isVisible)
     const onSubmit = (data) => {
-      console.log(data)
+     mutate(data)
       
     };
   return (
