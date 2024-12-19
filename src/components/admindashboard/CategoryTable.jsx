@@ -1,19 +1,29 @@
 import { useState } from 'react';
 import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
 import Modal from '../Modal';
-import { BiTrash } from 'react-icons/bi';
-import CategoryForm from './CategoryForm';
+
 import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 import axiosInstance from '../../hooks/axiosInstance';
+import CategoryForm from './CategoryForm';
 
-const CategoryTable = ({refetch, categories}) => {
-   const [open, setOpen] = useState(false);
-  
+const CategoryTable = ({ refetch, categories }) => {
+  const [open, setOpen] = useState(false);
 
-
- 
+  const deleteMutation = useMutation({
+    mutationFn: (id) => axiosInstance.delete(`/admin/category/${id}`),
+    onSuccess: () => {
+      toast.success('Category deleted successfully!');
+      refetch();
+    },
+    onError: (error) => {
+      console.error('Failed to delete category:', error.message);
+    },
+  });
   const handleEdit = (id) => {};
-  const handleDelete = (id) => {};
+  const handleDelete = (id) => {
+    deleteMutation.mutate(id);
+  };
   return (
     <div className='container mx-auto p-2 md:p-6'>
       <div className='flex justify-end'>
@@ -90,13 +100,15 @@ const CategoryTable = ({refetch, categories}) => {
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className=' w-96'>
-          <CategoryForm refetch={refetch}/>
+          <CategoryForm refetch={refetch} />
 
           <div className='flex gap-4 py-2'>
             <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
               Cancel
             </button>
-            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>OK</button>
+            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
+              OK
+            </button>
           </div>
         </div>
       </Modal>
