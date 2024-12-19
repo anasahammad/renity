@@ -1,22 +1,19 @@
-import axios from "axios";
-
+import axios from 'axios';
+import axiosInstance from '../../hooks/axiosInstance';
 
 // Make a POST request to the server's registration endpoint
-export const signup = async ({ name, email, password , phone, logo}) => {
+export const signup = async ({ name, email, password, role }) => {
   try {
-    const { data } = await axios.post(`${import.meta.env.VITE_GSMART_BASE_URL}/auth/merchant/register`, {
+    const { data } = await axiosInstance.post(`/auth/register${role==='lessor'?'/lessor': ''}`, {
       name,
       email,
-      password ,
-      phone,
-      logo,
+      password,
       
     });
-    return data;  // Return the data received from the server
+    return data; // Return the data received from the server
   } catch (error) {
     // Handle errors during the registration process
     if (error.response && error.response.data.message)
-
       // If the server responds with an error message, throw that message
       throw new Error(error.response.data.message);
 
@@ -24,10 +21,6 @@ export const signup = async ({ name, email, password , phone, logo}) => {
     throw new Error(error.message);
   }
 };
-
-
-
-
 
 // admin login
 export const login = async ({ email, password }) => {
@@ -44,13 +37,12 @@ export const login = async ({ email, password }) => {
     );
     return data;
   } catch (error) {
-    if (error.response && error.response.data.message)
-      throw new Error(error.response.data.message);
+    if (error.response && error.response.data.message) throw new Error(error.response.data.message);
     throw new Error(error.message);
   }
 };
 
-export const loginVendor = async ({ email, password }) => {
+export const loginLessor = async ({ email, password }) => {
   try {
     const { data } = await axios.post(
       `${import.meta.env.VITE_GSMART_BASE_URL}/auth/merchant/login`,
@@ -64,8 +56,7 @@ export const loginVendor = async ({ email, password }) => {
     );
     return data;
   } catch (error) {
-    if (error.response && error.response.data.message)
-      throw new Error(error.response.data.message);
+    if (error.response && error.response.data.message) throw new Error(error.response.data.message);
     throw new Error(error.message);
   }
 };

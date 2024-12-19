@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { BiCategoryAlt } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { FaRegHeart } from 'react-icons/fa6';
 import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { MdOutlineCarRental, MdOutlineInsertChartOutlined } from 'react-icons/md';
-import { BiCategoryAlt } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
 import { logout } from '../store/actions/userLogout';
+import { Mutation, useMutation } from '@tanstack/react-query';
+import axiosInstance from '../hooks/axiosInstance';
+import toast from 'react-hot-toast';
 
 const commonMenuItems = [
   { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },
@@ -62,9 +65,21 @@ const Dashboard = () => {
     menuItems = [...menuItems, ...menuItemsRental];
   }
 
+  const logutMutation = useMutation({
+    mutationFn: () => axiosInstance.post('/auth/logout'),
+    onSuccess: () => {
+      toast.success('Logout successfully!');
+      navigate('/');
+    },
+    onError: (error) => {
+      console.error('Failed to logout', error.message);
+      toast.error(error.message);
+    },
+  });
   const logoutHandler = () => {
-    dispatch(logout());
-    navigate('/');
+    // dispatch(logout());
+    // navigate('/');
+    logutMutation.mutate();
   };
 
   return (
@@ -136,11 +151,11 @@ const Dashboard = () => {
           </div>
           {isDropdownOpen && (
             <div className='w-52 absolute right-4  bg-white rounded-sm p-4 shadow-md '>
-              <div className='pl-2 mb-2'>Anas Ahammad Sarker</div>
+              <div className='pl-2 mb-2'>{userState?.userInfo?.data?.name}</div>
               <hr />
               <ul className='space-y-2  mt-2'>
                 <li>
-                  <button className='flex items-center gap-2'>
+                  <button onClick={logoutHandler} className='flex items-center gap-2'>
                     <HiOutlineLogout className='mt-1' /> Logout
                   </button>
                 </li>

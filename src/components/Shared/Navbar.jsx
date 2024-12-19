@@ -130,7 +130,11 @@ const Navbar = () => {
                 <Link to='/login'>Login</Link>
               </button>
             )}
-            {userState?.userInfo?.data?.role === 'user' && <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>Become a Rental</button>}
+            {!userState?.userInfo && (
+              <button className='bg-[#EAB308] text-white py-1.5 px-3 rounded-md'>
+                <Link to="/register/lessor"> Become a Rental</Link>
+              </button>
+            )}
           </div>
 
           {userState?.userInfo && (
