@@ -1,7 +1,7 @@
 import { FaEnvelope, FaFacebook, FaGoogle, FaInstagram, FaLinkedin, FaPinterestP, FaTwitter } from 'react-icons/fa';
 import { FaMapLocationDot, FaPhoneVolume } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import logo from '/logo-rentmy-b.png';
+import logo from '/rentalLogo.png';
 const Footer = () => {
   const socialMedia = [
     { name: 'facebook', icon: <FaFacebook />, path: '/' },
@@ -16,11 +16,7 @@ const Footer = () => {
       <div className='px-8 mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 '>
         {/* Logo and Description */}
         <div className='md:col-span-2'>
-          <img
-            src={logo}
-            alt='Renity Logo'
-            className='mb-4 h-12'
-          />
+          <img src={logo} alt='Renity Logo' className='mb-4 h-12' />
 
           <p className='mt-4 text-gray-500'>
             The lucts portt tore mauris amet port masa <br /> varused mauris maurimet. Magna <br /> sollicit mauris amet port tore mauris <br /> amet ipsum eudin volutpat.
@@ -75,11 +71,7 @@ const Footer = () => {
         {/* Social Links */}
         <div className='flex items-center gap-3 md:gap-4'>
           {socialMedia.map((item, index) => (
-            <Link
-              to={item.path}
-              className='bg-white p-3 rounded-full'
-              key={index}
-            >
+            <Link to={item.path} className='bg-white p-3 rounded-full' key={index}>
               {item.icon}
             </Link>
           ))}

@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import { BiChevronDown, BiChevronRight } from 'react-icons/bi';
 import { FiShoppingCart } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import MobileNav from './MobileNav';
-import LanguageContext from '../../context/LanguageContext';
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import LanguageContext from '../../context/LanguageContext';
+import MobileNav from './MobileNav';
 
 export const navItems = [
   {
@@ -57,10 +57,8 @@ export const navItems = [
   },
 ];
 
-
-const user = {name: "Anas Ahammad Sarker", email: "anasahammad2002@gmail.com", role: "user"}
+const user = { name: 'Anas Ahammad Sarker', email: 'anasahammad2002@gmail.com', role: 'user' };
 const Navbar = () => {
-
   const { language, changeLanguage } = useContext(LanguageContext);
   const userState = useSelector((state) => state.user);
   return (
@@ -70,7 +68,7 @@ const Navbar = () => {
 
       {/* Logo Section */}
       <div className='hidden md:flex items-center gap-8'>
-        <img src='/logo-rentmy-b.png' alt='Logo' className='h-12 mr-2' />
+        <img src='/rentalLogo.png' alt='Logo' className='h-12 mr-2' />
 
         {/* Navigation Links */}
         <nav className='flex items-center space-x-8'>

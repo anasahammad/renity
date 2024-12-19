@@ -37,18 +37,11 @@ const MobileNav = () => {
   return (
     <>
       <div className='flex justify-between items-center md:hidden'>
-        <div
-          onClick={handleMainMenuToggle}
-          className='bg-[#F8748C] text-white p-2'
-        >
+        <div onClick={handleMainMenuToggle} className='bg-[#F8748C] text-white p-2'>
           <FaBars size={24} />
         </div>
         <div>
-          <img
-            src='/logo-rentmy-b.png'
-            alt='Logo'
-            className='h-12 mr-2'
-          />
+          <img src='/rentalLogo.png' alt='Logo' className='h-12 mr-2' />
         </div>
       </div>
 
@@ -57,10 +50,7 @@ const MobileNav = () => {
         <div className='bg-[#F5AB1A] text-gray-200'>
           <ul className='px-4 py-2'>
             {navItems.map((navItem, index) => (
-              <li
-                className='my-4'
-                key={index}
-              >
+              <li className='my-4' key={index}>
                 <div className='flex justify-between items-center'>
                   <Link to={navItem.path}>{navItem.label}</Link>
                   {navItem.subMenu && <FaCaretRight onClick={() => handleSubMenuOpen(index)} />}
@@ -75,18 +65,12 @@ const MobileNav = () => {
       {openSubMenuIndex !== null && openNestedSubMenuIndex === null && (
         <div className='bg-[#F5AB1A] text-gray-200 pl-4 py-2'>
           <div className='flex items-center mb-4'>
-            <FaArrowLeft
-              onClick={handleBackToMainMenu}
-              className='mr-2 cursor-pointer'
-            />
+            <FaArrowLeft onClick={handleBackToMainMenu} className='mr-2 cursor-pointer' />
             <span>Back</span>
           </div>
           <ul>
             {navItems[openSubMenuIndex].subMenu.map((subItem, subIndex) => (
-              <li
-                className='my-2'
-                key={subIndex}
-              >
+              <li className='my-2' key={subIndex}>
                 <div className='flex justify-between items-center'>
                   <Link to={subItem.path}>{subItem.label}</Link>
                   {subItem.subItem && <FaCaretRight onClick={() => handleNestedSubMenuOpen(subIndex)} />}
@@ -101,18 +85,12 @@ const MobileNav = () => {
       {openNestedSubMenuIndex !== null && (
         <div className='bg-[#F5AB1A] text-gray-200 pl-4 py-2'>
           <div className='flex items-center mb-4'>
-            <FaArrowLeft
-              onClick={handleBackToSubMenu}
-              className='mr-2 cursor-pointer'
-            />
+            <FaArrowLeft onClick={handleBackToSubMenu} className='mr-2 cursor-pointer' />
             <span>Back</span>
           </div>
           <ul>
             {navItems[openSubMenuIndex].subMenu[openNestedSubMenuIndex].subItem.map((nestedItem, nestedIndex) => (
-              <li
-                className='my-2'
-                key={nestedIndex}
-              >
+              <li className='my-2' key={nestedIndex}>
                 <Link to={nestedItem.path}>{nestedItem.label}</Link>
               </li>
             ))}
