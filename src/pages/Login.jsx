@@ -1,21 +1,21 @@
-import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
-import img from "../assets/image2.jpg";
-import { useForm } from "react-hook-form";
-import { FaEye } from "react-icons/fa6";
-import { FaEyeSlash } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../services/index/users";
 import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { FaEyeSlash } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa6';
+import { FcGoogle } from 'react-icons/fc';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
-import { userActions } from "../store/reducers/userReducer";
-import toast from "react-hot-toast";
+import img from '../assets/image2.jpg';
+import { login } from '../services/index/users';
+import { userActions } from '../store/reducers/userReducer';
 
 const Login = () => {
-  const [isVisible, setIsVisible] = useState(false)
-  const toggleVisibility = ()=> setIsVisible(!isVisible)
-
+  const [isVisible, setIsVisible] = useState(false);
+  const toggleVisibility = () => setIsVisible(!isVisible);
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
@@ -28,12 +28,18 @@ const Login = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ email, password }) => login({ email, password }),
     onSuccess: (data) => {
+      if (data.status === 403) {
+        toast.error(data.error);
+        return;
+      }
+      
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem('account', JSON.stringify(data));
       toast.success('User logged in successfully');
       navigate('/dashboard');
     },
     onError: (error) => {
+      console.error('Failed to login:', error);
       toast.error(error.message);
     },
   });
