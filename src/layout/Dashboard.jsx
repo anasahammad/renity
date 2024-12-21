@@ -77,9 +77,10 @@ const Dashboard = () => {
     },
   });
   const logoutHandler = () => {
-    // dispatch(logout());
-    // navigate('/');
-    logutMutation.mutate();
+    dispatch(logout());
+    navigate('/');
+    // logutMutation.mutate();
+    
   };
 
   return (
