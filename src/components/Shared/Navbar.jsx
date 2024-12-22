@@ -41,16 +41,7 @@ export const navItems = [
   {
     label: 'Blog',
     path: '/blog',
-    subMenu: [
-      {
-        label: 'Blog Grid',
-        path: '/',
-      },
-      {
-        label: 'Blog Single',
-        path: '/',
-      },
-    ],
+   
   },
   {
     label: 'Become a Rental',
@@ -65,28 +56,14 @@ export const topNavItems = [
 ];
 
 // Placeholder for category data
-export const categories = [
-  {
-    name: 'Electronics',
-    subcategories: ['Laptops', 'Smartphones', 'Cameras'],
-  },
-  {
-    name: 'Furniture',
-    subcategories: ['Sofas', 'Tables', 'Chairs'],
-  },
-  {
-    name: 'Outdoor',
-    subcategories: ['Camping Gear', 'Bicycles', 'Sports Equipment'],
-  },
-  // Add more categories as needed
-];
 
 
-const user = { name: 'Anas Ahammad Sarker', email: 'anasahammad2002@gmail.com', role: 'user' };
+
+
 const Navbar = () => {
   const { language, changeLanguage } = useContext(LanguageContext);
   const userState = useSelector((state) => state.user);
-   const [fetchedCategories, setFetchedCategories] = useState([]);
+  const [fetchedCategories, setFetchedCategories] = useState([]);
   const [hoveredCategory, setHoveredCategory] = useState(null);
    const [isScrolled, setIsScrolled] = useState(false);
    useEffect(() => {
