@@ -9,7 +9,7 @@ import TestimonialSection from '../components/home/Testimonial';
 
 const Home = () => {
   return (
-    <div className='z-0 py-20'>
+    <div className='z-0 py-36'>
       <Hero />
       <AboutSection />
       <CategorySection />
