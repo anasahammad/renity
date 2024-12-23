@@ -79,10 +79,11 @@ const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 mon
 const AddRentalItem = () => {
   const [images, setImages] = useState([]);
   const userState = JSON.parse(localStorage.getItem('account'));
-  const [selectedCategory, setSelectedCategory] = useState('');
+ 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -93,7 +94,9 @@ const AddRentalItem = () => {
       return response.data.data;
     },
   })
- 
+  
+  const selectedCategory = categories.find((category) => category.name === watch('category'));
+  console.log(selectedCategory)
   const { mutate } = useMutation({
     mutationFn: async (formData) => {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, { ...formData, price: +formData.price, discount: +formData.discount, images: [...formData.images], subCategory: 'car', bookedDates: [] }, { withCredentials: true });
