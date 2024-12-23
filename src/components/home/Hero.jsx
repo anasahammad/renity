@@ -1,5 +1,5 @@
 import { CiSearch } from 'react-icons/ci';
-import sarah from '../../assets/profile.png';
+
 import { FlipWords } from '../../acternity/TextAnimation';
 import { useContext, useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -10,8 +10,9 @@ import axios from 'axios';
 
 const Hero = () => {
   const { translations, language } = useContext(LanguageContext);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
   const lang = language;
 
   const [categories, setCategories] = useState([]);
@@ -87,7 +88,9 @@ const Hero = () => {
     'Tangail',
     'Thakurgaon',
   ];
-console.log(selectedCategory , selectedLocation)
+  console.log(dateRange);
+  
+  const formattedDates = dateRange.join(',');
   // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -102,10 +105,10 @@ console.log(selectedCategory , selectedLocation)
   }, []);
 
   const handleSearch = async () => {
-    if (!selectedCategory || !selectedLocation) {
-      alert('Please select both category and location');
-      return;
-    }
+    // if (!selectedCategory || !selectedLocation) {
+    //   alert('Please select both category and location');
+    //   return;
+    // }
     setLoading(true);
 
     try {
@@ -113,6 +116,7 @@ console.log(selectedCategory , selectedLocation)
         params: {
           location: selectedLocation,
           category: selectedCategory,
+          dates: formattedDates,
         },
       });
 console.log(response)
@@ -154,7 +158,22 @@ console.log(response)
         </motion.select>
 
         {/* Date Picker */}
-        <DatePicker selected={startDate} onChange={(dates) => setDateRange(dates)} startDate={startDate} endDate={endDate} selectsRange className='border focus:outline-none md:flex-1 h-12 w-full md:h-18 p-2 text-gray-700' placeholderText={translations.heroSearchingDate} />
+        <DatePicker
+          selected={startDate}
+          onChange={(dates) => {
+            const [start, end] = dates; 
+            setStartDate(start);
+            setEndDate(end);
+
+            // Convert dates to milliseconds and set in dateRange
+            setDateRange([start ? start.getTime() : null, end ? end.getTime() : null]);
+          }}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          className='border focus:outline-none md:flex-1 h-12 w-full md:h-18 p-2 text-gray-700'
+          placeholderText={translations.heroSearchingDate}
+        />
 
         {/* Search Button */}
         <button onClick={handleSearch} className='bg-yellow-500 text-white font-bold text-[18px] px-4 h-12 w-full md:h-18 md:flex-1 flex items-center gap-2 justify-center'>
@@ -189,7 +208,7 @@ console.log(response)
           </div>
         ) : resultData?.length > 0 ? (
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {resultData.map((item, index) => (
+            {resultData?.map((item, index) => (
               <div key={index} className='bg-white p-4 rounded-lg shadow hover:shadow-lg transition duration-300'>
                 <img src={'https://i.ibb.co.com/Z1GBmc6/Black-and-White-Modern-Initial-R-Corporate-Logo.png'} alt={item.name} className='w-full h-40 object-cover rounded' />
                 <h3 className='text-xl font-bold mt-2'>{item.name}</h3>
@@ -203,7 +222,7 @@ console.log(response)
             ))}
           </div>
         ) : (
-         ""
+          ''
         )}
       </div>
     </div>

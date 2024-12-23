@@ -92,7 +92,7 @@ const AddRentalItem = () => {
       return response.data.data;
     },
   })
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async (formData) => {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, { ...formData, price: +formData.price, discount: +formData.discount, images: [...formData.images], subCategory: 'car', bookedDates: [] }, { withCredentials: true });
 
