@@ -14,6 +14,7 @@ import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
 import HowItWorks from '../components/TopNavPage/HowItWorks';
 import PriceGuide from '../components/TopNavPage/PriceGuide';
+import ItemDetails from '../pages/ItemDetails';
 // import Category from '../pages/admindashboard/Category';
 // import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
@@ -34,6 +35,8 @@ const AllRentalItem = lazy(() => import('../pages/rental/AllRentalItem'));
 const UpdateRental = lazy(() => import('../components/rental/UpdateRentalItem'));
 const Rentals = lazy(() => import('../pages/admindashboard/Rentals'));
 const Category = lazy(() => import('../pages/admindashboard/Category'));
+
+
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -58,6 +61,11 @@ const Router = createBrowserRouter([
             <AboutUs />
           </Suspense>
         ),
+      },
+      {
+        path: '/details/:id',
+        loader: ({ params }) => `${import.meta.env.VITE_API_URL}/rental/${params.id}`,
+        element: <ItemDetails/>
       },
       {
         path: '/catalog',

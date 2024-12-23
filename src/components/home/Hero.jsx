@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { motion } from 'framer-motion';
 import LanguageContext from '../../context/LanguageContext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const { translations, language } = useContext(LanguageContext);
@@ -119,7 +120,7 @@ const Hero = () => {
           dates: formattedDates,
         },
       });
-console.log(response)
+// console.log(response)
       setResultData(response.data.data || []);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -129,6 +130,7 @@ console.log(response)
     }
   };
 
+  console.log(resultData);
   return (
     <div className='relative bg-[#FFF9EC] h-full py-20 flex flex-col items-center justify-center border-t'>
       {/* Hero Text */}
@@ -209,8 +211,8 @@ console.log(response)
         ) : resultData?.length > 0 ? (
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
             {resultData?.map((item, index) => (
-              <div key={index} className='bg-white p-4 rounded-lg shadow hover:shadow-lg transition duration-300'>
-                <img src={'https://i.ibb.co.com/Z1GBmc6/Black-and-White-Modern-Initial-R-Corporate-Logo.png'} alt={item.name} className='w-full h-40 object-cover rounded' />
+              <Link to={`/details/${item?._id}`} key={index} className='bg-white p-4 rounded-lg shadow hover:shadow-lg transition duration-300'>
+                <img src={item.images[0]} alt={item.name} className='w-full h-40 object-cover rounded' />
                 <h3 className='text-xl font-bold mt-2'>{item.name}</h3>
                 <p className='text-gray-600 mt-1 line-clamp-2'>{item.description}</p>
                 <div className='flex justify-between items-center mt-4'>
@@ -218,7 +220,7 @@ console.log(response)
                   <span className={`px-2 py-1 text-sm rounded ${item.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{item.status}</span>
                 </div>
                 <p className='text-gray-500 text-sm mt-2'>Location: {item.location}</p>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (
