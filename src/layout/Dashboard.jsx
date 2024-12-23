@@ -29,7 +29,7 @@ const menuItemsAdmin = [
 
 //user menu
 const menuItemsUser = [
-  { id: '02', label: 'My Listing', path: '/my_listing', icon: <HiOutlinePencilSquare /> },
+  { id: '02', label: 'My Bookings', path: 'my_bookings', icon: <HiOutlinePencilSquare /> },
   { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
   { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
 ];

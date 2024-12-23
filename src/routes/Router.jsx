@@ -15,6 +15,7 @@ import { LessorProvider } from '../context/LessorContext';
 import HowItWorks from '../components/TopNavPage/HowItWorks';
 import PriceGuide from '../components/TopNavPage/PriceGuide';
 import ItemDetails from '../pages/ItemDetails';
+import MyBookings from '../pages/users/MyBookings';
 // import Category from '../pages/admindashboard/Category';
 // import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
@@ -65,7 +66,7 @@ const Router = createBrowserRouter([
       {
         path: '/details/:id',
         loader: ({ params }) => `${import.meta.env.VITE_API_URL}/rental/${params.id}`,
-        element: <ItemDetails/>
+        element: <ItemDetails />,
       },
       {
         path: '/catalog',
@@ -75,6 +76,7 @@ const Router = createBrowserRouter([
           </Suspense>
         ),
       },
+
       {
         path: '/login',
         element: (
@@ -155,6 +157,11 @@ const Router = createBrowserRouter([
             <MyProfile />
           </Suspense>
         ),
+      },
+      {
+        //user
+        path: 'my_bookings',
+        element: <MyBookings />,
       },
 
       // users
