@@ -12,6 +12,8 @@ import Home from '../pages/Home';
 
 import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
+import HowItWorks from '../components/TopNavPage/HowItWorks';
+import PriceGuide from '../components/TopNavPage/PriceGuide';
 // import Category from '../pages/admindashboard/Category';
 // import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
@@ -86,6 +88,23 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading...'}>
             <Signup />
+          </Suspense>
+        ),
+      },
+
+      {
+        path: '/how-it-works',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <HowItWorks />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/pricing',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <PriceGuide />
           </Suspense>
         ),
       },

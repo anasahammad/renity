@@ -203,9 +203,7 @@ console.log(response)
             ))}
           </div>
         ) : (
-          <div className='flex items-center justify-center h-32'>
-            <p className='text-lg text-red-500 font-semibold'>No results found. Try modifying your search criteria.</p>
-          </div>
+         ""
         )}
       </div>
     </div>

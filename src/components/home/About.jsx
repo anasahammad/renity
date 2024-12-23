@@ -1,6 +1,6 @@
 import { BiCheck } from 'react-icons/bi';
-import heroWomen from '../../assets/hero_women.jpg';
-import heromen from '../../assets/image2.jpg';
+import heroWomen from '/condorents.jpg';
+import heromen from '/renttt.jpg';
 import { useContext } from 'react';
 import LanguageContext from '../../context/LanguageContext';
 

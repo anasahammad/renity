@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import LanguageContext from '../../context/LanguageContext';
 import MobileNav from './MobileNav';
 import axios from 'axios';
+import Flag from 'react-world-flags';
 
 export const navItems = [
   {
@@ -39,9 +40,12 @@ export const navItems = [
   //   ],
   // },
   {
+    label: 'All Rental Items',
+    path: '/',
+  },
+  {
     label: 'Blog',
     path: '/blog',
-   
   },
   {
     label: 'Become a Rental',
@@ -90,10 +94,10 @@ const Navbar = () => {
   return (
     <header className={`fixed z-50 w-full bg-white shadow-md transition-all duration-300 `}>
       {/* Top mini-navbar */}
-      <div className={`py-2 ${isScrolled ? 'hidden' : ''} transition-all duration-300  flex justify-center items-center bg-yellow-400 `}>
+      <div className={`py-2 ${isScrolled ? 'hidden' : ''} transition-all duration-300  flex justify-end items-center bg-[#EBB714] text-white `}>
         <div className='  px-4 flex justify-end space-x-4'>
           {topNavItems.map((item, index) => (
-            <Link key={index} to={item.path} className='text-sm hover:underline'>
+            <Link key={index} to={item.path} className='text-sm font-medium hover:underline'>
               {item.label}
             </Link>
           ))}
@@ -142,16 +146,26 @@ const Navbar = () => {
           {/* Language selector and user actions */}
           <div className='flex items-center space-x-4'>
             <div className='flex items-center space-x-2'>
-              <h1 className='text-base'>{language === 'en' ? 'English' : 'বাংলা'}</h1>
-              <select value={language} onChange={(e) => changeLanguage(e.target.value)} className='p-2 bg-gray-200 border rounded'>
+              <div className='flex items-center'>
+                {language === 'en' ? (
+                  <div className='flex items-center'>
+                    <Flag code='US' className='w-6 h-4 mr-2' />
+                  </div>
+                ) : (
+                  <div className='flex items-center'>
+                    <Flag code='BD' className='w-6 h-4 mr-2' />
+                  </div>
+                )}
+              </div>
+              <select value={language} onChange={(e) => changeLanguage(e.target.value)} className='p-1 bg-gray-200 border rounded text-sm'>
                 <option value='en'>English</option>
                 <option value='bn'>বাংলা</option>
               </select>
             </div>
 
             {/* Shopping Cart Icon */}
-            <Link to='/cart' className='bg-[#F8748C] text-white w-12 h-12 p-3 rounded-full flex items-center justify-center hover:bg-white hover:text-[#F8748C] hover:border hover:border-[#F8748C] transition duration-300'>
-              <FiShoppingCart size={24} />
+            <Link to='/cart' className='bg-[#F8748C] text-white w-10 h-10 p-2 rounded-full flex items-center justify-center hover:bg-white hover:text-[#F8748C] hover:border hover:border-[#F8748C] transition duration-300'>
+              <FiShoppingCart size={20} />
             </Link>
 
             {/* User actions */}
