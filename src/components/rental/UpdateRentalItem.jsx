@@ -76,6 +76,9 @@ const UpdateRental = () => {
     setExistingImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+
+  
+
   return (
     <div className='min-h-screen  py-4 px-2 sm:px-6 lg:px-4'>
       <div className='max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden'>

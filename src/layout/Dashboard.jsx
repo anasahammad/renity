@@ -10,9 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import profile from '../assets/profile.png';
 import { logout } from '../store/actions/userLogout';
-import { Mutation, useMutation } from '@tanstack/react-query';
+import {  useMutation } from '@tanstack/react-query';
 import axiosInstance from '../hooks/axiosInstance';
 import toast from 'react-hot-toast';
+
 
 const commonMenuItems = [
   { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },

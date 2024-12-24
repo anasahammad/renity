@@ -12,6 +12,7 @@ import Home from '../pages/Home';
 
 import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 // import Category from '../pages/admindashboard/Category';
 // import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
@@ -44,7 +45,7 @@ const Router = createBrowserRouter([
       {
         path: '/contact_us',
         element: (
-          <Suspense fallback={'loading'}>
+          <Suspense fallback={<LoadingSpinner/>}>
             <ContactUs />,
           </Suspense>
         ),

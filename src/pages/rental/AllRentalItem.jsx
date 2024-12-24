@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import RentalItemsTable from '../../components/rental/RentalItemsTable';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const AllRentalItem = () => {
   const {
@@ -18,7 +19,7 @@ const AllRentalItem = () => {
 
   console.log(rentals)
 
-  if(isLoading) return <div>Loading....</div>
+  if(isLoading) return <LoadingSpinner/>
   return (
     <div>
       <RentalItemsTable refetch={refetch} rentals={rentals} />
