@@ -11,7 +11,7 @@ const UsersTable = ({users, refetch}) => {
   const [statusFilter, setStatusFilter] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
   const [usersPerPage, setUsersPerPage] = useState(5)
-
+  const [isVarified, setIsVarified] = useState(false)
   const handleEdit = (id) => {
     console.log(`Edit user with id: ${id}`)
   }
@@ -68,18 +68,21 @@ const UsersTable = ({users, refetch}) => {
   }, [searchTerm, statusFilter, usersPerPage])
 
 const updateVerification = useMutation({
-  mutationFn: ({ id, isVerified }) => axiosInstance.put(`/admin/users/${id}`, { isVerified }), // wrap isVerified in an object
+  mutationFn: ({ id, isVarified }) => axiosInstance.put(`/admin/users/${id}`, { isVarified }), // Pass the state as an object
   onSuccess: () => {
     toast.success('User verification status updated successfully!');
-    refetch();
+    refetch(); // Refetch your data
   },
   onError: (error) => {
-    console.error('Failed to update user verification status:', error.message);
+    toast.error('Failed to update user verification status.');
+    console.error('Error:', error.message);
   },
 });
 
-  const handleVerify = (id, isVarified) => {
-    updateVerification.mutate({ id, isVarified });
+  const handleVerify = (id) => {
+    setIsVarified(true)
+    updateVerification.mutate({ id, isVarified: !isVarified });
+   
   };
   return (
     <div className='container mx-auto p-2 md:p-6'>
@@ -112,6 +115,7 @@ const updateVerification = useMutation({
             <tr>
               <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Name</th>
               <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Email</th>
+              <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Role</th>
               <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Is Verified</th>
               <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Status</th>
               <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Actions</th>
@@ -134,8 +138,11 @@ const updateVerification = useMutation({
                   <p className='text-gray-900 whitespace-no-wrap'>{user.email}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+                  <p className='text-gray-900 whitespace-no-wrap'>{user.role}</p>
+                </td>
+                <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   {/* <p className='text-gray-900 whitespace-no-wrap'>{user.isVerified ? 'True': 'False'}</p> */}
-                  <input type='checkbox' className='px-5 py-5' checked={user?.isVarified} onChange={(e) => handleVerify(user._id, e.target.checked)} />
+                  <input type='checkbox' className='px-5 py-5' checked={user?.isVarified} onChange={() => handleVerify(user._id)} />
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='relative inline-block w-full'>
