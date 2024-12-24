@@ -11,6 +11,8 @@ import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '../../hooks/axiosInstance';
 
 const CategorySection = () => {
   const categories = [
@@ -22,6 +24,14 @@ const CategorySection = () => {
     { image: ludo, label: 'Toys & Games', item: 4 },
     { image: drone, label: 'Video Games & Consoles', item: 4 },
   ];
+
+  // const { data: categories = [] } = useQuery({
+  //   queryKey: ['categories'],
+  //   queryFn: async () => {
+  //     const response = await axiosInstance.get('/admin/category');
+  //     return response.data.data;
+  //   },
+  // })
   return (
     <div className='p-6 md:p-10 bg-[#FFFAE9] relative'>
       <h4 className='text-xs sm:text-sm text-gray-500 font-semibold uppercase'>Easy Rental Services</h4>

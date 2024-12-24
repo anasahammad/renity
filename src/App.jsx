@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       {!noFooter && <Navbar />}
-      <div className='-z-50 '>
+      <div className={`-z-50  ${!noFooter ? 'py-[170px]' : '' }`}>
         <Outlet />
       </div>
       <Toaster />

@@ -1,38 +1,118 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { FiUpload, FiX, FiDollarSign, FiMapPin, FiCalendar, FiTag, FiFileText, FiImage } from 'react-icons/fi'
+import axiosInstance from '../../hooks/axiosInstance'
 
-const categories = ['car', 'electronics', 'furniture', 'clothing', 'other']
+// const categories = ['car', 'electronics', 'furniture', 'clothing', 'other']
 const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months', '1 year']
 
-
+  const locations = [
+    'Bagerhat',
+    'Bandarban',
+    'Barguna',
+    'Barisal',
+    'Bhola',
+    'Bogra',
+    'Brahmanbaria',
+    'Chandpur',
+    'Chapai Nawabganj',
+    'Chattogram',
+    'Chuadanga',
+    "Cox's Bazar",
+    'Cumilla',
+    'Dhaka',
+    'Dinajpur',
+    'Faridpur',
+    'Feni',
+    'Gaibandha',
+    'Gazipur',
+    'Gopalganj',
+    'Habiganj',
+    'Jamalpur',
+    'Jashore',
+    'Jhalokati',
+    'Jhenaidah',
+    'Joypurhat',
+    'Khagrachari',
+    'Khulna',
+    'Kishoreganj',
+    'Kurigram',
+    'Kushtia',
+    'Lakshmipur',
+    'Lalmonirhat',
+    'Madaripur',
+    'Magura',
+    'Manikganj',
+    'Meherpur',
+    'Moulvibazar',
+    'Munshiganj',
+    'Mymensingh',
+    'Naogaon',
+    'Narail',
+    'Narayanganj',
+    'Narsingdi',
+    'Natore',
+    'Netrokona',
+    'Nilphamari',
+    'Noakhali',
+    'Pabna',
+    'Panchagarh',
+    'Patuakhali',
+    'Pirojpur',
+    'Rajbari',
+    'Rajshahi',
+    'Rangamati',
+    'Rangpur',
+    'Satkhira',
+    'Shariatpur',
+    'Sherpur',
+    'Sirajganj',
+    'Sunamganj',
+    'Sylhet',
+    'Tangail',
+    'Thakurgaon',
+  ];
 
 const AddRentalItem = () => {
-  const [images, setImages] = useState([])
-  const userState = JSON.parse(localStorage.getItem('account'))
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const [images, setImages] = useState([]);
+  const userState = JSON.parse(localStorage.getItem('account'));
+ 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const { mutate, isLoading } = useMutation({
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await axiosInstance.get('/category');
+      return response.data.data;
+    },
+  })
+  
+  const selectedCategory = categories.find((category) => category.name === watch('category'));
+  console.log(selectedCategory)
+  const { mutate } = useMutation({
     mutationFn: async (formData) => {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, {...formData, price:+formData.price, discount: +formData.discount, images: [...formData.images]}, {withCredentials: true});
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, { ...formData, price: +formData.price, discount: +formData.discount, images: [...formData.images], subCategory: 'car', bookedDates: [] }, { withCredentials: true });
 
       return response.data;
     },
     onSuccess: (data) => {
-      console.log(data)
+      console.log(data);
       toast.success('User logged in successfully');
-      
     },
     onError: (error) => {
       toast.error(error.message);
     },
   });
 
-
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     // const formData = new FormData()
     // Object.entries(data).forEach(([key, value]) => {
     //   formData.append(key, value.toString())
@@ -41,23 +121,22 @@ const AddRentalItem = () => {
     //   formData.append(`image${index}`, image)
     // })
     // console.log('Form data:', Object.fromEntries(formData))
-    
-    console.log(data)
-    await mutate(data)
 
-
-  }
+    console.log(data);
+    await mutate(data);
+  };
 
   const handleImageUpload = (e) => {
     if (e.target.files) {
-      const newImages = Array.from(e.target.files)
-      setImages(prevImages => [...prevImages, ...newImages])
+      const newImages = Array.from(e.target.files);
+      setImages((prevImages) => [...prevImages, ...newImages]);
     }
-  }
+  };
 
   const removeImage = (index) => {
-    setImages(prevImages => prevImages.filter((_, i) => i !== index))
-  }
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
 
   return (
     <div className='min-h-screen  py-4 px-2 sm:px-6 lg:px-4'>
@@ -104,56 +183,70 @@ const AddRentalItem = () => {
                 Category
               </label>
 
-              <select {...register('category', {required: "Category is required"})} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
+              <select {...register('category', { required: 'Category is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
                 <option value=''>Select a category</option>
                 {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                  <option key={category?._id} value={category?.name}>
+                    {category?.name}
                   </option>
                 ))}
               </select>
 
               {errors.category && <p className='mt-1 text-sm text-red-600'>{errors.category.message}</p>}
             </div>
+            <div>
+              <label htmlFor='subCategory' className='block text-sm font-medium text-gray-700'>
+                Sub Category
+              </label>
 
-            <div className='flex gap-2'>
-              <div>
-                <label htmlFor='price' className='block text-sm font-medium text-gray-700'>
-                  <FiDollarSign className='inline-block mr-2' />
-                  Price
-                </label>
-                <div className='mt-1 relative rounded-md shadow-sm'>
-                  <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                    <span className='text-gray-500 sm:text-sm'>$</span>
-                  </div>
-                  <input
-                    type='number'
-                    {...register('price', { required: 'Price is required', min: { value: 0, message: 'Price must be positive' } })}
-                    className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
-                    placeholder='0.00'
-                  />
-                </div>
-                {errors.price && <p className='mt-1 text-sm text-red-600'>{errors.price.message}</p>}
-              </div>
+              <select {...register('subcategories')} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
+                <option value=''>Select a sub category</option>
+                {selectedCategory?.subcategories?.map((subCat) => (
+                  <option key={subCat?._id} value={subCat?.name}>
+                    {subCat?.name}
+                  </option>
+                ))}
+              </select>
 
-              <div>
-                <label htmlFor='discount' className='block text-sm font-medium text-gray-700'>
-                  <FiDollarSign className='inline-block mr-2' />
-                  Discount
-                </label>
-                <div className='mt-1 relative rounded-md shadow-sm'>
-                  <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                    <span className='text-gray-500 sm:text-sm'>$</span>
-                  </div>
-                  <input
-                    type='number'
-                    {...register('discount', { required: 'Discount is required', min: { value: 0, message: 'Discount must be positive' } })}
-                    className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
-                    placeholder='0.00'
-                  />
+              {errors.subcategories && <p className='mt-1 text-sm text-red-600'>{errors.subcategories.message}</p>}
+            </div>
+
+            <div>
+              <label htmlFor='price' className='block text-sm font-medium text-gray-700'>
+                <FiDollarSign className='inline-block mr-2' />
+                Price
+              </label>
+              <div className='mt-1 relative rounded-md shadow-sm'>
+                <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                  <span className='text-gray-500 sm:text-sm'>$</span>
                 </div>
-                {errors.discount && <p className='mt-1 text-sm text-red-600'>{errors.discount.message}</p>}
+                <input
+                  type='number'
+                  {...register('price', { required: 'Price is required', min: { value: 0, message: 'Price must be positive' } })}
+                  className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
+                  placeholder='0.00'
+                />
               </div>
+              {errors.price && <p className='mt-1 text-sm text-red-600'>{errors.price.message}</p>}
+            </div>
+
+            <div>
+              <label htmlFor='discount' className='block text-sm font-medium text-gray-700'>
+                <FiDollarSign className='inline-block mr-2' />
+                Discount
+              </label>
+              <div className='mt-1 relative rounded-md shadow-sm'>
+                <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                  <span className='text-gray-500 sm:text-sm'>$</span>
+                </div>
+                <input
+                  type='number'
+                  {...register('discount', { required: 'Discount is required', min: { value: 0, message: 'Discount must be positive' } })}
+                  className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border border-gray-500 rounded-md py-2'
+                  placeholder='0.00'
+                />
+              </div>
+              {errors.discount && <p className='mt-1 text-sm text-red-600'>{errors.discount.message}</p>}
             </div>
 
             <div>
@@ -162,7 +255,17 @@ const AddRentalItem = () => {
                 Location
               </label>
               <div className='mt-1'>
-                <input type='text' {...register('location', { required: 'Location is required' })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border  border-gray-500 rounded-md py-2 px-4' />
+                {/* <input type='text' {...register('location', { required: 'Location is required' })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm 
+                border  border-gray-500 rounded-md py-2 px-4' /> */}
+
+                <select {...register('location', { required: 'Location is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
+                  <option value=''>Select a location</option>
+                  {locations.map((location) => (
+                    <option key={location} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
               </div>
               {errors.location && <p className='mt-1 text-sm text-red-600'>{errors.location.message}</p>}
             </div>
@@ -173,7 +276,7 @@ const AddRentalItem = () => {
                 Rental Period
               </label>
 
-              <select {...register('rentalPeriod', {required: "Rental Period is required"})} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'>
+              <select {...register('rentalPeriod', { required: 'Rental Period is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'>
                 <option value=''>Select a rental period</option>
                 {rentalPeriods.map((period) => (
                   <option key={period} value={period}>

@@ -12,7 +12,10 @@ import Home from '../pages/Home';
 
 import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
-import LoadingSpinner from '../components/LoadingSpinner';
+import HowItWorks from '../components/TopNavPage/HowItWorks';
+import PriceGuide from '../components/TopNavPage/PriceGuide';
+import ItemDetails from '../pages/ItemDetails';
+import MyBookings from '../pages/users/MyBookings';
 // import Category from '../pages/admindashboard/Category';
 // import Rentals from '../pages/admindashboard/Rentals';
 // import Users from '../pages/admindashboard/Users';
@@ -29,10 +32,13 @@ const Login = lazy(() => import('../pages/Login'));
 const Signup = lazy(() => import('../pages/Signup'));
 const Users = lazy(() => import('../pages/admindashboard/Users'));
 const AddRentalItem = lazy(() => import('../pages/rental/AddRentalItem'));
+const MyMetadata = lazy(() => import('../pages/rental/MyMetaData'));
 const AllRentalItem = lazy(() => import('../pages/rental/AllRentalItem'));
 const UpdateRental = lazy(() => import('../components/rental/UpdateRentalItem'));
 const Rentals = lazy(() => import('../pages/admindashboard/Rentals'));
 const Category = lazy(() => import('../pages/admindashboard/Category'));
+
+
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -45,7 +51,7 @@ const Router = createBrowserRouter([
       {
         path: '/contact_us',
         element: (
-          <Suspense fallback={<LoadingSpinner/>}>
+          <Suspense fallback={'loading...'}>
             <ContactUs />,
           </Suspense>
         ),
@@ -59,6 +65,11 @@ const Router = createBrowserRouter([
         ),
       },
       {
+        path: '/details/:id',
+        loader: ({ params }) => `${import.meta.env.VITE_API_URL}/rental/${params.id}`,
+        element: <ItemDetails />,
+      },
+      {
         path: '/catalog',
         element: (
           <Suspense fallback={'loading'}>
@@ -66,6 +77,7 @@ const Router = createBrowserRouter([
           </Suspense>
         ),
       },
+
       {
         path: '/login',
         element: (
@@ -87,6 +99,23 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading...'}>
             <Signup />
+          </Suspense>
+        ),
+      },
+
+      {
+        path: '/how-it-works',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <HowItWorks />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/pricing',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <PriceGuide />
           </Suspense>
         ),
       },
@@ -130,6 +159,11 @@ const Router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        //user
+        path: 'my_bookings',
+        element: <MyBookings />,
+      },
 
       // users
       {
@@ -148,6 +182,16 @@ const Router = createBrowserRouter([
           <LessorProvider>
             <Suspense fallback={'loading'}>
               <AddRentalItem />
+            </Suspense>
+          </LessorProvider>
+        ),
+      },
+      {
+        path: 'my_meta_data',
+        element: (
+          <LessorProvider>
+            <Suspense fallback={'loading'}>
+              <MyMetadata />
             </Suspense>
           </LessorProvider>
         ),

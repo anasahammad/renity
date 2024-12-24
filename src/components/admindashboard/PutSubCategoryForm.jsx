@@ -124,7 +124,7 @@ const PutSubCategoryForm = ({ refetch, editableSubCategory }) => {
               <div key={index} className='bg-gray-100 p-4 rounded-md'>
                 <div className='flex items-center gap-2 mb-2'>
                   <div>
-                    <img src={`https://ui-avatars.com/api/?name=${subcategory.name}&background=random`} alt='' className='rounded-full' />
+                    <img src={subcategory?.icon} alt='' className='rounded-full w-10 h-10' />
                   </div>
 
                   <span className='text-lg font-medium text-gray-800 mr-2'>{subcategory.name}</span>

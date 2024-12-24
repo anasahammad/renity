@@ -13,6 +13,7 @@ import { logout } from '../store/actions/userLogout';
 import {  useMutation } from '@tanstack/react-query';
 import axiosInstance from '../hooks/axiosInstance';
 import toast from 'react-hot-toast';
+import { FiClock } from 'react-icons/fi';
 
 
 const commonMenuItems = [
@@ -30,7 +31,7 @@ const menuItemsAdmin = [
 
 //user menu
 const menuItemsUser = [
-  { id: '02', label: 'My Listing', path: '/my_listing', icon: <HiOutlinePencilSquare /> },
+  { id: '02', label: 'My Bookings', path: 'my_bookings', icon: <HiOutlinePencilSquare /> },
   { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
   { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
 ];
@@ -39,6 +40,7 @@ const menuItemsUser = [
 const menuItemsRental = [
   { id: '02', label: 'All Rentals', path: 'all_rentals', icon: <MdOutlineCarRental /> },
   { id: '06', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
+  { id: '06', label: 'My Meta Data', path: 'my_meta_data', icon: <FiClock /> },
 ];
 
 const Dashboard = () => {

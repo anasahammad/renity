@@ -91,7 +91,7 @@ const CategoryTable = ({ refetch, categories }) => {
               <tr key={category._id}>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='flex-shrink-0 w-10 h-10'>
-                    <img className='w-full h-full rounded-full' src={`https://ui-avatars.com/api/?name=${category.name}&background=random`} alt='' />
+                    <img className='w-full h-full rounded-full' src={category?.icon} alt={category?.name} />
                   </div>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
