@@ -43,22 +43,31 @@ const UpdateRental = () => {
   });
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value.toString());
-    });
-
-    // Append new images
-    images.forEach((image, index) => {
-      formData.append(`newImages`, image);
-    });
-
-    // Append existing images that weren't removed
-    formData.append('existingImages', JSON.stringify(existingImages));
-
-    console.log('Form data:', Object.fromEntries(formData));
-
+    const imageUrls = await Promise.all(images.map(uploadImage));
+    const formData = {
+      ...data,
+      price: +data.price,
+      discount: +data.discount,
+      images: imageUrls,
+      subCategory: data.subcategories,
+      bookedDates: [],
+    };
     await mutate(formData);
+  };
+
+  const uploadImage = async (image) => {
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', 'rowshanara');
+
+    try {
+      const response = await axios.post(`https://api.cloudinary.com/v1_1/drbtvputr/image/upload`, formData);
+      return response.data.secure_url;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image');
+      return null;
+    }
   };
 
   const handleImageUpload = (e) => {
