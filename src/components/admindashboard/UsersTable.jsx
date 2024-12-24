@@ -67,6 +67,20 @@ const UsersTable = ({users, refetch}) => {
     setCurrentPage(1)
   }, [searchTerm, statusFilter, usersPerPage])
 
+const updateVerification = useMutation({
+  mutationFn: ({ id, isVerified }) => axiosInstance.put(`/admin/users/${id}`, { isVerified }), // wrap isVerified in an object
+  onSuccess: () => {
+    toast.success('User verification status updated successfully!');
+    refetch();
+  },
+  onError: (error) => {
+    console.error('Failed to update user verification status:', error.message);
+  },
+});
+
+  const handleVerify = (id, isVarified) => {
+    updateVerification.mutate({ id, isVarified });
+  };
   return (
     <div className='container mx-auto p-2 md:p-6'>
       <h1 className='text-2xl font-semibold mb-4'>Users ({users?.length})</h1>
@@ -120,7 +134,8 @@ const UsersTable = ({users, refetch}) => {
                   <p className='text-gray-900 whitespace-no-wrap'>{user.email}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <p className='text-gray-900 whitespace-no-wrap'>{user.isVerified ? 'True': 'False'}</p>
+                  {/* <p className='text-gray-900 whitespace-no-wrap'>{user.isVerified ? 'True': 'False'}</p> */}
+                  <input type='checkbox' className='px-5 py-5' checked={user?.isVarified} onChange={(e) => handleVerify(user._id, e.target.checked)} />
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='relative inline-block w-full'>
