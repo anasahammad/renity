@@ -3,18 +3,19 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import axiosInstance from '../../hooks/axiosInstance';
 
-const AddMetaDataForm = ({ refetch }) => {
+const AddMetaDataForm = ({ refetch, setOpen }) => {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-
+const [loading, setLoading] = useState(false);
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'rowshanara'); // Replace with your Cloudinary upload preset
 
     try {
+      setLoading(true)
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/drbtvputr/image/upload`, // Replace with your Cloudinary cloud name
         {
@@ -23,6 +24,7 @@ const AddMetaDataForm = ({ refetch }) => {
         }
       );
       const data = await response.json();
+      setLoading(false)
       return data.secure_url;
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -34,6 +36,7 @@ const AddMetaDataForm = ({ refetch }) => {
     mutationFn: (formData) => axiosInstance.post(`metadata/lessor`, formData),
     onSuccess: () => {
       toast.success('Metadata added successfully!');
+      setOpen(false);
       refetch();
     },
     onError: (error) => {
@@ -77,15 +80,15 @@ const AddMetaDataForm = ({ refetch }) => {
       <form onSubmit={handleSubmit}>
         <div className='mb-4'>
           <label htmlFor='key' className='block text-sm font-medium text-gray-700 mb-1 text-left'>
-            Meta Data Field
+            Add Your Valid Info
           </label>
-          <input type='text' id='key' value={key} onChange={(e) => setKey(e.target.value)} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' required />
+          <input type='text' id='key' placeholder='Example:...National Id' value={key} onChange={(e) => setKey(e.target.value)} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' required />
         </div>
-        <div className='mb-4'>
+        <div className='mb-4 hidden'>
           <label htmlFor='value' className='block text-sm font-medium text-gray-700 mb-1 text-left'>
             Value or Image URL
           </label>
-          <input type='text' id='value' value={value} onChange={(e) => setValue(e.target.value)} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'  />
+          <input type='text' id='value' value={value} onChange={(e) => setValue(e.target.value)} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' />
         </div>
         <div className='mb-4'>
           <label htmlFor='image' className='block text-sm font-medium text-gray-700 mb-1 text-left'>
@@ -94,13 +97,13 @@ const AddMetaDataForm = ({ refetch }) => {
           <input type='file' id='image' accept='image/*' onChange={handleImageChange} className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' />
         </div>
         {imagePreview && (
-          <div className='mb-4'>
-            <img src={imagePreview} alt='Preview' className='max-w-full h-auto' />
+          <div className='mb-4 max-h-[300px] '>
+            <img src={imagePreview} alt='Preview' className='max-w-full h-auto  max-h-[300px] object-cover object-center' />
           </div>
         )}
         <div className='mt-6'>
           <button type='submit' className='w-full bg-[#FF4D30] text-white py-2 px-4 rounded-md hover:bg-[#FF3D20] transition-colors duration-300' disabled={createMutation.isLoading}>
-            {createMutation.isLoading ? 'Adding...' : 'Add Meta Data'}
+            {loading ? 'Adding...' : 'Add Meta Data'}
           </button>
         </div>
       </form>

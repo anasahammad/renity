@@ -53,7 +53,7 @@ const MyMetaData = () => {
     setEditableMetaData(data);
   }
   if (isLoading) return <div>Loading...</div>;
-
+console.log(myMetaData)
   return (
     <div className='container mx-auto p-2 md:p-6'>
       <div className='flex justify-end'>
@@ -70,7 +70,7 @@ const MyMetaData = () => {
               <tr>
                 <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Entity Name</th>
                 <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Entity Email</th>
-                
+
                 <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Key</th>
                 <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Value</th>
                 <th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>Actions</th>
@@ -85,7 +85,7 @@ const MyMetaData = () => {
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <p className='text-gray-900 whitespace-no-wrap'>{data.entity?.email}</p>
                   </td>
-                  
+
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <p className='text-gray-900 whitespace-no-wrap'>{data.key}</p>
                   </td>
@@ -119,8 +119,8 @@ const MyMetaData = () => {
 
       {/* Add Meta Data Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className=' w-96'>
-          <AddMetaDataForm refetch={refetch} />
+        <div className=' w-96 overflow-y-auto max-h-[80vh]'>
+          <AddMetaDataForm setOpen={setOpen} refetch={refetch} />
 
           <div className='flex gap-4 py-2'>
             <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
@@ -136,7 +136,7 @@ const MyMetaData = () => {
       {/* Update Category Modal */}
       <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
         <div className=' w-96'>
-          <UpdateMetaDataForm editableMetaData={editableMetaData} refetch={refetch} />
+          <UpdateMetaDataForm setOpen={setOpen} editableMetaData={editableMetaData} refetch={refetch} />
 
           <div className='flex gap-4 py-2'>
             <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
@@ -149,7 +149,7 @@ const MyMetaData = () => {
         </div>
       </Modal>
 
-   {myMetaData.length === 0 && (<div className='flex justify-center items-center min-h-screen text-pink-500 text-4xl'>You didnot added any meta data. Please Add a meta data and verify your account</div>)}
+      {myMetaData.length === 0 && <div className='flex justify-center items-center min-h-screen text-pink-500 text-4xl'>You didnot added any meta data. Please Add a meta data and verify your account</div>}
     </div>
   );
 };
