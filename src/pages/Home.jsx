@@ -12,8 +12,8 @@ const Home = () => {
     <div className='z-0 '>
       <Hero />
       <AboutSection />
-      <CategorySection />
       <FeaturedSection />
+      <CategorySection />
       <ServiceSection />
       <BrandSection />
       <TestimonialSection />

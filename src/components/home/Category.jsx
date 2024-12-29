@@ -15,23 +15,24 @@ import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../hooks/axiosInstance';
 
 const CategorySection = () => {
-  const categories = [
-    { image: scooter, label: 'Scooters', item: 4 },
-    { image: videoGame, label: 'Video Games & Consoles', item: 4 },
+  // const categories = [
+  //   { image: scooter, label: 'Scooters', item: 4 },
+  //   { image: videoGame, label: 'Video Games & Consoles', item: 4 },
 
-    { image: shows, label: 'Sporting Goods', item: 4 },
-    { image: musicalInstrument, label: 'Musical Instruments', item: 4 },
-    { image: ludo, label: 'Toys & Games', item: 4 },
-    { image: drone, label: 'Video Games & Consoles', item: 4 },
-  ];
+  //   { image: shows, label: 'Sporting Goods', item: 4 },
+  //   { image: musicalInstrument, label: 'Musical Instruments', item: 4 },
+  //   { image: ludo, label: 'Toys & Games', item: 4 },
+  //   { image: drone, label: 'Video Games & Consoles', item: 4 },
+  // ];
 
-  // const { data: categories = [] } = useQuery({
-  //   queryKey: ['categories'],
-  //   queryFn: async () => {
-  //     const response = await axiosInstance.get('/admin/category');
-  //     return response.data.data;
-  //   },
-  // })
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await axiosInstance.get('/category');
+      return response.data.data;
+    },
+  })
+
   return (
     <div className='p-6 md:p-10 bg-[#FFFAE9] relative'>
       <h4 className='text-xs sm:text-sm text-gray-500 font-semibold uppercase'>Easy Rental Services</h4>
@@ -65,17 +66,14 @@ const CategorySection = () => {
           }}
           className='mySwiper '
         >
-          {categories.map((category, index) => (
-            <SwiperSlide key={index}>
-              <div
-                style={{ backgroundImage: `url(${category.image})` }}
-                className=' h-[295px] flex justify-center items-center w-full bg-cover bg-center cursor-pointer group '
-              >
+          {categories.map((category) => (
+            <SwiperSlide key={category._id}>
+              <div style={{ backgroundImage: `url(${category.icon})` }} className=' h-[295px] flex justify-center items-center w-full bg-cover bg-center cursor-pointer group '>
                 <div className='absolute inset-0 bg-gradient-to-t from-black opacity-70'></div>
                 <div className='absolute bottom-8  text-xl font-bold text-center flex flex-col gap-2 transition duration-300 text-white'>
-                  {category.label}
+                  {category.name}
 
-                  <span className='hidden group-hover:block  text-sm text-yellow-400 transition duration-300'>{category.item} ITEMS</span>
+                  <span className='hidden group-hover:block  text-sm text-yellow-400 transition duration-300'>{category.subcategories.length} ITEMS</span>
                 </div>
               </div>
             </SwiperSlide>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BiCategoryAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiSolidBookmarkStar } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { FaRegHeart } from 'react-icons/fa6';
 import { HiOutlineLogout, HiOutlineUsers } from 'react-icons/hi';
@@ -40,8 +40,9 @@ const menuItemsUser = [
 //rental menu
 const menuItemsRental = [
   { id: '02', label: 'All Rentals', path: 'all_rentals', icon: <MdOutlineCarRental /> },
-  { id: '06', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
-  { id: '06', label: 'My Meta Data', path: 'my_meta_data', icon: <FiClock /> },
+  { id: '03', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
+  { id: '04', label: 'Booked Items', path: 'booked_items', icon: <BiSolidBookmarkStar /> },
+  { id: '05', label: 'My Meta Data', path: 'my_meta_data', icon: <FiClock /> },
 ];
 
 const Dashboard = () => {

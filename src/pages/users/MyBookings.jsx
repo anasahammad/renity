@@ -51,16 +51,16 @@ const MyBookings = () => {
             {myBookins.map((booking) => (
               <tr key={booking._id}>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <p className='text-gray-900 whitespace-no-wrap'>{booking?.rental.name}</p>
+                  <p className='text-gray-900 whitespace-no-wrap'>{booking?.rental?.name}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <p className='text-gray-900 whitespace-no-wrap'>{booking.rental.category}</p>
+                  <p className='text-gray-900 whitespace-no-wrap'>{booking?.rental?.category}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <p className='text-gray-900 whitespace-no-wrap'>{booking?.bookedDates.map((date) => new Date(date).toLocaleDateString())}</p>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  <p className='text-gray-900 whitespace-no-wrap'>{booking.rentalPrice}</p>
+                  <p className='text-gray-900 whitespace-no-wrap'>{booking?.rentalPrice}</p>
                 </td>
                 {/* <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <p className='text-gray-900 whitespace-no-wrap'>{booking.status}</p>
@@ -68,10 +68,10 @@ const MyBookings = () => {
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='relative inline-block w-full'>
                     <select
-                      value={booking.status}
-                       onChange={(e) => handleStatusChange(booking._id, e.target.value)}
+                      value={booking?.status}
+                       onChange={(e) => handleStatusChange(booking?._id, e.target.value)}
 
-                      className={`appearance-none w-full border-none bg-transparent  py-1 rounded-full font-semibold focus:outline-none ${booking.status === 'pending' ? 'text-yellow-600' : 'text-red-600'}`}
+                      className={`appearance-none w-full border-none bg-transparent  py-1 rounded-full font-semibold focus:outline-none ${booking?.status === 'pending' ? 'text-yellow-600' : 'text-red-600'}`}
                     >
                       <option value='pending'>Pending</option>
                       <option value='cancelled'>Cancelled</option>

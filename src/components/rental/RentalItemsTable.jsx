@@ -7,20 +7,7 @@ import UpdateRental from './UpdateRentalItem';
 import { Link } from 'react-router-dom';
 
 const RentalItemsTable = ({ rentals, refetch }) => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Disabled' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Active' },
-    { id: 4, name: 'Alice Brown', email: 'alice@example.com', status: 'Disabled' },
-    { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', status: 'Active' },
-    { id: 6, name: 'Eva Wilson', email: 'eva@example.com', status: 'Disabled' },
-    { id: 7, name: 'Frank Miller', email: 'frank@example.com', status: 'Active' },
-    { id: 8, name: 'Grace Lee', email: 'grace@example.com', status: 'Pending' },
-    { id: 9, name: 'Henry Taylor', email: 'henry@example.com', status: 'Active' },
-    { id: 10, name: 'Ivy Clark', email: 'ivy@example.com', status: 'Disabled' },
-    { id: 11, name: 'Jack Robinson', email: 'jack@example.com', status: 'Active' },
-    { id: 12, name: 'Karen White', email: 'karen@example.com', status: 'Disabled' },
-  ]);
+ 
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
@@ -66,7 +53,7 @@ const RentalItemsTable = ({ rentals, refetch }) => {
       <div className='mb-4 flex flex-wrap items-center justify-between'>
         <div className='w-full md:w-1/3 mb-4 md:mb-0'>
           <div className='relative'>
-            <input type='text' placeholder='Search users...' className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <input type='text' placeholder='Search here...' className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <MdSearch className='absolute right-3 top-3 text-gray-400' />
           </div>
         </div>

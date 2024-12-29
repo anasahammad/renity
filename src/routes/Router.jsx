@@ -16,6 +16,8 @@ import HowItWorks from '../components/TopNavPage/HowItWorks';
 import PriceGuide from '../components/TopNavPage/PriceGuide';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
+// import AllRentalItemsPage from '../pages/AllRentalItemsPage';
+// import BookedItems from '../pages/rental/BookedItems';
 // import AllReviews from '../pages/admindashboard/AllReviews';
 // import AllContacts from '../pages/admindashboard/AllContacts';
 // import Category from '../pages/admindashboard/Category';
@@ -41,6 +43,8 @@ const Rentals = lazy(() => import('../pages/admindashboard/Rentals'));
 const Category = lazy(() => import('../pages/admindashboard/Category'));
 const AllContacts = lazy(() => import('../pages/admindashboard/AllContacts'));
 const AllReviews = lazy(() => import('../pages/admindashboard/AllReviews'));
+const BookedItems = lazy(() => import('../pages/rental/BookedItems'));
+const AllRentalItemsPage = lazy(() => import('../pages/AllRentalItemsPage'));
 
 
 const Router = createBrowserRouter([
@@ -78,6 +82,14 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading'}>
             <Catalog />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/all_rentals_items',
+        element: (
+          <Suspense fallback={'loading'}>
+            <AllRentalItemsPage />
           </Suspense>
         ),
       },
@@ -223,6 +235,17 @@ const Router = createBrowserRouter([
             <Suspense fallback={'loading'}>
               {' '}
               <AllRentalItem />
+            </Suspense>
+          </LessorProvider>
+        ),
+      },
+      {
+        path: 'booked_items',
+        element: (
+          <LessorProvider>
+            <Suspense fallback={'loading'}>
+              {' '}
+              <BookedItems />
             </Suspense>
           </LessorProvider>
         ),

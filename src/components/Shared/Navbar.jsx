@@ -41,7 +41,7 @@ export const navItems = [
   // },
   {
     label: 'All Rental Items',
-    path: '/',
+    path: '/all_rentals_items',
   },
   {
     label: 'Blog',

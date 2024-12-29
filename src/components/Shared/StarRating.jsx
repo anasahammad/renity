@@ -6,7 +6,7 @@ const StarRating = ({ rating }) => {
       {Array.from({ length: 5 }, (_, index) => (
         <GrStar
           key={index}
-          color={index < rating ? '#e0e0e0' : '#e0e0e0'}
+          color={index < rating ? '#e0e0e0' : ''}
           className='text-xl border bg-[#28a745]'
         />
       ))}

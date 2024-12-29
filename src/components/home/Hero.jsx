@@ -106,10 +106,10 @@ const Hero = () => {
   }, []);
 
   const handleSearch = async () => {
-    if (!selectedCategory || !selectedLocation) {
-      alert('Please select both category and location');
-      return ;
-    }
+    // if (!selectedCategory || !selectedLocation) {
+    //   alert('Please select both category and location');
+    //   return ;
+    // }
     setLoading(true);
 
     try {
