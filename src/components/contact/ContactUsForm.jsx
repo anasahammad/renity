@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -55,8 +55,8 @@ const ContactUsForm = () => {
           </div>
 
           {/* Phone & Subject */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <input type='tel' name='phone' placeholder='ফোন নাম্বার' value={formData.phone} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' />
+          <div className=''>
+            <input type='text' name='phone' placeholder='ফোন নাম্বার' value={formData.phone} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' />
             {/* <input type='text' name='subject' placeholder='বিষয়' value={formData.subject} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' /> */}
           </div>
 
