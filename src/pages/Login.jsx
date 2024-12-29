@@ -32,6 +32,10 @@ const Login = () => {
         toast.error(data.error);
         return;
       }
+      if (data.status === 401) {
+        toast.error(data.error);
+        return;
+      }
       
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem('account', JSON.stringify(data));

@@ -11,7 +11,7 @@ const ItemDetails = () => {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
-
+  
   const {
     data: rental,
     isLoading,

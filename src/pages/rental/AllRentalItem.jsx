@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import RentalItemsTable from '../../components/rental/RentalItemsTable';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import axiosInstance from '../../hooks/axiosInstance';
 
 const AllRentalItem = () => {
   const {
@@ -12,7 +13,7 @@ const AllRentalItem = () => {
   } = useQuery({
     queryKey: ['rentals'],
     queryFn: async () => {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/rental`, { withCredentials: true });
+      const response = await axiosInstance.get(`/rental/lessor`);
       return response.data.data;
     },
   });

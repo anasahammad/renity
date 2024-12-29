@@ -1,18 +1,19 @@
-import  { useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
-import { FaCalendar } from 'react-icons/fa';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { toast } from 'react-hot-toast';
+import { FaCalendar } from 'react-icons/fa';
 import axiosInstance from '../hooks/axiosInstance';
-import { useMutation } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const BookingHandler = ({ rentalId, existingBookedDates, onBookingSuccess }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-
+  const userState = useSelector((state) => state.user);
+  const navigate = useNavigate()
   const postBooking = useMutation({
     mutationFn: async (data) => {
       const response = await axiosInstance.post('https://renity-backend.vercel.app/api/v1/book', data);
@@ -24,12 +25,18 @@ const BookingHandler = ({ rentalId, existingBookedDates, onBookingSuccess }) => 
       setEndDate(null);
       toast.success('Booking successful!');
     },
-    onError: (error) => { 
-      console.log(error)
+    onError: (error) => {
+      console.log(error);
       toast.error(error.response.data);
-    }
-  })
+    },
+  });
   const handleBooking = async () => {
+
+    if (!userState.userInfo) {
+      toast.error('Please login to book this item');
+      navigate('/login')
+      return;
+    }
     if (!startDate || !endDate) {
       toast.error('Please select both start and end dates');
       return;
@@ -38,9 +45,7 @@ const BookingHandler = ({ rentalId, existingBookedDates, onBookingSuccess }) => 
     setIsLoading(true);
 
     try {
-     
       await postBooking.mutateAsync({ rental: rentalId, bookedDates: [startDate.getTime(), endDate.getTime()] });
-      
     } catch (error) {
       console.error('Booking error:', error);
       toast.error('An error occurred while booking. Please try again.');
