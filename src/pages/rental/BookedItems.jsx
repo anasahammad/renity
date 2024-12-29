@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../hooks/axiosInstance";
 import BookedItemTable from "../../components/rental/BookedItemTable";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 
 const BookedItems = () => {
@@ -12,7 +13,7 @@ const BookedItems = () => {
     }
   })
 
-  if(isLoading) return <div>Loading...</div>
+  if(isLoading) return <LoadingSpinner/>
   return (
     <div>
       <BookedItemTable refetch={refetch} bookedItems={bookedItems} />

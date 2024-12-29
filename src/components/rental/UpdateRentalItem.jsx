@@ -25,7 +25,7 @@ const UpdateRental = () => {
     formState: { errors },
   } = useForm();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async (formData) => {
       const response = await axios.put(`${import.meta.env.VITE_API_URL}/rental/${rental?._id}`, formData, {
         withCredentials: true

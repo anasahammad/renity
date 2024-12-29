@@ -20,7 +20,7 @@ const Signup = () => {
 
   
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: ({name ,email, password }) => signup({ name, email, password, role }),
     onSuccess: (data) => {
       dispatch(userActions.setUserInfo(data));

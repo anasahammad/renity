@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import RentalItemCard from '../components/RentalItemCard';
 import axiosInstance from '../hooks/axiosInstance';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const AllRentalItemsPage = () => {
   const {
@@ -15,7 +16,7 @@ const AllRentalItemsPage = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
 
   return (
     <div>

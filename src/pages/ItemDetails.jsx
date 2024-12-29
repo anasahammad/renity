@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaHeart, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import BookingHandler from '../components/BookinHandler';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 
 const ItemDetails = () => {
@@ -23,7 +24,7 @@ const ItemDetails = () => {
     },
   });
 
-  if (isLoading) return <div className='flex justify-center items-center h-screen'>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   if (!rental) return <div className='flex justify-center items-center h-screen'>No rental data found</div>;
 
   const discountedPrice = rental.price - (rental.price * rental.discount) / 100;

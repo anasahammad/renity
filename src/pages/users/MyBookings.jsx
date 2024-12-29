@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { MdArrowDropDown, MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
 import axiosInstance from '../../hooks/axiosInstance';
 import toast from 'react-hot-toast';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const MyBookings = () => {
 
@@ -30,7 +31,7 @@ const MyBookings = () => {
   const handleStatusChange = (id, newStatus) => { 
     updateMutation.mutate({ id, newStatus: { status: newStatus } });
   }
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   return (
     <div className='container mx-auto p-2 md:p-6'>
       <h1 className='text-2xl font-semibold mb-4'>My Bookings ({myBookins?.length})</h1>

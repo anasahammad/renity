@@ -8,6 +8,7 @@ import axiosInstance from '../../hooks/axiosInstance';
 import toast from 'react-hot-toast';
 import AddMetaDataForm from '../../components/rental/AddMetaDataForm';
 import UpdateMetaDataForm from '../../components/rental/UpdateMetaDataForm';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const MyMetaData = () => {
   const [open, setOpen] = useState(false);
@@ -52,7 +53,7 @@ const MyMetaData = () => {
     
     setEditableMetaData(data);
   }
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
 console.log(myMetaData)
   return (
     <div className='container mx-auto p-2 md:p-6'>

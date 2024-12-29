@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../hooks/axiosInstance';
+import LoadingSpinner from '../LoadingSpinner';
 
 const TestimonialSection = () => {
   // const testimonials = [
@@ -53,7 +54,7 @@ const TestimonialSection = () => {
     },
   })
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   return (
     <div className='py-16 bg-[#FFFAE9]'>
       <div className='text-center mb-12'>

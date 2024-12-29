@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import CategoryTable from "../../components/admindashboard/CategoryTable";
 import axiosInstance from "../../hooks/axiosInstance";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 
 const Category = () => {
@@ -17,7 +18,7 @@ const Category = () => {
        },
      });
 
-     if (isLoading) return <div>Loading...</div>;
+     if (isLoading) return <LoadingSpinner />;
   return (
     <div>
       <CategoryTable refetch={refetch} categories={ categories} />

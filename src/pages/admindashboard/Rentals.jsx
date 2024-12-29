@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import RentalsTable from '../../components/admindashboard/RentalsTable';
 import axiosInstance from '../../hooks/axiosInstance';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Rentals = () => {
   const {
@@ -16,7 +17,7 @@ const Rentals = () => {
     },
   });
 
-  if (isLoading) return <div>Loading....</div>;
+  if (isLoading) return <LoadingSpinner/>;
   return (
     <div>
       <RentalsTable rentals={data} />
