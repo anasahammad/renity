@@ -28,14 +28,6 @@ const Login = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ email, password }) => login({ email, password }),
     onSuccess: (data) => {
-      if (data.status === 403) {
-        toast.error(data.error);
-        return;
-      }
-      if (data.status === 401) {
-        toast.error(data.error);
-        return;
-      }
       
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem('account', JSON.stringify(data));
@@ -44,7 +36,7 @@ const Login = () => {
     },
     onError: (error) => {
       console.error('Failed to login:', error);
-      toast.error(error.message);
+      // toast.error(error.message);
     },
   });
 

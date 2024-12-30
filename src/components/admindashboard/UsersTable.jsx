@@ -35,7 +35,7 @@ const UsersTable = ({users, refetch}) => {
       refetch();
     },
     onError: (error) => {
-      console.error('Failed to delete product:', error.message);
+      console.error('Failed to update:', error.message);
     },
   });
 
@@ -68,7 +68,7 @@ const UsersTable = ({users, refetch}) => {
   }, [searchTerm, statusFilter, usersPerPage])
 
 const updateVerification = useMutation({
-  mutationFn: ({ id, isVarified }) => axiosInstance.put(`/admin/users/${id}`, { isVarified }), // Pass the state as an object
+  mutationFn: ({ id, isVarified }) => axiosInstance.put(`/admin/users/${id}`,  isVarified ), // Pass the state as an object
   onSuccess: () => {
     toast.success('User verification status updated successfully!');
     refetch(); // Refetch your data
@@ -79,9 +79,9 @@ const updateVerification = useMutation({
   },
 });
 
-  const handleVerify = (id) => {
-    setIsVarified(true)
-    updateVerification.mutate({ id, isVarified: !isVarified });
+  const handleVerify = (id, newStatus) => {
+    // setIsVarified(true)
+    updateVerification.mutate({ id, isVarified: { isVarified: newStatus } });
    
   };
   return (
@@ -142,7 +142,12 @@ const updateVerification = useMutation({
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   {/* <p className='text-gray-900 whitespace-no-wrap'>{user.isVerified ? 'True': 'False'}</p> */}
-                  <input type='checkbox' className='px-5 py-5' checked={user?.isVarified} onChange={() => handleVerify(user._id)} />
+                  {/* <input type='checkbox' className='px-5 py-5' checked={user?.isVarified} onChange={() => handleVerify(user._id)} /> */}
+
+                  <select value={user.isVarified} onChange={(e) => handleVerify(user._id, e.target.value)} name='' id=''>
+                    <option >True</option>
+                    <option value='false'>False</option>
+                  </select>
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='relative inline-block w-full'>

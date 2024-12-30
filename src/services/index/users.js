@@ -1,5 +1,6 @@
 import axios from 'axios';
 import axiosInstance from '../../hooks/axiosInstance';
+import toast from 'react-hot-toast';
 
 // Make a POST request to the server's registration endpoint
 export const signup = async ({ name, email, password, role }) => {
@@ -37,6 +38,8 @@ export const login = async ({ email, password }) => {
     );
     return data;
   } catch (error) {
+    console.log(error)
+    toast.error(error.response.data.error)
     if (error.response && error.response.data.message) throw new Error(error.response.data.message);
     throw new Error(error.message);
   }

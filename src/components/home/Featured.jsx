@@ -12,86 +12,99 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import axiosInstance from '../../hooks/axiosInstance';
 
-export const features = [
-  {
-    name: 'Dron Mavic Mini',
-    rent: 230,
-    image: drone,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-  {
-    name: 'Drum Plan For Rent',
-    rent: 230,
-    image: drum,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-  {
-    name: 'Company Games',
-    rent: 230,
-    image: peoples,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-  {
-    name: 'Athletic Trainer',
-    rent: 230,
-    image: gim,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-  {
-    name: 'Water Bike For Fun 2',
-    rent: 230,
-    image: speedBoat,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-  {
-    name: 'MotorCycle BMW Adventure',
-    rent: 230,
-    image: motorCycle,
-    features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-  },
-];
+// export const features = [
+//   {
+//     name: 'Dron Mavic Mini',
+//     rent: 230,
+//     image: drone,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+//   {
+//     name: 'Drum Plan For Rent',
+//     rent: 230,
+//     image: drum,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+//   {
+//     name: 'Company Games',
+//     rent: 230,
+//     image: peoples,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+//   {
+//     name: 'Athletic Trainer',
+//     rent: 230,
+//     image: gim,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+//   {
+//     name: 'Water Bike For Fun 2',
+//     rent: 230,
+//     image: speedBoat,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+//   {
+//     name: 'MotorCycle BMW Adventure',
+//     rent: 230,
+//     image: motorCycle,
+//     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+//   },
+// ];
 const FeaturedSection = () => {
   const swiperRef = useRef(null);
 
-  const features = [
-    {
-      name: 'Dron Mavic Mini',
-      rent: 230,
-      image: drone,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-    {
-      name: 'Drum Plan For Rent',
-      rent: 230,
-      image: drum,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-    {
-      name: 'Company Games',
-      rent: 230,
-      image: peoples,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-    {
-      name: 'Athletic Trainer',
-      rent: 230,
-      image: gim,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-    {
-      name: 'Water Bike For Fun 2',
-      rent: 230,
-      image: speedBoat,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-    {
-      name: 'MotorCycle BMW Adventure',
-      rent: 230,
-      image: motorCycle,
-      features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
-    },
-  ];
+    const {
+      data: features = [],
+      isLoading,
+      refetch,
+    } = useQuery({
+      queryKey: ['features'],
+      queryFn: async () => {
+        const response = await axiosInstance.get('/rental');
+        return response.data.data;
+      },
+    });
+  // const features = [
+  //   {
+  //     name: 'Dron Mavic Mini',
+  //     rent: 230,
+  //     image: drone,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  //   {
+  //     name: 'Drum Plan For Rent',
+  //     rent: 230,
+  //     image: drum,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  //   {
+  //     name: 'Company Games',
+  //     rent: 230,
+  //     image: peoples,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  //   {
+  //     name: 'Athletic Trainer',
+  //     rent: 230,
+  //     image: gim,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  //   {
+  //     name: 'Water Bike For Fun 2',
+  //     rent: 230,
+  //     image: speedBoat,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  //   {
+  //     name: 'MotorCycle BMW Adventure',
+  //     rent: 230,
+  //     image: motorCycle,
+  //     features: ['Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ', 'Freq Range 5-300HZ'],
+  //   },
+  // ];
 
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -105,6 +118,8 @@ const FeaturedSection = () => {
       });
     }
   }, [swiperRef]);
+
+ 
   return (
     <div>
       <div className='text-center'>
@@ -154,18 +169,15 @@ const FeaturedSection = () => {
           }}
           className='mySwiper '
         >
-          {features.map((feature, index) => (
-            <SwiperSlide key={index}>
+          {features?.map((feature) => (
+            <SwiperSlide key={feature._id}>
               <div className='relative border-b  h-[420px] group mb-4'>
-                <div
-                  style={{ backgroundImage: `url(${feature.image})` }}
-                  className='  flex justify-center items-center  bg-cover w-full h-[295px] bg-center cursor-pointer  '
-                ></div>
+                <div style={{ backgroundImage: `url(${feature.images[0]})` }} className='  flex justify-center items-center  bg-cover w-full h-[295px] bg-center cursor-pointer  '></div>
 
                 <div className='block group-hover:hidden px-1 py-4'>
                   <h2 className='text-2xl font-semibold'>{feature.name}</h2>
                   <p className='text-gray-600 text-sm'>
-                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.rent}</span>
+                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.price}</span>
                   </p>
                 </div>
 
@@ -173,14 +185,14 @@ const FeaturedSection = () => {
                   <h2 className='text-2xl font-semibold text-gray-900 hover:text-blue-500'>{feature.name}</h2>
 
                   <p className='text-gray-600 text-sm my-4 border-b pb-4'>
-                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.rent}</span>
+                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.price}</span>
                   </p>
 
-                  <ul className='list-disc pl-4 text-sm font-semibold'>
+                  {/* <ul className='list-disc pl-4 text-sm font-semibold'>
                     {feature.features.map((item, idx) => (
                       <li key={idx}>{item}</li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
             </SwiperSlide>
