@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FiCalendar, FiDollarSign, FiFileText, FiImage, FiMapPin, FiTag, FiUpload, FiX } from 'react-icons/fi';
@@ -34,7 +33,7 @@ const AddRentalItem = () => {
 
   const { mutate } = useMutation({
     mutationFn: async (formData) => {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/rental`, formData, { withCredentials: true });
+      const response = await axiosInstance.post(`/rental`, formData);
       return response.data;
     },
     onSuccess: (data) => {
@@ -42,7 +41,8 @@ const AddRentalItem = () => {
       toast.success('Rental item created successfully');
     },
     onError: (error) => {
-      toast.error(error.message);
+      console.log(error);
+      toast.error(error?.response?.data?.error || 'An error occurred. Please try again.');
     },
   });
 
