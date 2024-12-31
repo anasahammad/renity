@@ -1,6 +1,6 @@
-import  { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import axiosInstance from '../../hooks/axiosInstance';
 
 const ContactUsForm = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ const ContactUsForm = () => {
     message: '',
   });
 
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +22,7 @@ const ContactUsForm = () => {
     setLoading(true);
 
     try {
-      await axios.post('https://renity-backend.vercel.app/api/v1/contact', formData);
+      await axiosInstance.post('/contact', formData);
       toast.success('✅ বার্তা সফলভাবে পাঠানো হয়েছে!', { duration: 4000 });
       setFormData({
         name: '',
@@ -33,13 +33,13 @@ const ContactUsForm = () => {
     } catch (error) {
       toast.error('❌ বার্তা পাঠাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।', { duration: 4000 });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
     <div className='bg-[#FFFAE9] py-16'>
-      <Toaster position='top-right' /> 
+      <Toaster position='top-right' />
       <div className='text-center space-y-4'>
         <p className='font-medium'>আপনার কি সাহায্য প্রয়োজন?</p>
         <h1 className='text-5xl font-bold'>
@@ -47,24 +47,59 @@ const ContactUsForm = () => {
         </h1>
       </div>
       <div className='max-w-4xl mx-auto p-8 rounded-md'>
-        <form className='space-y-6' onSubmit={handleSubmit}>
+        <form
+          className='space-y-6'
+          onSubmit={handleSubmit}
+        >
           {/* Name & Email */}
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <input type='text' name='name' placeholder='আপনার নাম' value={formData.name} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' />
-            <input type='email' name='email' placeholder='আপনার ইমেইল' value={formData.email} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' />
+            <input
+              type='text'
+              name='name'
+              placeholder='আপনার নাম'
+              value={formData.name}
+              onChange={handleChange}
+              className='w-full border px-4 py-2 focus:ring-yellow-400'
+            />
+            <input
+              type='email'
+              name='email'
+              placeholder='আপনার ইমেইল'
+              value={formData.email}
+              onChange={handleChange}
+              className='w-full border px-4 py-2 focus:ring-yellow-400'
+            />
           </div>
 
           {/* Phone & Subject */}
           <div className=''>
-            <input type='text' name='phone' placeholder='ফোন নাম্বার' value={formData.phone} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' />
+            <input
+              type='text'
+              name='phone'
+              placeholder='ফোন নাম্বার'
+              value={formData.phone}
+              onChange={handleChange}
+              className='w-full border px-4 py-2 focus:ring-yellow-400'
+            />
             {/* <input type='text' name='subject' placeholder='বিষয়' value={formData.subject} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400' /> */}
           </div>
 
           {/* Message */}
-          <textarea name='message' placeholder='আপনার বার্তা লিখুন...' rows='8' value={formData.message} onChange={handleChange} className='w-full border px-4 py-2 focus:ring-yellow-400'></textarea>
+          <textarea
+            name='message'
+            placeholder='আপনার বার্তা লিখুন...'
+            rows='8'
+            value={formData.message}
+            onChange={handleChange}
+            className='w-full border px-4 py-2 focus:ring-yellow-400'
+          ></textarea>
 
           {/* Submit Button */}
-          <button type='submit' disabled={loading} className={`w-full ${loading ? 'bg-yellow-300' : 'bg-yellow-400'} text-white font-semibold py-3 focus:ring-yellow-600`}>
+          <button
+            type='submit'
+            disabled={loading}
+            className={`w-full ${loading ? 'bg-yellow-300' : 'bg-yellow-400'} text-white font-semibold py-3 focus:ring-yellow-600`}
+          >
             {loading ? 'অপেক্ষা করুন...' : 'বার্তা পাঠান'}
           </button>
         </form>

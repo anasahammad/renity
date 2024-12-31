@@ -3,77 +3,13 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FiUpload, FiX, FiDollarSign, FiMapPin, FiCalendar, FiTag, FiFileText, FiImage } from 'react-icons/fi';
+import { FiCalendar, FiDollarSign, FiFileText, FiImage, FiMapPin, FiTag, FiUpload, FiX } from 'react-icons/fi';
 import axiosInstance from '../../hooks/axiosInstance';
+import { uploadImage } from '../../utils/cn';
 
 const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months', '1 year'];
 
-const locations = [
-  'Bagerhat',
-  'Bandarban',
-  'Barguna',
-  'Barisal',
-  'Bhola',
-  'Bogra',
-  'Brahmanbaria',
-  'Chandpur',
-  'Chapai Nawabganj',
-  'Chattogram',
-  'Chuadanga',
-  "Cox's Bazar",
-  'Cumilla',
-  'Dhaka',
-  'Dinajpur',
-  'Faridpur',
-  'Feni',
-  'Gaibandha',
-  'Gazipur',
-  'Gopalganj',
-  'Habiganj',
-  'Jamalpur',
-  'Jashore',
-  'Jhalokati',
-  'Jhenaidah',
-  'Joypurhat',
-  'Khagrachari',
-  'Khulna',
-  'Kishoreganj',
-  'Kurigram',
-  'Kushtia',
-  'Lakshmipur',
-  'Lalmonirhat',
-  'Madaripur',
-  'Magura',
-  'Manikganj',
-  'Meherpur',
-  'Moulvibazar',
-  'Munshiganj',
-  'Mymensingh',
-  'Naogaon',
-  'Narail',
-  'Narayanganj',
-  'Narsingdi',
-  'Natore',
-  'Netrokona',
-  'Nilphamari',
-  'Noakhali',
-  'Pabna',
-  'Panchagarh',
-  'Patuakhali',
-  'Pirojpur',
-  'Rajbari',
-  'Rajshahi',
-  'Rangamati',
-  'Rangpur',
-  'Satkhira',
-  'Shariatpur',
-  'Sherpur',
-  'Sirajganj',
-  'Sunamganj',
-  'Sylhet',
-  'Tangail',
-  'Thakurgaon',
-];
+const locations = ['Bagerhat', 'Bandarban', 'Barguna', 'Barisal', 'Bhola', 'Bogra', 'Brahmanbaria', 'Chandpur', 'Chapai Nawabganj', 'Chattogram', 'Chuadanga', "Cox's Bazar", 'Cumilla', 'Dhaka', 'Dinajpur', 'Faridpur', 'Feni', 'Gaibandha', 'Gazipur', 'Gopalganj', 'Habiganj', 'Jamalpur', 'Jashore', 'Jhalokati', 'Jhenaidah', 'Joypurhat', 'Khagrachari', 'Khulna', 'Kishoreganj', 'Kurigram', 'Kushtia', 'Lakshmipur', 'Lalmonirhat', 'Madaripur', 'Magura', 'Manikganj', 'Meherpur', 'Moulvibazar', 'Munshiganj', 'Mymensingh', 'Naogaon', 'Narail', 'Narayanganj', 'Narsingdi', 'Natore', 'Netrokona', 'Nilphamari', 'Noakhali', 'Pabna', 'Panchagarh', 'Patuakhali', 'Pirojpur', 'Rajbari', 'Rajshahi', 'Rangamati', 'Rangpur', 'Satkhira', 'Shariatpur', 'Sherpur', 'Sirajganj', 'Sunamganj', 'Sylhet', 'Tangail', 'Thakurgaon'];
 
 const AddRentalItem = () => {
   const [images, setImages] = useState([]);
@@ -123,21 +59,6 @@ const AddRentalItem = () => {
     await mutate(formData);
   };
 
-  const uploadImage = async (image) => {
-    const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', 'rowshanara');
-
-    try {
-      const response = await axios.post(`https://api.cloudinary.com/v1_1/drbtvputr/image/upload`, formData);
-      return response.data.secure_url;
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error('Failed to upload image');
-      return null;
-    }
-  };
-
   const handleImageUpload = (e) => {
     if (e.target.files) {
       const newImages = Array.from(e.target.files);
@@ -156,21 +77,35 @@ const AddRentalItem = () => {
           <h1 className='text-3xl font-extrabold text-white'>Create Rental Item</h1>
           <p className='mt-2 text-indigo-100'>Fill in the details to list your item for rent</p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className='py-8 px-8 space-y-8'>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className='py-8 px-8 space-y-8'
+        >
           <div className='grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2'>
             <div className='sm:col-span-2'>
-              <label htmlFor='name' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='name'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiTag className='inline-block mr-2' />
                 Item Name
               </label>
               <div className='mt-1'>
-                <input id='name' type='text' {...register('name', { required: 'Name is required' })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4 py-2' />
+                <input
+                  id='name'
+                  type='text'
+                  {...register('name', { required: 'Name is required' })}
+                  className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-500 rounded-md px-4 py-2'
+                />
               </div>
               {errors.name && <p className='mt-1 text-sm text-red-600'>{errors.name.message}</p>}
             </div>
 
             <div className='sm:col-span-2'>
-              <label htmlFor='description' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='description'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiFileText className='inline-block mr-2' />
                 Description
               </label>
@@ -190,13 +125,22 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='category' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='category'
+                className='block text-sm font-medium text-gray-700'
+              >
                 Category
               </label>
-              <select {...register('category', { required: 'Category is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'>
+              <select
+                {...register('category', { required: 'Category is required' })}
+                className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'
+              >
                 <option value=''>Select a category</option>
                 {categories.map((category) => (
-                  <option key={category?._id} value={category?.name}>
+                  <option
+                    key={category?._id}
+                    value={category?.name}
+                  >
                     {category?.name}
                   </option>
                 ))}
@@ -205,13 +149,22 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='subCategory' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='subCategory'
+                className='block text-sm font-medium text-gray-700'
+              >
                 Sub Category
               </label>
-              <select {...register('subcategories')} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'>
+              <select
+                {...register('subcategories')}
+                className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'
+              >
                 <option value=''>Select a sub category</option>
                 {selectedCategory?.subcategories?.map((subCat) => (
-                  <option key={subCat?._id} value={subCat?.name}>
+                  <option
+                    key={subCat?._id}
+                    value={subCat?.name}
+                  >
                     {subCat?.name}
                   </option>
                 ))}
@@ -220,7 +173,10 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='price' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='price'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiDollarSign className='inline-block mr-2' />
                 Price
               </label>
@@ -239,7 +195,10 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='discount' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='discount'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiDollarSign className='inline-block mr-2' />
                 Discount
               </label>
@@ -258,15 +217,24 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='location' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='location'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiMapPin className='inline-block mr-2' />
                 Location
               </label>
               <div className='mt-1'>
-                <select {...register('location', { required: 'Location is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'>
+                <select
+                  {...register('location', { required: 'Location is required' })}
+                  className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'
+                >
                   <option value=''>Select a location</option>
                   {locations.map((location) => (
-                    <option key={location} value={location}>
+                    <option
+                      key={location}
+                      value={location}
+                    >
                       {location}
                     </option>
                   ))}
@@ -276,14 +244,23 @@ const AddRentalItem = () => {
             </div>
 
             <div>
-              <label htmlFor='rentalPeriod' className='block text-sm font-medium text-gray-700'>
+              <label
+                htmlFor='rentalPeriod'
+                className='block text-sm font-medium text-gray-700'
+              >
                 <FiCalendar className='inline-block mr-2' />
                 Rental Period
               </label>
-              <select {...register('rentalPeriod', { required: 'Rental Period is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'>
+              <select
+                {...register('rentalPeriod', { required: 'Rental Period is required' })}
+                className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+              >
                 <option value=''>Select a rental period</option>
                 {rentalPeriods.map((period) => (
-                  <option key={period} value={period}>
+                  <option
+                    key={period}
+                    value={period}
+                  >
                     {period}
                   </option>
                 ))}
@@ -301,9 +278,20 @@ const AddRentalItem = () => {
               <div className='space-y-1 text-center'>
                 <FiUpload className='mx-auto h-12 w-12 text-gray-400' />
                 <div className='flex text-sm text-gray-600'>
-                  <label htmlFor='file-upload' className='relative cursor-pointer bg-white rounded-md font-medium text-[#FF4D30] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'>
+                  <label
+                    htmlFor='file-upload'
+                    className='relative cursor-pointer bg-white rounded-md font-medium text-[#FF4D30] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'
+                  >
                     <span>Upload files</span>
-                    <input id='file-upload' name='file-upload' type='file' className='sr-only' multiple onChange={handleImageUpload} accept='image/*' />
+                    <input
+                      id='file-upload'
+                      name='file-upload'
+                      type='file'
+                      className='sr-only'
+                      multiple
+                      onChange={handleImageUpload}
+                      accept='image/*'
+                    />
                   </label>
                   <p className='pl-1'>or drag and drop</p>
                 </div>
@@ -316,8 +304,15 @@ const AddRentalItem = () => {
           {images.length > 0 && (
             <div className='mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
               {images.map((image, index) => (
-                <div key={index} className='relative group'>
-                  <img src={URL.createObjectURL(image)} alt={`Uploaded ${index + 1}`} className='h-24 w-full object-cover rounded-md transition-all duration-300 ease-in-out group-hover:opacity-75' />
+                <div
+                  key={index}
+                  className='relative group'
+                >
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`Uploaded ${index + 1}`}
+                    className='h-24 w-full object-cover rounded-md transition-all duration-300 ease-in-out group-hover:opacity-75'
+                  />
                   <button
                     type='button'
                     onClick={() => removeImage(index)}
@@ -332,10 +327,16 @@ const AddRentalItem = () => {
 
           <div className='pt-5'>
             <div className='flex justify-end'>
-              <button type='button' className='bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+              <button
+                type='button'
+                className='bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              >
                 Cancel
               </button>
-              <button type='submit' className='ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#FF4D30] focus:outline-none focus:ring-2 focus:ring-offset-2 '>
+              <button
+                type='submit'
+                className='ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#FF4D30] focus:outline-none focus:ring-2 focus:ring-offset-2 '
+              >
                 Create Rental Item
               </button>
             </div>

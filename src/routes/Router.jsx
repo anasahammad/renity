@@ -10,10 +10,10 @@ import Home from '../pages/Home';
 // import Login from '../pages/Login';
 // import Signup from '../pages/Signup';
 
-import { AuthProvider } from '../context/AuthContext';
-import { LessorProvider } from '../context/LessorContext';
 import HowItWorks from '../components/TopNavPage/HowItWorks';
 import PriceGuide from '../components/TopNavPage/PriceGuide';
+import { AuthProvider } from '../context/AuthContext';
+import { LessorProvider } from '../context/LessorContext';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
 // import AllRentalItemsPage from '../pages/AllRentalItemsPage';
@@ -45,7 +45,6 @@ const AllContacts = lazy(() => import('../pages/admindashboard/AllContacts'));
 const AllReviews = lazy(() => import('../pages/admindashboard/AllReviews'));
 const BookedItems = lazy(() => import('../pages/rental/BookedItems'));
 const AllRentalItemsPage = lazy(() => import('../pages/AllRentalItemsPage'));
-
 
 const Router = createBrowserRouter([
   {

@@ -6,14 +6,14 @@ import Modal from '../../components/Modal';
 import axiosInstance from '../../hooks/axiosInstance';
 
 import toast from 'react-hot-toast';
+import LoadingSpinner from '../../components/LoadingSpinner';
 import AddMetaDataForm from '../../components/rental/AddMetaDataForm';
 import UpdateMetaDataForm from '../../components/rental/UpdateMetaDataForm';
-import LoadingSpinner from '../../components/LoadingSpinner';
 
 const MyMetaData = () => {
   const [open, setOpen] = useState(false);
-    const [openEdit, setOpenEdit] = useState(false);
-    const [editableMetaData, setEditableMetaData] = useState();
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editableMetaData, setEditableMetaData] = useState();
   const {
     data: myMetaData,
     isLoading,
@@ -47,18 +47,21 @@ const MyMetaData = () => {
   };
 
   const handleEdit = async (id) => {
-    setOpenEdit(true)
+    setOpenEdit(true);
     const data = myMetaData.find((c) => c._id === id);
-    console.log(data)
-    
+    console.log(data);
+
     setEditableMetaData(data);
-  }
-  if (isLoading) return <LoadingSpinner/>;
-console.log(myMetaData)
+  };
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <div className='container mx-auto p-2 md:p-6'>
       <div className='flex justify-end'>
-        <button onClick={() => setOpen(true)} className='py-2 px-4 bg-[#FF4D30] text-white rounded'>
+        <button
+          onClick={() => setOpen(true)}
+          className='py-2 px-4 bg-[#FF4D30] text-white rounded'
+        >
           Add Meta Data
         </button>
       </div>
@@ -91,15 +94,25 @@ console.log(myMetaData)
                     <p className='text-gray-900 whitespace-no-wrap'>{data.key}</p>
                   </td>
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                    <img src={data.value} className='w-12 h-12' alt='' />
+                    <img
+                      src={data.value}
+                      className='w-12 h-12'
+                      alt=''
+                    />
                   </td>
 
                   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                     <div className='flex items-center space-x-4'>
-                      <button onClick={() => handleEdit(data._id)} className='text-blue-600 hover:text-blue-900'>
+                      <button
+                        onClick={() => handleEdit(data._id)}
+                        className='text-blue-600 hover:text-blue-900'
+                      >
                         <MdEdit className='w-5 h-5' />
                       </button>
-                      <button onClick={() => handleDelete(data._id)} className='text-red-600 hover:text-red-900'>
+                      <button
+                        onClick={() => handleDelete(data._id)}
+                        className='text-red-600 hover:text-red-900'
+                      >
                         <MdDelete className='w-5 h-5' />
                       </button>
                       <button
@@ -119,34 +132,59 @@ console.log(myMetaData)
       )}
 
       {/* Add Meta Data Modal */}
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
         <div className=' w-96 overflow-y-auto max-h-[80vh]'>
-          <AddMetaDataForm setOpen={setOpen} refetch={refetch} />
+          <AddMetaDataForm
+            setOpen={setOpen}
+            refetch={refetch}
+          />
 
-          <div className='flex gap-4 py-2'>
-            <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
+          {/* <div className='flex gap-4 py-2'>
+            <button
+              className='btn rounded border p-1 w-full'
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </button>
-            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
+            <button
+              onClick={() => setOpen(false)}
+              className='btn bg-[#FF4D30] rounded p-1 w-full'
+            >
               OK
             </button>
-          </div>
+          </div> */}
         </div>
       </Modal>
 
       {/* Update Category Modal */}
-      <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
+      <Modal
+        open={openEdit}
+        onClose={() => setOpenEdit(false)}
+      >
         <div className=' w-96'>
-          <UpdateMetaDataForm setOpen={setOpen} editableMetaData={editableMetaData} refetch={refetch} />
+          <UpdateMetaDataForm
+            setOpen={setOpen}
+            editableMetaData={editableMetaData}
+            refetch={refetch}
+          />
 
-          <div className='flex gap-4 py-2'>
-            <button className='btn rounded border p-1 w-full' onClick={() => setOpen(false)}>
+          {/* <div className='flex gap-4 py-2'>
+            <button
+              className='btn rounded border p-1 w-full'
+              onClick={() => setOpen(false)}
+            >
               Cancel
             </button>
-            <button onClick={() => setOpen(false)} className='btn bg-[#FF4D30] rounded p-1 w-full'>
+            <button
+              onClick={() => setOpen(false)}
+              className='btn bg-[#FF4D30] rounded p-1 w-full'
+            >
               OK
             </button>
-          </div>
+          </div> */}
         </div>
       </Modal>
 

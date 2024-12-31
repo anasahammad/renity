@@ -1,11 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
-import { MdEdit, MdDelete, MdMoreVert, MdSearch, MdArrowDropDown } from 'react-icons/md';
-import axiosInstance from '../../hooks/axiosInstance';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { MdArrowDropDown } from 'react-icons/md';
+import axiosInstance from '../../hooks/axiosInstance';
 
 const BookedItemTable = ({ bookedItems, refetch }) => {
-
   const [statusFilter, setStatusFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -44,7 +43,6 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
     updateMutation.mutate({ id, newStatus: { status: newStatus } });
   };
 
-
   const filteredBookedItem = bookedItems.filter((booked) => statusFilter === 'All' || booked.status === statusFilter);
 
   const indexOfItems = currentPage * itemsPerPage;
@@ -55,7 +53,7 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [ statusFilter, itemsPerPage]);
+  }, [statusFilter, itemsPerPage]);
 
   const updateVerification = useMutation({
     mutationFn: ({ id, isVarified }) => axiosInstance.put(`/admin/users/${id}`, { isVarified }), // Pass the state as an object
@@ -84,7 +82,11 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
           </div>
         </div> */}
         <div className='w-full md:w-1/3 mb-4 md:mb-0'>
-          <select className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500' value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <select
+            className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500'
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
             <option value='All'>All Statuses</option>
             <option value='completed'>Completed</option>
             <option value='pending'>Pending</option>
@@ -93,7 +95,11 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
           </select>
         </div>
         <div className='w-full md:w-1/3'>
-          <select className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500' value={itemsPerPage} onChange={(e) => setItemsPerPage(Number(e.target.value))}>
+          <select
+            className='w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500'
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          >
             <option value={5}>5 per page</option>
             <option value={10}>10 per page</option>
             <option value={20}>20 per page</option>
@@ -127,12 +133,7 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>{booked.rentalPrice}</td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-                  {booked?.bookedDates.map((date) => (
-                    <span key={date}>
-                      {new Date(date).toLocaleDateString()}
-                      <br />
-                    </span>
-                  ))}
+                  {new Date(booked?.bookedDates[0]).toLocaleDateString()} - {new Date(booked?.bookedDates[booked?.bookedDates.length - 1]).toLocaleDateString()}
                 </td>
 
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
@@ -140,9 +141,7 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
                     <select
                       value={booked.status}
                       onChange={(e) => handleStatusChange(booked._id, e.target.value)}
-                      className={`appearance-none w-full border-none bg-transparent py-1 rounded-full font-semibold focus:outline-none ${
-                        booked.status === 'pending' ? 'text-yellow-600' : booked.status === 'confirm' ? 'text-blue-600' : booked.status === 'completed' ? 'text-green-600' : booked.status === 'rejected' ? 'text-red-600' : 'text-gray-600'
-                      }`}
+                      className={`appearance-none w-full border-none bg-transparent py-1 rounded-full font-semibold focus:outline-none ${booked.status === 'pending' ? 'text-yellow-600' : booked.status === 'confirm' ? 'text-blue-600' : booked.status === 'completed' ? 'text-green-600' : booked.status === 'rejected' ? 'text-red-600' : 'text-gray-600'}`}
                     >
                       <option value='pending'>Pending</option>
                       <option value='confirm'>Confirm</option>
@@ -179,9 +178,16 @@ const BookedItemTable = ({ bookedItems, refetch }) => {
           </p>
         </div>
         <div className='w-full sm:w-auto'>
-          <nav className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px' aria-label='Pagination'>
+          <nav
+            className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px'
+            aria-label='Pagination'
+          >
             {Array.from({ length: Math.ceil(filteredBookedItem.length / itemsPerPage) }).map((_, index) => (
-              <button key={index} onClick={() => paginate(index + 1)} className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${currentPage === index + 1 ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}`}>
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${currentPage === index + 1 ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'}`}
+              >
                 {index + 1}
               </button>
             ))}

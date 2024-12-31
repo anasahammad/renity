@@ -1,17 +1,16 @@
-import  { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useState } from 'react';
 import { FaHeart, FaMapMarkerAlt, FaShare } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import BookingHandler from '../components/BookinHandler';
 import LoadingSpinner from '../components/LoadingSpinner';
-
+import axiosInstance from '../hooks/axiosInstance';
 
 const ItemDetails = () => {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  
+
   const {
     data: rental,
     isLoading,
@@ -19,12 +18,12 @@ const ItemDetails = () => {
   } = useQuery({
     queryKey: ['rentals', id],
     queryFn: async () => {
-      const response = await axios.get(`https://renity-backend.vercel.app/api/v1/rental/${id}`);
+      const response = await axiosInstance.get(`/rental/${id}`);
       return response.data.data;
     },
   });
 
-  if (isLoading) return <LoadingSpinner/>;
+  if (isLoading) return <LoadingSpinner />;
   if (!rental) return <div className='flex justify-center items-center h-screen'>No rental data found</div>;
 
   const discountedPrice = rental.price - (rental.price * rental.discount) / 100;
@@ -35,12 +34,24 @@ const ItemDetails = () => {
         {/* Image Gallery */}
         <div className='space-y-4'>
           <div className='relative aspect-video overflow-hidden rounded-lg shadow-lg'>
-            <img src={rental.images[selectedImage]} alt={rental.name} className='w-full h-full object-cover transition-opacity duration-300' />
+            <img
+              src={rental.images[selectedImage]}
+              alt={rental.name}
+              className='w-full h-full object-cover transition-opacity duration-300'
+            />
           </div>
           <div className='grid grid-cols-4 gap-4'>
             {rental.images.map((image, index) => (
-              <button key={index} onClick={() => setSelectedImage(index)} className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-blue-500 shadow-md' : 'border-transparent'}`}>
-                <img src={image} alt={`${rental.name} ${index + 1}`} className='w-full h-full object-cover' />
+              <button
+                key={index}
+                onClick={() => setSelectedImage(index)}
+                className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-blue-500 shadow-md' : 'border-transparent'}`}
+              >
+                <img
+                  src={image}
+                  alt={`${rental.name} ${index + 1}`}
+                  className='w-full h-full object-cover'
+                />
               </button>
             ))}
           </div>
@@ -57,11 +68,20 @@ const ItemDetails = () => {
               </div>
             </div>
             <div className='flex gap-4'>
-              <button onClick={() => setIsWishlisted(!isWishlisted)} className='p-2 rounded-full hover:bg-gray-100 transition-colors'>
-                <FaHeart className={isWishlisted ? 'text-red-500' : 'text-gray-400'} size={24} />
+              <button
+                onClick={() => setIsWishlisted(!isWishlisted)}
+                className='p-2 rounded-full hover:bg-gray-100 transition-colors'
+              >
+                <FaHeart
+                  className={isWishlisted ? 'text-red-500' : 'text-gray-400'}
+                  size={24}
+                />
               </button>
               <button className='p-2 rounded-full hover:bg-gray-100 transition-colors'>
-                <FaShare className='text-gray-400' size={24} />
+                <FaShare
+                  className='text-gray-400'
+                  size={24}
+                />
               </button>
             </div>
           </div>
@@ -97,7 +117,11 @@ const ItemDetails = () => {
           </div>
 
           {/* Booking Handler */}
-          <BookingHandler rentalId={rental._id} existingBookedDates={rental?.bookedDates} onBookingSuccess={refetch} />
+          <BookingHandler
+            rentalId={rental._id}
+            existingBookedDates={rental?.bookedDates}
+            onBookingSuccess={refetch}
+          />
         </div>
       </div>
     </div>

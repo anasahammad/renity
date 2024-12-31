@@ -1,13 +1,11 @@
-import john from '../../assets/john.png';
-import mekniz from '../../assets/meckniz.png';
 import StarRating from '../Shared/StarRating';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useQuery } from '@tanstack/react-query';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../hooks/axiosInstance';
 import LoadingSpinner from '../LoadingSpinner';
 
@@ -52,9 +50,9 @@ const TestimonialSection = () => {
       const response = await axiosInstance.get('/review');
       return response.data.data;
     },
-  })
+  });
 
-  if (isLoading) return <LoadingSpinner/>;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className='py-16 bg-[#FFFAE9]'>
       <div className='text-center mb-12'>
@@ -91,15 +89,21 @@ const TestimonialSection = () => {
       >
         {testimonials?.map((testimonial, index) => (
           <SwiperSlide key={index}>
-            <div className='bg-white shadow-lg h-[400px] py-8 px-6'>
+            <div className='bg-white shadow-lg h-[400px] py-8 px-6 rounded-xl'>
               <div className='flex items-center gap-6 border-b pb-7'>
                 <div>
-                  <img alt='' className='w-20 h-20 border rounded-full dark:bg-gray-500 dark:border-gray-300' src={mekniz} />
+                  <span className='size-20 rounded-full bg-slate-200 grid place-content-center text-2xl font-bold'>
+                    {testimonial?.name
+                      ?.split(' ')
+                      .map((i) => i.slice(0, 1))
+                      .join('')
+                      .toUpperCase()}
+                  </span>
                 </div>
 
                 <div className=''>
                   <h2 className='text-xl font-semibold'>{testimonial?.name}</h2>
-                  <h3>Customer</h3>
+                  <h3>{testimonial.email}</h3>
 
                   <div className='mt-3'>
                     <StarRating rating={testimonial?.rating} />
