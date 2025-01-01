@@ -7,6 +7,7 @@ import Modal from '../Modal';
 
 const UsersTable = ({ users, refetch }) => {
   const [metaData, setMetaData] = useState([]);
+  const [metaLoading, setMetaLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
@@ -50,10 +51,13 @@ const UsersTable = ({ users, refetch }) => {
   // get user meta data
   const getUserMetaData = async (id) => {
     try {
+      setMetaLoading(true);
       const response = await axiosInstance.get(`/admin/users/${id}/metadata`);
       setMetaData(response.data.data);
     } catch (error) {
       console.error('Error:', error.message);
+    } finally {
+      setMetaLoading(false);
     }
   };
 
@@ -244,14 +248,17 @@ const UsersTable = ({ users, refetch }) => {
         </div>
       </div>
       {/* Show user meta data Modal */}
-      {metaData && metaData.length > 0 && (
-        <Modal
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setMetaData([]);
-          }}
-        >
+
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setMetaData([]);
+        }}
+      >
+        {metaLoading ? (
+          <div>Loading</div>
+        ) : (
           <div className=' w-96 overflow-y-auto max-h-[80vh]'>
             {/* user meta data show  */}
             <div className='space-y-3'>
@@ -290,8 +297,8 @@ const UsersTable = ({ users, refetch }) => {
               </button>
             </div>
           </div>
-        </Modal>
-      )}
+        )}
+      </Modal>
     </>
   );
 };
