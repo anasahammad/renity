@@ -177,7 +177,7 @@ const FeaturedSection = () => {
                 <div className='block group-hover:hidden px-1 py-4'>
                   <h2 className='text-2xl font-semibold'>{feature.name}</h2>
                   <p className='text-gray-600 text-sm'>
-                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.price}</span>
+                    Rent Per Day <span className='text-[#F8748C] text-xl'>Tk {feature.price}</span>
                   </p>
                 </div>
 
@@ -185,7 +185,7 @@ const FeaturedSection = () => {
                   <h2 className='text-2xl font-semibold text-gray-900 hover:text-blue-500'>{feature.name}</h2>
 
                   <p className='text-gray-600 text-sm my-4 border-b pb-4'>
-                    Rent Per Day <span className='text-[#F8748C] text-xl'>${feature.price}</span>
+                    Rent Per Day <span className='text-[#F8748C] text-xl'>Tk {feature.price}</span>
                   </p>
 
                   {/* <ul className='list-disc pl-4 text-sm font-semibold'>
