@@ -5,12 +5,15 @@ import toast from 'react-hot-toast';
 import { FiCalendar, FiDollarSign, FiFileText, FiImage, FiMapPin, FiTag, FiUpload, FiX } from 'react-icons/fi';
 import axiosInstance from '../../hooks/axiosInstance';
 import { uploadImage } from '../../utils/cn';
+import RentalItemMetaData from './RentalItemMetaData';
 
 const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months', '1 year'];
 
 const locations = ['Bagerhat', 'Bandarban', 'Barguna', 'Barisal', 'Bhola', 'Bogra', 'Brahmanbaria', 'Chandpur', 'Chapai Nawabganj', 'Chattogram', 'Chuadanga', "Cox's Bazar", 'Cumilla', 'Dhaka', 'Dinajpur', 'Faridpur', 'Feni', 'Gaibandha', 'Gazipur', 'Gopalganj', 'Habiganj', 'Jamalpur', 'Jashore', 'Jhalokati', 'Jhenaidah', 'Joypurhat', 'Khagrachari', 'Khulna', 'Kishoreganj', 'Kurigram', 'Kushtia', 'Lakshmipur', 'Lalmonirhat', 'Madaripur', 'Magura', 'Manikganj', 'Meherpur', 'Moulvibazar', 'Munshiganj', 'Mymensingh', 'Naogaon', 'Narail', 'Narayanganj', 'Narsingdi', 'Natore', 'Netrokona', 'Nilphamari', 'Noakhali', 'Pabna', 'Panchagarh', 'Patuakhali', 'Pirojpur', 'Rajbari', 'Rajshahi', 'Rangamati', 'Rangpur', 'Satkhira', 'Shariatpur', 'Sherpur', 'Sirajganj', 'Sunamganj', 'Sylhet', 'Tangail', 'Thakurgaon'];
 
 const AddRentalItem = () => {
+  const [category, setCategory] = useState('');
+  const [rentalId, setRentalId] = useState('');
   const [images, setImages] = useState([]);
   const userState = JSON.parse(localStorage.getItem('account'));
 
@@ -37,7 +40,7 @@ const AddRentalItem = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      console.log(data);
+      setRentalId(data.data._id);
       toast.success('Rental item created successfully');
     },
     onError: (error) => {
@@ -134,6 +137,7 @@ const AddRentalItem = () => {
               <select
                 {...register('category', { required: 'Category is required' })}
                 className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none sm:text-sm rounded-md'
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value=''>Select a category</option>
                 {categories.map((category) => (
@@ -323,6 +327,13 @@ const AddRentalItem = () => {
                 </div>
               ))}
             </div>
+          )}
+
+          {category.length > 0 && (
+            <RentalItemMetaData
+              category={category}
+              rentalId={rentalId}
+            />
           )}
 
           <div className='pt-5'>

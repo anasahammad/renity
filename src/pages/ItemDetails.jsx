@@ -22,6 +22,13 @@ const ItemDetails = () => {
       return response.data.data;
     },
   });
+  const { data: metaData, isLoading: isLoadingMetaData } = useQuery({
+    queryKey: ['metaData', id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`/metadata/rentalitem/${id}`);
+      return response.data.data;
+    },
+  });
 
   if (isLoading) return <LoadingSpinner />;
   if (!rental) return <div className='flex justify-center items-center h-screen'>No rental data found</div>;
@@ -124,6 +131,30 @@ const ItemDetails = () => {
           />
         </div>
       </div>
+      {/* meta data table  */}
+      {!isLoading && Array.isArray(metaData) && metaData.length > 0 && (
+        <div>
+          <h2 className='text-xl font-semibold mt-8 mb-5'>Product additional information</h2>
+          <div className='overflow-x-auto'>
+            <table className='table-auto w-full'>
+              <thead>
+                <tr>
+                  <th className='border px-4 py-2 text-left'>Properties</th>
+                  <th className='border px-4 py-2 text-left'>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {metaData.map((data) => (
+                  <tr key={data._id}>
+                    <td className='border px-4 py-2'>{data.key}</td>
+                    <td className='border px-4 py-2'>{data.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
