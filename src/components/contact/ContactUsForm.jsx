@@ -39,7 +39,7 @@ const ContactUsForm = () => {
 
   return (
     <div className='bg-[#FFFAE9] py-16'>
-      <Toaster position='top-right' />
+      
       <div className='text-center space-y-4'>
         <p className='font-medium'>আপনার কি সাহায্য প্রয়োজন?</p>
         <h1 className='text-5xl font-bold'>

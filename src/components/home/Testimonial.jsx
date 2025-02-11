@@ -10,40 +10,7 @@ import axiosInstance from '../../hooks/axiosInstance';
 import LoadingSpinner from '../LoadingSpinner';
 
 const TestimonialSection = () => {
-  // const testimonials = [
-  //   {
-  //     name: 'John McKenzie',
-  //     role: 'Customer',
-  //     image: mekniz,
-  //     rating: 5,
-  //     comment: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, voluptas molestias adipisci explicabo exercitationem aliquid accusantium ipsa omnis expedita commodi, quas qui. Qui vitae, ratione iusto sint quaerat blanditiis doloremque!',
-  //   },
-
-  //   {
-  //     name: 'John McKenzie',
-  //     role: 'Customer',
-  //     image: john,
-  //     rating: 4,
-  //     comment: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, voluptas molestias adipisci explicabo exercitationem aliquid accusantium ipsa omnis expedita commodi, quas qui. Qui vitae, ratione iusto sint quaerat blanditiis doloremque!',
-  //   },
-
-  //   {
-  //     name: 'John Doe',
-  //     role: 'Seller',
-  //     image: john,
-  //     rating: 5,
-  //     comment: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, voluptas molestias adipisci explicabo exercitationem aliquid accusantium ipsa omnis expedita commodi, quas qui. Qui vitae, ratione iusto sint quaerat blanditiis doloremque!',
-  //   },
-
-  //   {
-  //     name: 'John McKenzie',
-  //     role: 'Customer',
-  //     image: mekniz,
-  //     rating: 5,
-  //     comment: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, voluptas molestias adipisci explicabo exercitationem aliquid accusantium ipsa omnis expedita commodi, quas qui. Qui vitae, ratione iusto sint quaerat blanditiis doloremque!',
-  //   },
-  // ];
-
+ 
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ['testimonials'],
     queryFn: async () => {

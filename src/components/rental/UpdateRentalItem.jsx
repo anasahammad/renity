@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FiCalendar, FiDollarSign, FiFileText, FiImage, FiMapPin, FiTag, FiUpload, FiX } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
+import axiosInstance from '../../hooks/axiosInstance';
 
-const categories = ['car', 'electronics', 'furniture', 'clothing', 'other'];
+
 const rentalPeriods = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months', '1 year'];
 
 const UpdateRental = () => {
@@ -86,6 +87,13 @@ const UpdateRental = () => {
   };
 
 
+    const { data: categories = [] } = useQuery({
+      queryKey: ['categories'],
+      queryFn: async () => {
+        const response = await axiosInstance.get('/category');
+        return response.data.data;
+      },
+    });
   
 
   return (
@@ -139,7 +147,7 @@ const UpdateRental = () => {
                   <option value=''>Select a status</option>
 
                   <option value='available'>Available</option>
-                  <option value='rented'>Rented</option>
+                  <option value='unavailable'>Unavailable</option>
                 </select>
 
                 {errors.status && <p className='mt-1 text-sm text-red-600'>{errors.status.message}</p>}
@@ -153,8 +161,8 @@ const UpdateRental = () => {
                 <select defaultValue={rental?.category} {...register('category', { required: 'Category is required' })} className='mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-500 focus:outline-none  sm:text-sm rounded-md'>
                   <option value=''>Select a category</option>
                   {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
+                    <option key={category._id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>

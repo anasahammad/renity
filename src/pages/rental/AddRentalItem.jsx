@@ -16,7 +16,7 @@ const AddRentalItem = () => {
   const [rentalId, setRentalId] = useState('');
   const [images, setImages] = useState([]);
   const userState = JSON.parse(localStorage.getItem('account'));
-
+  
   const {
     register,
     handleSubmit,

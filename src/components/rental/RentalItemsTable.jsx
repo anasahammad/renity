@@ -136,9 +136,9 @@ const RentalItemsTable = ({ rentals, refetch }) => {
                     <button onClick={() => handleDelete(rental._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
                     </button>
-                    <button className='text-gray-600 hover:text-gray-900'>
+                    {/* <button className='text-gray-600 hover:text-gray-900'>
                       <MdMoreVert className='w-5 h-5' />
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

@@ -8,59 +8,6 @@ import { Link } from 'react-router-dom';
 
 
 
-//   {
-//     bookedDates: [],
-//     _id: '67618bcd074eeefa49e8c1f3',
-//     name: 'Product name',
-//     owner: '67614cc2e9f548c5192cbad9',
-//     description: 'This is a fantastic product with a long and detailed description that exceeds 10 characters and is less than 500 characters.',
-//     category: 'car',
-//     price: 100,
-//     discount: 12,
-//     location: 'New York City',
-//     images: ['image1.jpg', 'image2.png', 'image3.jpeg'],
-//     status: 'rented',
-//     rentalPeriod: '1 week',
-//     createdAt: '2024-12-17T14:33:49.664Z',
-//     updatedAt: '2024-12-17T18:31:31.541Z',
-//     __v: 0,
-//   },
-//   {
-//     bookedDates: [],
-//     _id: '676299a66ff4330f5657fd1e',
-//     name: 'Tushar Awesome Product',
-//     owner: '676299856ff4330f5657fd18',
-//     description: 'This is a fantastic product with a long and detailed description that exceeds 10 characters and is less than 500 characters.',
-//     category: 'car',
-//     price: 99,
-//     discount: 10,
-//     location: 'New York City',
-//     images: ['image1.jpg', 'image2.png', 'image3.jpeg'],
-//     status: 'available',
-//     rentalPeriod: '1 week',
-//     createdAt: '2024-12-18T09:45:10.091Z',
-//     updatedAt: '2024-12-18T09:45:10.091Z',
-//     __v: 0,
-//   },
-//   {
-//     bookedDates: [],
-//     _id: '6762a5a0a31f115a474d2f93',
-//     name: 'Tushar Awesome Product',
-//     owner: '676299856ff4330f5657fd18',
-//     description: 'This is a fantastic product with a long and detailed description that exceeds 10 characters and is less than 500 characters.',
-//     category: 'Travel',
-//     subCategory: 'Bike',
-//     price: 99,
-//     discount: 10,
-//     location: 'Dhaka',
-//     images: ['image1.jpg', 'image2.png', 'image3.jpeg'],
-//     status: 'available',
-//     rentalPeriod: '1 week',
-//     createdAt: '2024-12-18T10:36:16.336Z',
-//     updatedAt: '2024-12-18T10:36:16.336Z',
-//     __v: 0,
-//   },
-// ];
 const RentalsTable = ({rentals}) => {
 
 
@@ -180,17 +127,17 @@ const RentalsTable = ({rentals}) => {
                 </td>
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='flex items-center space-x-4'>
-                    <button className='text-blue-600 hover:text-blue-900'>
-                      <Link to={`edit_rental/${rental._id}`}>
+                    {/* <button className='text-blue-600 hover:text-blue-900'>
+                      <Link to={`dashboard/all_rentals/edit_rental/${rental._id}`}>
                         <MdEdit className='w-5 h-5' />
                       </Link>
-                    </button>
+                    </button> */}
                     <button onClick={() => handleDelete(rental._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
                     </button>
-                    <button className='text-gray-600 hover:text-gray-900'>
+                    {/* <button className='text-gray-600 hover:text-gray-900'>
                       <MdMoreVert className='w-5 h-5' />
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

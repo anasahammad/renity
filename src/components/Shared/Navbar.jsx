@@ -17,28 +17,10 @@ export const navItems = [
     label: 'About Us',
     path: '/about_us',
   },
-  // {
-  //   label: 'Equipment',
-  //   path: '/catalog',
-  //   subMenu: [
-  //     {
-  //       label: 'Catalog',
-  //       path: '/catalog',
-  //       subItem: [
-  //         { label: 'List', path: '/list' },
-  //         { label: 'Grid', path: '/grid' },
-  //       ],
-  //     },
-  //     {
-  //       label: 'Single',
-  //       path: '/',
-  //       subItem: [
-  //         { label: 'List', path: '/list' },
-  //         { label: 'Grid', path: '/grid' },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    label: 'Contact Us',
+    path: '/contact_us',
+  },
   {
     label: 'All Rental Items',
     path: '/all_rentals_items',

@@ -10,9 +10,7 @@ const AllReviewsTable = ({ reviews, refetch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
   const [isVarified, setIsVarified] = useState(false);
-  const handleEdit = (id) => {
-    console.log(`Edit user with id: ${id}`);
-  };
+
 
   const deleteMutation = useMutation({
     mutationFn: (id) => axiosInstance.delete(`/review/${id}`),
@@ -120,9 +118,7 @@ const AllReviewsTable = ({ reviews, refetch }) => {
 
                 <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
                   <div className='flex items-center space-x-4'>
-                    <button onClick={() => handleEdit(review._id)} className='text-blue-600 hover:text-blue-900'>
-                      <MdEdit className='w-5 h-5' />
-                    </button>
+                 
                     <button onClick={() => handleDelete(review._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
                     </button>

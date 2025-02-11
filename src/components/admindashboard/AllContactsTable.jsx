@@ -10,9 +10,9 @@ const AllContactsTable = ({ contacts, refetch }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(5);
   const [isVarified, setIsVarified] = useState(false);
-  const handleEdit = (id) => {
-    console.log(`Edit user with id: ${id}`);
-  };
+  // const handleEdit = (id) => {
+  //   console.log(`Edit user with id: ${id}`);
+  // };
 
   const deleteMutation = useMutation({
     mutationFn: (id) => axiosInstance.delete(`/contact/${id}`),
@@ -121,17 +121,15 @@ const AllContactsTable = ({ contacts, refetch }) => {
                   <p className='text-gray-900 whitespace-no-wrap'>{contact.message}</p>
                 </td>
 
-                <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+                <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm '>
                   <div className='flex items-center space-x-4'>
-                    <button onClick={() => handleEdit(contact._id)} className='text-blue-600 hover:text-blue-900'>
+                    {/* <button onClick={() => handleEdit(contact._id)} className='text-blue-600 hover:text-blue-900'>
                       <MdEdit className='w-5 h-5' />
-                    </button>
+                    </button> */}
                     <button onClick={() => handleDelete(contact._id)} className='text-red-600 hover:text-red-900'>
                       <MdDelete className='w-5 h-5' />
                     </button>
-                    <button className='text-gray-600 hover:text-gray-900'>
-                      <MdMoreVert className='w-5 h-5' />
-                    </button>
+                    
                   </div>
                 </td>
               </tr>
