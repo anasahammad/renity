@@ -27,8 +27,12 @@ const Footer = () => {
         <div>
           <h3 className='text-lg  font-semibold mb-4'>Useful Links</h3>
           <ul className='space-y-2  list-disc pl-4 text-gray-600'>
-            <li>About Renity</li>
-            <li>How It Works</li>
+            <li>
+              <Link to='/about_us'>About Rental Sheba</Link>
+            </li>
+            <li>
+              <Link to='/how-it-works'>How It Works</Link>
+            </li>
             <li>Latest News</li>
             <li>Terms & Conditions</li>
           </ul>
@@ -39,6 +43,9 @@ const Footer = () => {
           <h3 className='text-lg font-semibold mb-4'>Explore Renity</h3>
           <ul className='space-y-2 list-disc  pl-4 text-gray-600'>
             <li>Browse Tools</li>
+            <li>
+              <Link to="/pricing">Pricing</Link>
+            </li>
             <li>Latest Equipments</li>
             <li>Recent Rentals</li>
             <li>Read FAQ’s</li>
