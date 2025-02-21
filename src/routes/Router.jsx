@@ -17,6 +17,7 @@ import { LessorProvider } from '../context/LessorContext';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
 import ProductFilterPage from '../pages/rental/RentalItemsByfilter';
+// import MyFavourite from '../pages/MyFavourite';
 // import AllRentalItemsPage from '../pages/AllRentalItemsPage';
 // import BookedItems from '../pages/rental/BookedItems';
 // import AllReviews from '../pages/admindashboard/AllReviews';
@@ -46,7 +47,7 @@ const AllContacts = lazy(() => import('../pages/admindashboard/AllContacts'));
 const AllReviews = lazy(() => import('../pages/admindashboard/AllReviews'));
 const BookedItems = lazy(() => import('../pages/rental/BookedItems'));
 const AllRentalItemsPage = lazy(() => import('../pages/AllRentalItemsPage'));
-
+const MyFavourite = lazy(() => import('../pages/MyFavourite'));
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -203,6 +204,14 @@ const Router = createBrowserRouter([
         //user
         path: 'my_bookings',
         element: <MyBookings />,
+      },
+      {
+        path: 'favorite',
+        element: (
+          <Suspense fallback={'loading'}>
+            <MyFavourite />
+          </Suspense>
+        ),
       },
 
       // users

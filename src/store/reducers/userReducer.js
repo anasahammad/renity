@@ -17,8 +17,6 @@ const userSlice = createSlice({
     resetUserInfo(state, action) {    // Action to reset user information in the state
       state.userInfo = null;
     },
-
-    
   },
 });
 

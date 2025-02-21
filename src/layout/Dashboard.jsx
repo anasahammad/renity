@@ -33,7 +33,7 @@ const menuItemsAdmin = [
 //user menu
 const menuItemsUser = [
   { id: '02', label: 'My Bookings', path: 'my_bookings', icon: <HiOutlinePencilSquare /> },
-  { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
+  { id: '03', label: 'My Favorites', path: 'favorite', icon: <FaRegHeart /> },
   // { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
 ];
 
@@ -42,7 +42,7 @@ const menuItemsRental = [
   { id: '02', label: 'All Rentals', path: 'all_rentals', icon: <MdOutlineCarRental /> },
   { id: '03', label: 'Add Rentals', path: 'add_rental', icon: <HiOutlinePencilSquare /> },
   { id: '04', label: 'Booked Items', path: 'booked_items', icon: <BiSolidBookmarkStar /> },
-  { id: '05', label: 'My Meta Data', path: 'my_meta_data', icon: <FiClock /> },
+  { id: '05', label: 'My Identity Info', path: 'my_meta_data', icon: <FiClock /> },
 ];
 
 const Dashboard = () => {

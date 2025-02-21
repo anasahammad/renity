@@ -65,7 +65,7 @@ const MyMetaData = () => {
           Add Meta Data
         </button>
       </div>
-      <h1 className='text-2xl font-semibold mb-4'>My Meta Data ({myMetaData?.length > 0 ? myMetaData?.length : 0})</h1>
+      <h1 className='text-2xl font-semibold mb-4'>My Identity Information ({myMetaData?.length > 0 ? myMetaData?.length : 0})</h1>
 
       {myMetaData.length > 0 && (
         <div className='overflow-x-auto bg-white shadow-md rounded-lg'>
