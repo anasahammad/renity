@@ -137,7 +137,7 @@ const UpdateCategoryForm = ({ refetch, editableCategory }) => {
   };
 
   return (
-    <div className='max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md'>
+    <div className='max-w-2xl mx-auto p-3 bg-white rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold mb-6 text-gray-800'>Update Category</h2>
       <form onSubmit={handleSubmit}>
         <div className='mb-4'>

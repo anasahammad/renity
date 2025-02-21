@@ -136,7 +136,7 @@ const MyMetaData = () => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <div className=' w-96 overflow-y-auto max-h-[80vh]'>
+        <div className='  overflow-y-auto max-h-[80vh]'>
           <AddMetaDataForm
             setOpen={setOpen}
             refetch={refetch}
