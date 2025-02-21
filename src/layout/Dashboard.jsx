@@ -34,7 +34,7 @@ const menuItemsAdmin = [
 const menuItemsUser = [
   { id: '02', label: 'My Bookings', path: 'my_bookings', icon: <HiOutlinePencilSquare /> },
   { id: '03', label: 'My Favorites', path: '/favorite', icon: <FaRegHeart /> },
-  { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
+  // { id: '06', label: 'Add Listing', path: '/ad_listing', icon: <HiOutlinePencilSquare /> },
 ];
 
 //rental menu
@@ -103,7 +103,9 @@ const Dashboard = () => {
         {/* Logo */}
         <div className='flex items-center gap-2 px-6 py-4 border-b border-gray-700'>
           {/* <div className="text-white text-2xl"></div> */}
-          <span className='text-white text-xl font-bold'>Renity</span>
+          <span className='text-white text-xl font-bold'>
+            <Link to='/'>Rental Sheba</Link>
+          </span>
         </div>
 
         {/* Menu */}
