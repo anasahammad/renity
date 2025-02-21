@@ -187,7 +187,8 @@ const Navbar = () => {
               <h3 className='text-lg font-semibold mb-4'>{hoveredCategory.name}</h3>
               <div className='grid grid-cols-4 gap-4'>
                 {hoveredCategory?.subcategories.map((subcat, subIndex) => (
-                  <Link key={subIndex} to={`/category/${hoveredCategory.name.toLowerCase()}/${subcat?.name?.toLowerCase()}`} className='text-gray-600 hover:text-gray-900 hover:underline flex items-center gap-2 '>
+                  <Link key={subIndex} to={`/rental?category=${hoveredCategory.name}`}
+                   className='text-gray-600 hover:text-gray-900 hover:underline flex items-center gap-2 '>
                     <img className='w-10 h-10 rounded-full' src={subcat?.icon} alt='' />
                     <span className='text-sm'> {subcat?.name}</span>
                   </Link>

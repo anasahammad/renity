@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../hooks/axiosInstance';
+import { Link } from 'react-router-dom';
 
 const CategorySection = () => {
   // const categories = [
@@ -68,14 +69,14 @@ const CategorySection = () => {
         >
           {categories.map((category) => (
             <SwiperSlide key={category._id}>
-              <div style={{ backgroundImage: `url(${category.icon})` }} className=' h-[295px] flex justify-center items-center w-full bg-cover bg-center cursor-pointer group '>
+              <Link to={`/rental?category=${category.name}`} style={{ backgroundImage: `url(${category.icon})` }} className=' h-[295px] flex justify-center items-center w-full bg-cover bg-center cursor-pointer group '>
                 <div className='absolute inset-0 bg-gradient-to-t from-black opacity-70'></div>
                 <div className='absolute bottom-8  text-xl font-bold text-center flex flex-col gap-2 transition duration-300 text-white'>
                   {category.name}
 
                   <span className='hidden group-hover:block  text-sm text-yellow-400 transition duration-300'>{category.subcategories.length} ITEMS</span>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
 

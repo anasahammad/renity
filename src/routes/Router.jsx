@@ -16,6 +16,7 @@ import { AuthProvider } from '../context/AuthContext';
 import { LessorProvider } from '../context/LessorContext';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
+import ProductFilterPage from '../pages/rental/RentalItemsByfilter';
 // import AllRentalItemsPage from '../pages/AllRentalItemsPage';
 // import BookedItems from '../pages/rental/BookedItems';
 // import AllReviews from '../pages/admindashboard/AllReviews';
@@ -89,6 +90,14 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading'}>
             <AllRentalItemsPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/rental',
+        element: (
+          <Suspense fallback={'loading'}>
+            <ProductFilterPage />
           </Suspense>
         ),
       },

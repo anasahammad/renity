@@ -41,7 +41,7 @@ export const login = async ({ email, password }) => {
 export const loginLessor = async ({ email, password }) => {
   try {
     const { data } = await axios.post(
-      `${import.meta.env.VITE_GSMART_BASE_URL}/auth/merchant/login`,
+      `${import.meta.env.VITE_API_URL}/auth/merchant/login`,
       {
         email,
         password,
