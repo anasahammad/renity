@@ -123,7 +123,7 @@ const CategoryTable = ({ refetch, categories }) => {
 
       {/* Add Category Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className=' w-96'>
+        <div className=' '>
           <AddCategoryForm refetch={refetch} />
 
           <div className='flex gap-4 py-2'>
@@ -139,7 +139,7 @@ const CategoryTable = ({ refetch, categories }) => {
 
       {/* Update Category Modal */}
       <Modal open={openEdit} onClose={() => setOpenEdit(false)}>
-        <div className=' w-96'>
+        <div className=' '>
           <UpdateCategoryForm editableCategory={editableCategory} refetch={refetch} />
 
           <div className='flex gap-4 py-2'>

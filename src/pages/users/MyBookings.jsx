@@ -129,7 +129,7 @@ const MyBookings = () => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <div className=' w-96 overflow-y-auto max-h-[80vh]'>
+        <div className='  overflow-y-auto max-h-[80vh]'>
           <AddReviewForm setOpen={setOpen} />
         </div>
       </Modal>
