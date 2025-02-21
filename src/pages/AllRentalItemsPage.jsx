@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import RentalItemCard from '../components/RentalItemCard';
 import axiosInstance from '../hooks/axiosInstance';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ScrollToTop from '../hooks/ScrollToTop';
 
 const AllRentalItemsPage = () => {
   const {
@@ -19,9 +20,11 @@ const AllRentalItemsPage = () => {
   if (isLoading) return <LoadingSpinner/>;
 
   return (
-    <div>
-      <RentalItemCard refetch={refetch} items={rentalItems} />
-    </div>
+    <ScrollToTop>
+      <div>
+        <RentalItemCard refetch={refetch} items={rentalItems} />
+      </div>
+    </ScrollToTop>
   );
 };
 

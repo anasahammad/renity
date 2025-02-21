@@ -14,6 +14,7 @@ import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '../../hooks/axiosInstance';
+import { Link } from 'react-router-dom';
 
 
 const FeaturedSection = () => {
@@ -98,7 +99,7 @@ const FeaturedSection = () => {
           {features?.map((feature) => (
             <SwiperSlide key={feature._id}>
               <div className='relative border-b  h-[420px] group mb-4'>
-                <div style={{ backgroundImage: `url(${feature.images[0]})` }} className='  flex justify-center items-center  bg-cover w-full h-[295px] bg-center cursor-pointer  '></div>
+                <Link to={`/details/${feature._id}`} style={{ backgroundImage: `url(${feature.images[0]})` }} className='  flex justify-center items-center  bg-cover w-full h-[295px] bg-center cursor-pointer  '></Link>
 
                 <div className='block group-hover:hidden px-1 py-4'>
                   <h2 className='text-2xl font-semibold'>{feature.name}</h2>
