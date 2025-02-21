@@ -4,6 +4,7 @@ import catHeadLogo from '../../assets/cathead.jpg';
 import craneBirdLogo from '../../assets/craneBird.jpg';
 import elephantLogo from '../../assets/elephant.jpg';
 import toucanLogo from '../../assets/toucan.jpg';
+
 const BrandSection = () => {
   const brands = [
     { name: 'Babyfood', logo: babyFoodLogo },
@@ -14,30 +15,20 @@ const BrandSection = () => {
   ];
 
   return (
-    <div
-      style={{ backgroundImage: `url(${parallaxImage})` }}
-      className='my-28  relative bg-cover bg-center bg-fixed scroll-smooth'
-    >
-      <div className='absolute inset-0  bg-black opacity-70'></div>
+    <div style={{ backgroundImage: `url(${parallaxImage})` }} className='my-28 relative bg-cover bg-center bg-fixed scroll-smooth'>
+      <div className='absolute inset-0 bg-black opacity-70'></div>
 
       <div className='relative z-10 flex flex-col items-center justify-center h-[600px] text-center text-white px-4'>
-        <h3 className='text-sm font-semibold mb-2'>Affordable, Best & Easy Rental Services</h3>
-        <h2 className='text-3xl font-bold mb-4'>
+        <h3 className='text-sm md:text-base font-semibold mb-2'>Affordable, Best & Easy Rental Services</h3>
+        <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold mb-4'>
           Browse <span className='text-blue-500 underline'>Equipments Brands</span>
         </h2>
 
         {/* Logo Section */}
-        <div className='grid mt-8 grid-cols-1 md:grid-cols-5 gap-8'>
+        <div className='grid mt-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 md:gap-8 w-full max-w-6xl px-4'>
           {brands.map((brand, index) => (
-            <div
-              key={index}
-              className='bg-white p-4  shadow-md'
-            >
-              <img
-                src={brand.logo}
-                alt={brand.name}
-                className='w-36 h-32 object-contain'
-              />
+            <div key={index} className='bg-white p-4 rounded-lg shadow-md flex items-center justify-center'>
+              <img src={brand.logo} alt={brand.name} className='w-24 h-20 sm:w-28 sm:h-24 md:w-36 md:h-32 object-contain' />
             </div>
           ))}
         </div>
