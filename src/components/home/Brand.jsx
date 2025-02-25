@@ -12,13 +12,13 @@ const BrandSection = () => {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const brands = [
-    { name: 'Babyfood', logo: babyFoodLogo },
-    { name: 'Toucan', logo: toucanLogo },
-    { name: 'CatHead', logo: catHeadLogo },
-    { name: 'CraneBird', logo: craneBirdLogo },
-    { name: 'Elephant', logo: elephantLogo },
-  ];
+  // const brands = [
+  //   { name: 'Babyfood', logo: babyFoodLogo },
+  //   { name: 'Toucan', logo: toucanLogo },
+  //   { name: 'CatHead', logo: catHeadLogo },
+  //   { name: 'CraneBird', logo: craneBirdLogo },
+  //   { name: 'Elephant', logo: elephantLogo },
+  // ];
 
    useEffect(() => {
      fetchCompanies();
@@ -51,7 +51,7 @@ const BrandSection = () => {
 
         {/* Logo Section */}
         <div className='grid mt-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6 md:gap-8 w-full max-w-6xl px-4'>
-          {companies?.map((brand, index) => (
+          {companies?.slice(0, 5)?.map((brand, index) => (
             <Link to={brand?.link} target='_blank' key={index} className='bg-white p-4 rounded-lg shadow-md flex items-center justify-center'>
               <img src={brand.image} alt={brand.name} className='w-24 h-20 sm:w-28 sm:h-24 md:w-36 md:h-32 object-contain' />
             </Link>
