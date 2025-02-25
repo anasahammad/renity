@@ -17,6 +17,7 @@ import { LessorProvider } from '../context/LessorContext';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
 import ProductFilterPage from '../pages/rental/RentalItemsByfilter';
+import Company from '../pages/admindashboard/Company';
 // import AllBlogs from '../pages/AllBlogs';
 // import BlogDetails from '../pages/BlogDetails';
 // import Blog from '../pages/admindashboard/Blog';
@@ -85,7 +86,7 @@ const Router = createBrowserRouter([
         path: '/blog_details/:id',
         element: (
           <Suspense fallback={'loading...'}>
-            <BlogDetails/>
+            <BlogDetails />
           </Suspense>
         ),
       },
@@ -93,7 +94,7 @@ const Router = createBrowserRouter([
         path: '/all_blogs',
         element: (
           <Suspense fallback={'loading...'}>
-            <AllBlogs/>
+            <AllBlogs />
           </Suspense>
         ),
       },
@@ -211,6 +212,14 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading...'}>
             <Blog />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'company',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <Company />
           </Suspense>
         ),
       },

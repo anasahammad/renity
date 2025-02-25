@@ -58,9 +58,9 @@ const ArticleSection = () => {
             <div className='relative'>
               <img src={article.images[0]} alt='' />
 
-              <div className='absolute -bottom-5 left-12 bg-[#F9C247] text-white w-16 h-16 text-xl font-semibold text-center '>
+              <div className='absolute -bottom-5 left-12 bg-[#F9C247] text-white w-16 h-16 text-xl font-semibold text-center flex  items-center justify-center '>
                 {new Date(article.createdAt).toLocaleDateString('en-GB', {
-                  day: '2-digit',
+                  day: '2-digit', 
                   month: 'short',
                   
                 })}
@@ -95,15 +95,20 @@ const ArticleSection = () => {
 
             <div className='text-gray-500 my-6'>{article.description.slice(0, 400)}...</div>
 
-            <button className='relative group border  border-[#f8748c]  py-4 font-semibold w-52 overflow-hidden '>
-              <Link to={`/blog_details/${article._id}`} className='w-full text-black group-hover:text-white z-50 px-14 transition-all duration-300  h-full py-4 '>
-                Read More
-              </Link>
-
-              <div className='w-20 group-hover:w-full absolute top-0 bottom-0  text-white bg-[#f8748c] h-full pl-4 py-4 group-hover:pl-36 clip-right-arrow group-hover:clip-none  z-0 transition-all duration-300'>
-                <FaArrowRight />
-              </div>
-            </button>
+            <Link to={`/blog_details/${article._id}`} className='relative group border border-[#f8748c] font-semibold w-52 overflow-hidden flex items-center justify-center'>
+  {/* Text content */}
+  <div className='w-full text-black group-hover:text-white z-10 text-center transition-all duration-300 py-4'>
+    Read More
+  </div>
+  
+  {/* Animated background */}
+  <div className='absolute inset-y-0 left-0 w-12 group-hover:w-full bg-[#f8748c] transition-all duration-300 ease-in-out z-0'>
+    {/* Arrow icon positioned on the left side */}
+    <div className='h-full flex items-center justify-center pl-3 group-hover:pl-0 group-hover:justify-end group-hover:pr-4 transition-all duration-300'>
+      <FaArrowRight className='text-white' />
+    </div>
+  </div>
+</Link>
           </div>
         ))}
       </div>
