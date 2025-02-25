@@ -27,7 +27,7 @@ export const navItems = [
   },
   {
     label: 'Blog',
-    path: '/blog',
+    path: '/all_blogs',
   },
   {
     label: 'Become a Rental',

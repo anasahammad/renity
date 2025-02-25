@@ -17,6 +17,9 @@ import { LessorProvider } from '../context/LessorContext';
 import ItemDetails from '../pages/ItemDetails';
 import MyBookings from '../pages/users/MyBookings';
 import ProductFilterPage from '../pages/rental/RentalItemsByfilter';
+// import AllBlogs from '../pages/AllBlogs';
+// import BlogDetails from '../pages/BlogDetails';
+// import Blog from '../pages/admindashboard/Blog';
 // import MyFavourite from '../pages/MyFavourite';
 // import AllRentalItemsPage from '../pages/AllRentalItemsPage';
 // import BookedItems from '../pages/rental/BookedItems';
@@ -47,7 +50,11 @@ const AllContacts = lazy(() => import('../pages/admindashboard/AllContacts'));
 const AllReviews = lazy(() => import('../pages/admindashboard/AllReviews'));
 const BookedItems = lazy(() => import('../pages/rental/BookedItems'));
 const AllRentalItemsPage = lazy(() => import('../pages/AllRentalItemsPage'));
+const Blog = lazy(() => import('../pages/admindashboard/Blog'));
+const AllBlogs = lazy(() => import('../pages/AllBlogs'));
 const MyFavourite = lazy(() => import('../pages/MyFavourite'));
+
+const BlogDetails = lazy(() => import('../pages/BlogDetails'));
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -70,6 +77,23 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading...'}>
             <AboutUs />
+          </Suspense>
+        ),
+      },
+
+      {
+        path: '/blog_details/:id',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <BlogDetails/>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/all_blogs',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <AllBlogs/>
           </Suspense>
         ),
       },
@@ -179,6 +203,14 @@ const Router = createBrowserRouter([
         element: (
           <Suspense fallback={'loading...'}>
             <AllContacts />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'blog',
+        element: (
+          <Suspense fallback={'loading...'}>
+            <Blog />
           </Suspense>
         ),
       },

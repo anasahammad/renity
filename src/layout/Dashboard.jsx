@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { FiClock } from 'react-icons/fi';
 import { LuMessageSquareText } from 'react-icons/lu';
 import { VscFeedback } from 'react-icons/vsc';
+import { ImBlog } from 'react-icons/im';
 const commonMenuItems = [
   { id: '01', label: 'Dashboard', path: '/dashboard', icon: <MdOutlineInsertChartOutlined /> },
   { id: '05', label: 'My Profile', path: '/dashboard/my_profile', icon: <CgProfile /> },
@@ -26,8 +27,9 @@ const menuItemsAdmin = [
   { id: '02', label: 'Users', path: 'users', icon: <HiOutlineUsers /> },
   { id: '03', label: 'Rentals', path: 'rentals', icon: <MdOutlineCarRental /> },
   { id: '04', label: 'Category', path: 'category', icon: <BiCategoryAlt /> },
-  { id: '05', label: 'All Contacts', path: 'all_contacts', icon: <LuMessageSquareText /> },
-  { id: '06', label: 'All reviews', path: 'all_reviews', icon: <VscFeedback /> },
+  { id: '05', label: 'Blog', path: 'blog', icon: <ImBlog /> },
+  { id: '06', label: 'All Contacts', path: 'all_contacts', icon: <LuMessageSquareText /> },
+  { id: '07', label: 'All reviews', path: 'all_reviews', icon: <VscFeedback /> },
 ];
 
 //user menu
