@@ -100,7 +100,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside
         className={`
-        fixed top-0 left-0 z-50 h-full w-64 bg-[#1e2022] transform transition-transform duration-200 ease-in-out
+        fixed top-0 left-0 z-50 h-full w-64 bg-[#1e2022] transform transition-transform duration-200 ease-in-out overflow-y-auto
         lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
       >
