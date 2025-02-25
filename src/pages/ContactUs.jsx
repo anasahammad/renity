@@ -44,7 +44,7 @@ const ContactUs = () => {
     return <div>Loading Map...</div>;
   }
   return (
-    <div className='py-20 '>
+    <div className=' '>
       <Heading level={'Contact Us'} />
 
       <div className='my-12 grid grid-cols-1 md:grid-cols-3 gap-6'>

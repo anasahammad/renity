@@ -6,7 +6,7 @@ import Heading from '../components/Shared/Heading';
 
 const AboutUs = () => {
   return (
-    <div className='py-20'>
+    <div className=''>
       <Heading level={'About Us'} />
 
       <WhyChoseUs/>
